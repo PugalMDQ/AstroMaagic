@@ -9,9 +9,9 @@ class SplashScreen extends GetView<SplashScreenController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Future.delayed(Duration(seconds: 6), () {
-      Get.off(() => WelcomeScreenOne(), transition: Transition.rightToLeft);
-    });
+    // Future.delayed(Duration(seconds: 4), () {
+    //   Get.off(() => WelcomeScreenOne(), transition: Transition.rightToLeft);
+    // });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -22,12 +22,31 @@ class SplashScreen extends GetView<SplashScreenController> {
             child: Padding(
               padding: const EdgeInsets.only(right: 0),
               child: Image.asset(
-                "assets/images/splash.png",
+                "assets/images/BackGround.png",
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
               ),
             ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.17,
+              ),
+              Image.asset(
+                "assets/images/logo.png",
+                fit: BoxFit.contain,
+              ),
+              Center(
+                child: Image.asset(
+                  "assets/images/astro.png",
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ],
           )
         ],
       )),

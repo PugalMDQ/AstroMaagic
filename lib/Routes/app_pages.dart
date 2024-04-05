@@ -1,6 +1,8 @@
+import 'package:astromaagic/Binding/HomeBinding/HomeScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/ForgotPasswordBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/OTPScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/RegisterScreenBinding.dart';
+import 'package:astromaagic/UI/HomeScreen/HomeScreen.dart';
 import 'package:astromaagic/UI/LoginUI/ForgotPassword.dart';
 import 'package:astromaagic/UI/LoginUI/OTPScreen.dart';
 import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
@@ -33,5 +35,9 @@ class AppPages {
         name: AppRoutes.forgotPassword.toName,
         page: () => const ForgotPassword(),
         binding: ForgotPasswordBinding()),
+    GetPage(
+        name: AppRoutes.homeScreen.toName,
+        page: () => const HomeScreen(),
+        binding: HomeScreenBinding()),
   ];
 }
