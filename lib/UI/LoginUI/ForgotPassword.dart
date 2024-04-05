@@ -20,7 +20,7 @@ class ForgotPassword extends GetView<ForgotPasswordController> {
             decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
-                  "assets/images/splash.png",
+                  "assets/images/splashOne.png",
                 ),
                 fit: BoxFit.cover,
               ),

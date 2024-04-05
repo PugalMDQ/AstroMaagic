@@ -7,6 +7,7 @@ class AppTheme {
   static const Color screenBackground = Color(0xFFF3F3F3);
   static const Color containerBackground = Color(0xFFEDEBF6);
   static const Color purpleColor = Color(0xFF74419D);
+  static const Color screenColor = Color(0xFF282246);
 
   static const Color labelColor = Color(0x4D252525);
   static const Color App_color = Color(0xfff7faff);

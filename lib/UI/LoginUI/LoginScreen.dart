@@ -24,7 +24,7 @@ class LoginScreen extends GetView<LoginScreenController> {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(
-                    "assets/images/splash.png",
+                    "assets/images/BackGround.png",
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -40,7 +40,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios,
-                        color: Colors.black,
+                        color: Colors.white,
                         size: 20,
                       ))
                 ],
@@ -247,7 +247,9 @@ class LoginScreen extends GetView<LoginScreenController> {
                                 child: Button(
                                     widthFactor: 0.78,
                                     heightFactor: 0.06,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Get.offNamed(AppRoutes.homeScreen.toName);
+                                    },
                                     child: Text("LOG IN",
                                         style: TextStyle(
                                           fontSize: 16,
