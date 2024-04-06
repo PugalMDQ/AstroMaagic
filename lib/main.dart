@@ -1,3 +1,4 @@
+import 'package:astromaagic/Components/LocaleString.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -6,6 +7,8 @@ import 'Routes/app_pages.dart';
 import 'Routes/app_routes.dart';
 import 'UI/SplashScreen/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'Utils/Testing.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +25,8 @@ class MyApp extends StatelessWidget {
       systemNavigationBarIconBrightness: Brightness.light,
     ));
     return GetMaterialApp(
+      translations: LocaleString(),
+      locale: Locale('en', 'US'),
       title: 'astromaagic',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(

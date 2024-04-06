@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LoginController/LoginScreenController.dart';
+import '../../Utils/BottomNavBarScreen.dart';
 
 class LoginScreen extends GetView<LoginScreenController> {
   const LoginScreen({super.key});
@@ -198,7 +199,7 @@ class LoginScreen extends GetView<LoginScreenController> {
                                       ),
                                       contentPadding: const EdgeInsets.all(6),
                                       border: OutlineInputBorder(
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             color:
                                                 AppTheme.containerBackground),
                                         borderRadius: BorderRadius.circular(5),
@@ -248,7 +249,11 @@ class LoginScreen extends GetView<LoginScreenController> {
                                     widthFactor: 0.78,
                                     heightFactor: 0.06,
                                     onPressed: () {
-                                      Get.offNamed(AppRoutes.homeScreen.toName);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  BottomNavBar()));
                                     },
                                     child: Text("LOG IN",
                                         style: TextStyle(

@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Components/forms.dart';
-import '../../Components/theme.dart';
+
 import '../../Controller/WelcomeScreenController/WelcomeScreenThreeController.dart';
 import '../LoginUI/LoginScreen.dart';
 

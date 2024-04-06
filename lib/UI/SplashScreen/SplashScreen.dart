@@ -9,9 +9,9 @@ class SplashScreen extends GetView<SplashScreenController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // Future.delayed(Duration(seconds: 4), () {
-    //   Get.off(() => WelcomeScreenOne(), transition: Transition.rightToLeft);
-    // });
+    Future.delayed(Duration(seconds: 4), () {
+      Get.off(() => WelcomeScreenOne(), transition: Transition.rightToLeft);
+    });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(

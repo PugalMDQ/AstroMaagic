@@ -2,8 +2,6 @@ import 'package:astromaagic/Controller/WelcomeScreenController/WelcomeScreenTwoC
 import 'package:astromaagic/UI/WelcomeScreenUI/WelcomeScreenThree.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../Components/forms.dart';
-import '../../Components/theme.dart';
 
 class WelcomeScreenTwo extends GetView<WelcomeScreenTwoController> {
   const WelcomeScreenTwo({super.key});

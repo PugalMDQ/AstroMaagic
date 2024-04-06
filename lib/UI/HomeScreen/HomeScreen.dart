@@ -59,7 +59,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                               Padding(
                                 padding: const EdgeInsets.only(right: 10),
                                 child: Text(
-                                  'Jyotish',
+                                  'Jyotishs',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -315,10 +315,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                                                 blurRadius: 2)
                                           ]),
                                       child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
                                           Container(
                                             height: 60,
                                             width: 60,
@@ -362,6 +361,9 @@ class HomeScreen extends GetView<HomeScreenController> {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ))),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
                                           ),
                                         ],
                                       ),
