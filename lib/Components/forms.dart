@@ -77,7 +77,7 @@ class _TextInputState extends State<TextInput> {
     List<String> lines = widget.hintText!.split('\n');
 
     return Container(
-      color: widget.isEntryField ? AppTheme.App_color : Colors.white,
+      color: widget.isEntryField ? AppTheme.screenBackground : Colors.white,
       margin: widget.margin
           ? EdgeInsets.fromLTRB(12, 14, 12, 0)
           : EdgeInsets.only(top: 2),
@@ -87,8 +87,8 @@ class _TextInputState extends State<TextInput> {
           children: <Widget>[
             widget.isEntryField
                 ? Material(
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                    color: AppTheme.App_color,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    color: AppTheme.white,
                     child: TextFormField(
                       onTap: widget.onPressed,
                       // readOnly: widget.obscureText ? widget.isReadOnly ?  true:  true : false,
@@ -327,7 +327,8 @@ class Button extends StatelessWidget {
       height: screenSize.height * heightFactor,
       width: widthFactor != 0 ? screenSize.width * widthFactor : null,
       decoration: BoxDecoration(
-          color: AppTheme.primaryColor, borderRadius: BorderRadius.circular(5)),
+          color: AppTheme.primaryColor,
+          borderRadius: BorderRadius.circular(10)),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: Colors.transparent,
@@ -336,6 +337,53 @@ class Button extends StatelessWidget {
                 borderRadius: BorderRadius.circular(0), side: borderColor)),
         onPressed: onPressed,
         child: child,
+      ),
+    );
+  }
+}
+
+class AllCategoryCard extends StatelessWidget {
+  final double? width;
+  final double? height;
+  final double radius;
+  final EdgeInsetsGeometry? margin;
+  final Widget? child;
+  final String title;
+  final Function() onClick;
+  final bool disable;
+  final bool isSelected;
+
+  AllCategoryCard({
+    this.width,
+    this.height,
+    required this.radius,
+    this.margin,
+    this.child,
+    this.isSelected = false,
+    this.title = '',
+    required this.onClick,
+    this.disable = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: !disable,
+      child: GestureDetector(
+        onTap: () => onClick(),
+        child: Container(
+          height: height,
+          width: width,
+          margin: margin,
+          decoration: BoxDecoration(
+            color: isSelected ? AppTheme.primaryColor : Colors.yellow[100],
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isSelected ? AppTheme.primaryColor : Colors.white,
+            ),
+          ),
+          child: child,
+        ),
       ),
     );
   }

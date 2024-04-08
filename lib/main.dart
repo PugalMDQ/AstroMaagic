@@ -8,8 +8,6 @@ import 'Routes/app_routes.dart';
 import 'UI/SplashScreen/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
 
-import 'Utils/Testing.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
@@ -17,11 +15,10 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: AppTheme.screenColor,
+      statusBarColor: AppTheme.screenBackground,
       systemNavigationBarIconBrightness: Brightness.light,
     ));
     return GetMaterialApp(

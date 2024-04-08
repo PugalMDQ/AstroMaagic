@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Controller/SplashController/SplashScreenController.dart';
+import '../LanguageScreen/LanguageScreen.dart';
 import '../WelcomeScreenUI/WelcomeScreenOne.dart';
 
 class SplashScreen extends GetView<SplashScreenController> {
@@ -10,7 +11,7 @@ class SplashScreen extends GetView<SplashScreenController> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Future.delayed(Duration(seconds: 4), () {
-      Get.off(() => WelcomeScreenOne(), transition: Transition.rightToLeft);
+      Get.off(() => LanguageScreen(), transition: Transition.rightToLeft);
     });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -19,35 +20,13 @@ class SplashScreen extends GetView<SplashScreenController> {
           child: Stack(
         children: [
           Container(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 0),
-              child: Image.asset(
-                "assets/images/BackGround.png",
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                fit: BoxFit.cover,
-              ),
+            child: Image.asset(
+              "assets/images/splash1.png",
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              fit: BoxFit.cover,
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.17,
-              ),
-              Image.asset(
-                "assets/images/logo.png",
-                fit: BoxFit.contain,
-              ),
-              Center(
-                child: Image.asset(
-                  "assets/images/astro.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ],
-          )
         ],
       )),
     );

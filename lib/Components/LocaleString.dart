@@ -8,7 +8,7 @@ class LocaleString extends Translations {
           'hello': 'HELLO WORLD',
           'message': 'WELCOME TO PROTO CODERS POINT',
           'title': 'Flutter Language - Localization',
-          'Language': 'Language'
+          'Language': 'Language',
         },
         //TAMIL LANGUAGE
         'ta_IN': {
@@ -23,7 +23,15 @@ class LocaleString extends Translations {
           "message": "ಪ್ರಕಟಣೆ ಸ್ವಾಗತ",
           "title": "ಫ್ಲಟರ್ ಭಾಷೆ - ಭಾಷಾಂತರಿಸುವುದು",
           "sub": "ಈಗ ಚಂದಾದಾರರಾಗಿ",
-          "flutter": "ಫ್ಲಟರ್"
-        }
+          "Language": "ಭಾಷೆ"
+        },
+        // HINDI LANGUAGE
+        'hi_IN': {
+          "hello": "ಹಲೋ ಪ್ರಪಂಚ",
+          "message": "ಪ್ರಕಟಣೆ ಸ್ವಾಗತ",
+          "title": "ಫ್ಲಟರ್ ಭಾಷೆ - ಭಾಷಾಂತರಿಸುವುದು",
+          "sub": "ಈಗ ಚಂದಾದಾರರಾಗಿ",
+          "Language": "भाषा"
+        },
       };
 }

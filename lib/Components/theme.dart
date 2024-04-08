@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AppTheme {
   ///use colors
-  static const Color primaryColor = Color(0xFFF7E400);
-  static const Color screenBackground = Color(0xFFF3F3F3);
+  static const Color primaryColor = Color(0xFFfbd302);
+  static const Color screenBackground = Color(0xFF393939);
   static const Color containerBackground = Color(0xFFEDEBF6);
   static const Color purpleColor = Color(0xFF74419D);
   static const Color screenColor = Color(0xFF282246);
-
   static const Color labelColor = Color(0x4D252525);
   static const Color App_color = Color(0xfff7faff);
   static const Color blueColor = Color(0xFF002049);
@@ -17,7 +15,6 @@ class AppTheme {
   static const Color litePink = Color(0xFFeacbea);
   static const Color liteBlack = Color(0xf4f2ff);
   static const Color lite = Color(0xFFF4F2FF);
-  // static const Color screenBackground = Color(0xFFEDEBF6);
   static const Color liteBlue = Color(0xFF627981);
   static const Color liteBlue97 = Color(0xFF449397);
   static const Color grey = Color(0xff9E9E9E);
