@@ -7,8 +7,12 @@ import 'package:astromaagic/UI/LoginUI/ForgotPassword.dart';
 import 'package:astromaagic/UI/LoginUI/OTPScreen.dart';
 import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
+import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart';
 import '../Binding/LoginBinding/LoginBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
+import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
+import '../UI/GeneralPredictions/SuccessfullyPaidScreen.dart';
 import '../UI/LoginUI/LoginScreen.dart';
 import '../UI/SplashScreen/SplashScreen.dart';
 import 'app_routes.dart';
@@ -39,5 +43,13 @@ class AppPages {
         name: AppRoutes.homeScreen.toName,
         page: () => const HomeScreen(),
         binding: HomeScreenBinding()),
+    GetPage(
+        name: AppRoutes.choosePaymentScreen.toName,
+        page: () => const ChoosePaymentScreen(),
+        binding: ChoosePaymentScreenBinding()),
+    GetPage(
+        name: AppRoutes.successfullyPaidScreen.toName,
+        page: () => const SuccessfullyPaidScreen(),
+        binding: SuccessfullyPaidScreenBinding()),
   ];
 }

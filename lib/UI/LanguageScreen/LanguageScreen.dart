@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LanguageScreenController/LanguageScreenController.dart';
@@ -46,7 +47,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
               child: Padding(
                 padding: EdgeInsets.only(right: 0),
                 child: Image.asset(
-                  "assets/images/backgroundImage.png",
+                  "assets/images/backgrountwo.png",
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
@@ -241,8 +242,8 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                               }
                             },
                             child: Text("Let's Start",
-                                style: TextStyle(
-                                  fontSize: 16,
+                                style: GoogleFonts.lato(
+                                  fontSize: 18,
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600,
                                 ))),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextInput extends StatefulWidget {
   final String label;
@@ -31,6 +32,7 @@ class TextInput extends StatefulWidget {
   final String? icon;
   final void Function(String) onTextChange;
   final Icon? sufficIcon;
+  final Icon? prefixIcon;
 
   final Color hintTextColor;
   final Color labelTextColor;
@@ -62,6 +64,7 @@ class TextInput extends StatefulWidget {
     this.textColor = AppTheme.textColor,
     this.hintTextColor = AppTheme.lableColor90,
     this.labelTextColor = AppTheme.BorderLightGrey,
+    this.prefixIcon,
   });
 
   @override
@@ -79,110 +82,117 @@ class _TextInputState extends State<TextInput> {
     return Container(
       color: widget.isEntryField ? AppTheme.screenBackground : Colors.white,
       margin: widget.margin
-          ? EdgeInsets.fromLTRB(12, 14, 12, 0)
+          ? EdgeInsets.fromLTRB(12, 0, 12, 0)
           : EdgeInsets.only(top: 2),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             widget.isEntryField
-                ? Material(
-                    borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    color: AppTheme.white,
-                    child: TextFormField(
-                      onTap: widget.onPressed,
-                      // readOnly: widget.obscureText ? widget.isReadOnly ?  true:  true : false,
-                      readOnly: widget.isReadOnly ? true : false,
-                      keyboardType: widget.textInputType,
-                      textCapitalization: widget.isCapital
-                          ? TextCapitalization.characters
-                          : TextCapitalization.sentences,
-                      minLines: widget.textInputType == TextInputType.multiline
-                          ? 3
-                          : 1,
-                      maxLines: widget.textInputType == TextInputType.multiline
-                          ? 3
-                          : 1,
-                      inputFormatters: widget.isCapsNumeric
-                          ? <TextInputFormatter>[
-                              FilteringTextInputFormatter.allow(
-                                  RegExp("[0-9A-Z]")),
-                            ]
-                          : widget.textInputType! == TextInputType.number ||
-                                  widget.textInputType! == TextInputType.phone
-                              ? [
-                                  FilteringTextInputFormatter.deny(
-                                      RegExp(r'[!@#$%^&*(),.?":{}|<>]')),
-                                ]
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: AppTheme.screenBackground,
+                        borderRadius: BorderRadius.circular(10)),
+                    height: 50,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: TextFormField(
+                        onTap: widget.onPressed,
+                        // readOnly: widget.obscureText ? widget.isReadOnly ?  true:  true : false,
+                        readOnly: widget.isReadOnly ? true : false,
+                        keyboardType: widget.textInputType,
+                        textCapitalization: widget.isCapital
+                            ? TextCapitalization.characters
+                            : TextCapitalization.sentences,
+                        minLines:
+                            widget.textInputType == TextInputType.multiline
+                                ? 3
+                                : 1,
+                        maxLines:
+                            widget.textInputType == TextInputType.multiline
+                                ? 3
+                                : 1,
+                        inputFormatters: widget.isCapsNumeric
+                            ? <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(
+                                    RegExp("[0-9A-Z]")),
+                              ]
+                            : widget.textInputType! == TextInputType.number ||
+                                    widget.textInputType! == TextInputType.phone
+                                ? [
+                                    FilteringTextInputFormatter.deny(
+                                        RegExp(r'[!@#$%^&*(),.?":{}|<>]')),
+                                  ]
+                                : null,
+                        maxLength: 80,
+                        onChanged: widget.onTextChange,
+                        controller: widget.controller,
+                        style: TextStyle(
+                            letterSpacing: 0.2,
+                            color: widget.textColor,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
+                          labelText: widget.label,
+                          counter: Offstage(),
+                          floatingLabelBehavior: FloatingLabelBehavior.always,
+                          labelStyle: TextStyle(
+                              color: widget.controller.isNull
+                                  ? AppTheme.textColor
+                                  : widget.controller!.value.text.isEmpty
+                                      ? AppTheme.textColor
+                                      : AppTheme.labelColor,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500),
+                          hintText: widget.hintText,
+                          hintStyle: TextStyle(
+                            color: AppTheme.appBlack,
+                          ),
+                          errorText: widget.errorText,
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                              vertical: widget.contentPaddingV.isNull
+                                  ? 5.0
+                                  : widget.contentPaddingV!),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: widget.isMistake
+                                ? BorderSide(
+                                    color: Colors.deepOrangeAccent, width: 1.0)
+                                : BorderSide(
+                                    color: Color(0x4d252525), width: 1.0),
+                          ),
+                          prefixIcon: widget.obscureText
+                              ? IconButton(
+                                  padding: EdgeInsets.all(15.0),
+                                  color: Color(0xff252525),
+                                  onPressed: widget.onPressed,
+                                  icon: widget.prefixIcon == null
+                                      ? const Icon(Icons.keyboard_arrow_down)
+                                      : widget.prefixIcon!,
+                                )
                               : null,
-                      maxLength: widget.MaxLength,
-                      onChanged: widget.onTextChange,
-                      controller: widget.controller,
-                      style: TextStyle(
-                          letterSpacing: 0.2,
-                          color: widget.textColor,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14),
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: widget.label,
-                        counter: Offstage(),
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                        labelStyle: TextStyle(
-                            color: widget.controller.isNull
-                                ? AppTheme.textColor
-                                : widget.controller!.value.text.isEmpty
-                                    ? AppTheme.textColor
-                                    : AppTheme.labelColor,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500),
-                        hintText: widget.hintText,
-                        hintStyle: TextStyle(
-                          color: AppTheme.appBlack,
-                        ),
-                        errorText: widget.errorText,
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.0,
-                            vertical: widget.contentPaddingV.isNull
-                                ? 16.0
-                                : widget.contentPaddingV!),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: widget.isMistake
-                              ? BorderSide(
-                                  color: Colors.deepOrangeAccent, width: 1.0)
-                              : BorderSide(
-                                  color: Color(0x4d252525), width: 1.0),
-                        ),
-                        suffixIcon: widget.obscureText
-                            ? IconButton(
-                                padding: EdgeInsets.all(15.0),
-                                color: Color(0xff252525),
-                                onPressed: widget.onPressed,
-                                icon: widget.sufficIcon == null
-                                    ? const Icon(Icons.keyboard_arrow_down)
-                                    : widget.sufficIcon!,
-                              )
-                            : null,
-                      ).copyWith(
-                        focusedBorder:
-                            FormThemes.inputOutlineBorder['focusedBorder'],
-                        border: FormThemes.inputOutlineBorder['border'],
-                        errorBorder:
-                            FormThemes.inputOutlineBorder['errorBorder'],
-                        disabledBorder:
-                            FormThemes.inputOutlineBorder['disabledBorder'],
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: widget.isMistake
-                              ? BorderSide(
-                                  color: Colors.deepOrangeAccent, width: 1.0)
-                              : BorderSide(
-                                  color: Color(0x4d252525), width: 1.0),
+                        ).copyWith(
+                          focusedBorder:
+                              FormThemes.inputOutlineBorder['focusedBorder'],
+                          border: FormThemes.inputOutlineBorder['border'],
+                          errorBorder:
+                              FormThemes.inputOutlineBorder['errorBorder'],
+                          disabledBorder:
+                              FormThemes.inputOutlineBorder['disabledBorder'],
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: widget.isMistake
+                                ? BorderSide(
+                                    color: Colors.deepOrangeAccent, width: 1.0)
+                                : BorderSide(
+                                    color: Color(0x4d252525), width: 1.0),
+                          ),
                         ),
                       ),
                     ),
@@ -383,6 +393,58 @@ class AllCategoryCard extends StatelessWidget {
             ),
           ),
           child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class AppButton2 extends StatelessWidget {
+  final double width;
+  final double height;
+  final String title;
+  final double fontSize;
+  final VoidCallback onPressed;
+  final Color titleColor;
+  final Color color;
+  final Color borderColor;
+  final FontWeight fontWeight;
+
+  const AppButton2({
+    required this.width,
+    required this.height,
+    required this.title,
+    required this.fontSize,
+    required this.onPressed,
+    required this.titleColor,
+    required this.color,
+    required this.borderColor,
+    this.fontWeight = FontWeight.w600,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          foregroundColor: titleColor,
+          backgroundColor: color,
+          elevation: 0.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: BorderSide(color: borderColor),
+          ),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            fontFamily: GoogleFonts.inter().fontFamily,
+          ),
         ),
       ),
     );

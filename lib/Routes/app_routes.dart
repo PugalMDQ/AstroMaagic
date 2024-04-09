@@ -1,4 +1,13 @@
-enum AppRoutes { root, login, register, otp, forgotPassword, homeScreen }
+enum AppRoutes {
+  root,
+  login,
+  register,
+  otp,
+  forgotPassword,
+  homeScreen,
+  choosePaymentScreen,
+  successfullyPaidScreen
+}
 
 extension AppRouteExtension on AppRoutes {
   static const appRoutes = {
@@ -8,6 +17,8 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.otp: "/OTPScreen",
     AppRoutes.forgotPassword: "/ForgotPassword",
     AppRoutes.homeScreen: "/HomeScreen",
+    AppRoutes.choosePaymentScreen: "/ChoosePaymentScreen",
+    AppRoutes.successfullyPaidScreen: "/SuccessfullyPaidScreen",
   };
 
   String get toName => appRoutes[this]!;
