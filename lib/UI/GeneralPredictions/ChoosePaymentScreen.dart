@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../Components/forms.dart';
 import '../../Controller/GeneralPredictionsController/ChoosePaymentScreenController.dart';
-import 'SuccessfullyPaidScreen.dart';
 
 class ChoosePaymentScreen extends GetView<ChoosePaymentScreenController> {
   const ChoosePaymentScreen({super.key});

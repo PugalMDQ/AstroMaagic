@@ -2,12 +2,16 @@ import 'package:astromaagic/Binding/HomeBinding/HomeScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/ForgotPasswordBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/OTPScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/RegisterScreenBinding.dart';
+import 'package:astromaagic/Binding/VastuConsultingBinding/VastuConsultingBinding.dart';
+import 'package:astromaagic/UI/GeneralPredictions/GeneralPredictionScreenOne.dart';
 import 'package:astromaagic/UI/HomeScreen/HomeScreen.dart';
 import 'package:astromaagic/UI/LoginUI/ForgotPassword.dart';
 import 'package:astromaagic/UI/LoginUI/OTPScreen.dart';
 import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
+import 'package:astromaagic/UI/VastuConsulting/VastuConsulting.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
+import '../Binding/GeneralPredictionsBinding/GeneralPredictionsScreenOneBinding.dart';
 import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart';
 import '../Binding/LoginBinding/LoginBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
@@ -51,5 +55,13 @@ class AppPages {
         name: AppRoutes.successfullyPaidScreen.toName,
         page: () => const SuccessfullyPaidScreen(),
         binding: SuccessfullyPaidScreenBinding()),
+    GetPage(
+        name: AppRoutes.vastuConsulting.toName,
+        page: () => const VastuConsulting(),
+        binding: VastuConsultingBinding()),
+    GetPage(
+        name: AppRoutes.generalPredictionScreenOne.toName,
+        page: () => GeneralPredictionScreenOne(),
+        binding: GeneralPredictionScreenOneBinding()),
   ];
 }

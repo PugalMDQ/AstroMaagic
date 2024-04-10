@@ -42,10 +42,19 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                   Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: const Icon(
+                                Icons.arrow_back_ios,
+                                color: Colors.white,
+                                size: 20,
+                              )),
                           SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.12,
+                            width: MediaQuery.of(context).size.height * 0.12,
                           ),
                           Image.asset(
                             "assets/images/dotline.png",
@@ -53,6 +62,10 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                             height: 40,
                           ),
                         ],
+                      ),
+
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.09,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -472,7 +485,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                         ],
                       ),
                       SizedBox(
-                        height: height * 0.2,
+                        height: height * 0.18,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -482,8 +495,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                 widthFactor: 0.85,
                                 heightFactor: 0.06,
                                 onPressed: () {
-                                  Get.toNamed(
-                                      AppRoutes.choosePaymentScreen.toName);
+                                  Get.toNamed(AppRoutes.login.toName);
 
                                   // if (controller.married.value == true ||
                                   //     controller.unMarried.value == true) {

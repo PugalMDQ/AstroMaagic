@@ -6,7 +6,9 @@ enum AppRoutes {
   forgotPassword,
   homeScreen,
   choosePaymentScreen,
-  successfullyPaidScreen
+  successfullyPaidScreen,
+  vastuConsulting,
+  generalPredictionScreenOne,
 }
 
 extension AppRouteExtension on AppRoutes {
@@ -19,6 +21,8 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.homeScreen: "/HomeScreen",
     AppRoutes.choosePaymentScreen: "/ChoosePaymentScreen",
     AppRoutes.successfullyPaidScreen: "/SuccessfullyPaidScreen",
+    AppRoutes.vastuConsulting: "/VastuConsulting",
+    AppRoutes.generalPredictionScreenOne: "/GeneralPredictionScreenOne",
   };
 
   String get toName => appRoutes[this]!;

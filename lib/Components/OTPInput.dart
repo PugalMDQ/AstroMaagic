@@ -16,11 +16,11 @@ class OtpInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
+      height: 55,
       width: 55,
       child: TextField(
         style: TextStyle(
-          color: AppTheme.textColor,
+          color: AppTheme.containerBackground,
           fontWeight: FontWeight.w400,
           // fontFamily: GoogleFonts.lato().fontFamily,
           fontSize: 14,
@@ -34,11 +34,11 @@ class OtpInput extends StatelessWidget {
           counterText: '',
           border: OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey),
+            borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(5),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppTheme.labelColor),
+            borderSide: BorderSide(color: AppTheme.primaryColor, width: 2),
             borderRadius: BorderRadius.circular(5),
           ),
         ),

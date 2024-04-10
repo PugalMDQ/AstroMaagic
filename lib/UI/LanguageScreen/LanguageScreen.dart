@@ -111,7 +111,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       "Tamil",
                                       style: TextStyle(
                                         color: controller.tamilOnclick.value
-                                            ? Colors.white
+                                            ? Colors.black
                                             : Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -151,7 +151,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       "English",
                                       style: TextStyle(
                                         color: controller.englishOnclick.value
-                                            ? Colors.white
+                                            ? Colors.black
                                             : Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -199,7 +199,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       "Hindi",
                                       style: TextStyle(
                                         color: controller.hindiOnclick.value
-                                            ? Colors.white
+                                            ? Colors.black
                                             : Colors.black,
                                         fontSize: 16,
                                         fontWeight: FontWeight.w500,
@@ -241,11 +241,11 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                 );
                               }
                             },
-                            child: Text("Let's Start",
+                            child: Text("Next".tr,
                                 style: GoogleFonts.lato(
                                   fontSize: 18,
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                 ))),
                       ),
                     ],
