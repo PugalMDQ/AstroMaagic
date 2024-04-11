@@ -112,8 +112,8 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                 'set up'.tr,
                                 style: TextStyle(
                                     color: Colors.black,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 15),
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14),
                               ),
                             ),
                           ),
