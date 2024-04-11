@@ -10,6 +10,8 @@ import '../../Components/HorizontalScrollView.dart';
 import '../../Components/forms.dart';
 import '../../Controller/GeneralPredictionsController/GeneralPredictionScreenOneController.dart';
 import '../../Controller/HomeController/HomeScreenController.dart';
+import '../../Routes/app_routes.dart';
+import '../../Utils/BottomNavBarScreen.dart';
 import 'GeneralPredictionScreenTwo.dart';
 
 class GeneralPredictionScreenOne
@@ -27,7 +29,11 @@ class GeneralPredictionScreenOne
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavBar()),
+              (route) => false,
+            );
           },
           child: const Icon(
             Icons.keyboard_arrow_left,

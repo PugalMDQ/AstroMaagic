@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../Controller/GeneralPredictionsController/GeneralPredictionScreenTwoController.dart';
+import '../../Routes/app_routes.dart';
 import 'GeneralPredictionScreenThree.dart';
 
 class GeneralPredictionScreenTwo
@@ -262,7 +263,9 @@ class GeneralPredictionScreenTwo
                   width: 20,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoutes.generalPredictionVoiceMessage.toName);
+                  },
                   child: Container(
                     width: width * 0.9,
                     height: 45,

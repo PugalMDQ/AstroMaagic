@@ -51,7 +51,17 @@ dependencies:
   date_format: ^2.0.7
   flutter_time_picker_spinner: ^2.0.0
   table_calendar: ^3.0.0
-
+  just_audio: ^0.9.36
+  audio_video_progress_bar: ^2.0.1
+  rxdart: ^0.27.7
+  just_audio_background: ^0.0.1-beta.11
+  audioplayers: ^5.2.1
+  record_mp3: ^3.0.0
+  path_provider: ^2.1.1
+  permission_handler: ^11.1.0
+  simple_waveform_progressbar: ^0.0.3
+  just_waveform: ^0.0.5
+  curved_navigation_bar: ^1.0.3
 
 
 

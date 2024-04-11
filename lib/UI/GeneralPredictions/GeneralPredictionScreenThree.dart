@@ -10,6 +10,7 @@ import '../../Controller/GeneralPredictionsController/GeneralPredictionScreenThr
 class GeneralPredictionScreenThree
     extends GetView<GeneralPredictionScreenThreeController> {
   const GeneralPredictionScreenThree({super.key});
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -86,7 +87,7 @@ class GeneralPredictionScreenThree
             SingleChildScrollView(
               child: Container(
                 width: width,
-                height: height - 225,
+                height: height - 236,
                 child: ListView.builder(
                   itemCount: 5,
                   itemBuilder: (context, index) {

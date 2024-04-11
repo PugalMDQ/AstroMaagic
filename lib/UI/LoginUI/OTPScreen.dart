@@ -7,6 +7,7 @@ import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LoginController/OTPScreenController.dart';
 import '../../Routes/app_routes.dart';
+import '../../Utils/BottomNavBarScreen.dart';
 
 class OTPScreen extends GetView<OTPScreenController> {
   const OTPScreen({super.key});
@@ -81,7 +82,7 @@ class OTPScreen extends GetView<OTPScreenController> {
                 ),
                 Container(
                   color: AppTheme.screenBackground,
-                  width: width * 0.75,
+                  width: width * 0.88,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -94,7 +95,13 @@ class OTPScreen extends GetView<OTPScreenController> {
                       OtpInput(
                           controller: controller.fieldThree, autoFocus: false),
                       OtpInput(
-                          controller: controller.fieldFour,
+                        controller: controller.fieldFour,
+                        autoFocus: false,
+                      ),
+                      OtpInput(
+                          controller: controller.fieldFive, autoFocus: false),
+                      OtpInput(
+                          controller: controller.fieldSix,
                           autoFocus: false,
                           isNextFocus: false)
                     ],
@@ -136,7 +143,13 @@ class OTPScreen extends GetView<OTPScreenController> {
                         widthFactor: 0.87,
                         heightFactor: 0.06,
                         onPressed: () {
-                          Get.toNamed(AppRoutes.homeScreen.toName);
+                          //Get.toNamed(AppRoutes.homeScreen.toName);
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BottomNavBar()),
+                            (route) => false,
+                          );
                         },
                         child: Text("Verify OTP".tr,
                             style: TextStyle(

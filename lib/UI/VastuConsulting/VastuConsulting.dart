@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/VastuConsulting/VastuConsultingController.dart';
+import '../../Routes/app_routes.dart';
+import '../../Utils/BottomNavBarScreen.dart';
 
 class VastuConsulting extends GetView<VastuConsultingController> {
   const VastuConsulting({super.key});
@@ -21,7 +23,11 @@ class VastuConsulting extends GetView<VastuConsultingController> {
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => BottomNavBar()),
+              (route) => false,
+            );
           },
           child: const Icon(
             Icons.keyboard_arrow_left,
@@ -288,7 +294,8 @@ class VastuConsulting extends GetView<VastuConsultingController> {
                           widthFactor: 0.85,
                           heightFactor: 0.06,
                           onPressed: () {
-                            // Get.to(GeneralPredictionScreenTwo());
+                            Get.offNamed(
+                                AppRoutes.vastuConsultingPriceSlot.toName);
                           },
                           child: Text("Proceed".tr,
                               style: TextStyle(

@@ -19,6 +19,15 @@ class HomeScreenController extends GetxController {
     HomeListDetails(
       name: 'Vastu Consulting'.tr,
     ),
+    HomeListDetails(
+      name: 'Numerology'.tr,
+    ),
+    HomeListDetails(
+      name: 'Gemmology'.tr,
+    ),
+    HomeListDetails(
+      name: 'Gemmology'.tr,
+    ),
   ];
 
   @override

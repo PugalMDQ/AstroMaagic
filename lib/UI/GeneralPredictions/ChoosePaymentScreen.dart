@@ -478,6 +478,31 @@ class ChoosePaymentScreen extends GetView<ChoosePaymentScreenController> {
           )
         ],
       ),
+      persistentFooterAlignment: AlignmentDirectional.center,
+      persistentFooterButtons: [
+        IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.menu,
+              size: 30,
+            )),
+        SizedBox(
+          width: width * 0.1,
+        ),
+        IconButton(
+            onPressed: () {
+              Get.toNamed(AppRoutes.homeScreen.toName);
+            },
+            icon: Icon(Icons.home, size: 30)),
+        SizedBox(
+          width: width * 0.1,
+        ),
+        IconButton(onPressed: () {}, icon: Icon(Icons.person, size: 30)),
+        SizedBox(
+          width: width * 0.1,
+        ),
+        IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 30)),
+      ],
     );
   }
 

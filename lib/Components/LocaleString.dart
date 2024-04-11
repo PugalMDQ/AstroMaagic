@@ -84,6 +84,12 @@ class LocaleString extends Translations {
           'Personalized Consultation with Dr. Kanimozhi':
               'Personalized Consultation with Dr. Kanimozhi',
           'Proceed': 'Proceed',
+          'Horoscope': 'Horoscope in text/pdf',
+          'noOfQuestions': "No of questions",
+          'fees': 'Fees',
+          'Enter UPI': 'Enter UPI',
+          'Numerology': 'Numerology',
+          'Gemmology': 'Gemmology'
         },
         //TAMIL LANGUAGE
         'ta_IN': {
@@ -149,7 +155,7 @@ class LocaleString extends Translations {
           'solutionText': 'உரை/pdf இல் தீர்வு',
           'solutionVoice': 'குரல் செய்தி மூலம் தீர்வு',
           'solutionMeeting': 'நேரடியாக சந்தித்து தீர்வு காணுதல்',
-          'solutionVirtualMeeting': 'வீடியோ மூலம் சந்தித்து காணுதல்',
+          'solutionVirtualMeeting': 'வீடியோ மூலம்  தீர்வு காணுதல்',
           'getSolution': 'தீர்வு கிடைக்கும்',
           'selectThe': 'தகவல்தொடர்பு பயன்முறையைத் ',
           'communicationMode': 'தேர்ந்தெடுக்கவும்',
@@ -167,6 +173,12 @@ class LocaleString extends Translations {
           'Personalized Consultation with Dr. Kanimozhi':
               'டாக்டர் கனிமொழியுடன் தனிப்பட்ட ஆலோசனை',
           'Proceed': 'தொடரவும்',
+          'Horoscope': 'உரை/pdf இல் ஜாதகம்',
+          'noOfQuestions': 'கேள்விகளின் எண்ணிக்கை',
+          'fees': 'கட்டணம்',
+          'Enter UPI': 'UPI ஐ உள்ளிடவும்',
+          'Numerology': 'எண் கணிதம்',
+          'Gemmology': 'ரத்தினவியல்'
         },
         // KANNADA LANGUAGE
         'kn_IN': {

@@ -8,7 +8,9 @@ enum AppRoutes {
   choosePaymentScreen,
   successfullyPaidScreen,
   vastuConsulting,
+ vastuConsultingPriceSlot,
   generalPredictionScreenOne,
+  vastuConsultingPaymentScreen, generalPredictionVoiceMessage,
 }
 
 extension AppRouteExtension on AppRoutes {
@@ -23,6 +25,9 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.successfullyPaidScreen: "/SuccessfullyPaidScreen",
     AppRoutes.vastuConsulting: "/VastuConsulting",
     AppRoutes.generalPredictionScreenOne: "/GeneralPredictionScreenOne",
+    AppRoutes.vastuConsultingPriceSlot: "/vastuConsultingPriceSlot",
+    AppRoutes.vastuConsultingPaymentScreen: "/VastuConsultingPaymentScreen",
+    AppRoutes.generalPredictionVoiceMessage: "/GeneralPredictionVoiceMessage",
   };
 
   String get toName => appRoutes[this]!;

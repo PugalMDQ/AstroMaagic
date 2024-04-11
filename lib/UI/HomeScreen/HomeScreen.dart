@@ -10,7 +10,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../Components/HorizontalScrollView.dart';
 import '../../Components/forms.dart';
 import '../../Controller/HomeController/HomeScreenController.dart';
+import '../../Utils/BottomNavBarScreen.dart';
 import '../GeneralPredictions/GeneralPredictionScreenOne.dart';
+import '../LanguageScreen/LanguageScreen.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -26,7 +28,7 @@ class HomeScreen extends GetView<HomeScreenController> {
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-            Get.back();
+            Get.toNamed(AppRoutes.otp.toName);
           },
           child: const Icon(
             Icons.keyboard_arrow_left,
@@ -108,7 +110,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 250,
+              height: MediaQuery.of(context).size.height - 233,
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -127,13 +129,6 @@ class HomeScreen extends GetView<HomeScreenController> {
                         decoration: BoxDecoration(
                           color: AppTheme.primaryColor,
                           borderRadius: BorderRadius.circular(10),
-                          // boxShadow: const [
-                          //   BoxShadow(
-                          //     color: AppTheme.grey,
-                          //     spreadRadius: 0,
-                          //     blurRadius: 2,
-                          //   )
-                          // ],
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -163,6 +158,11 @@ class HomeScreen extends GetView<HomeScreenController> {
                                     'General Predictions'.tr) {
                                   Get.offNamed(AppRoutes
                                       .generalPredictionScreenOne.toName);
+                                  // Navigator.pushAndRemoveUntil(
+                                  //   context,
+                                  //   MaterialPageRoute(builder: (context) => BottomNavBar()),
+                                  //       (route) => false,
+                                  // );
                                 } else if (controller.values[index].name ==
                                     'Vastu Consulting'.tr) {
                                   Get.offNamed(
@@ -184,6 +184,40 @@ class HomeScreen extends GetView<HomeScreenController> {
           ],
         ),
       ]),
+      //bottomNavigationBar: BottomNavBar(),
+      // persistentFooterAlignment: AlignmentDirectional.center,
+      // persistentFooterButtons: [
+      //
+      //   Container(
+      //     height: height * 0.05 ,
+      //     //color: AppTheme.primaryColor,
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //     children: [
+      //       IconButton(
+      //           onPressed: () {
+      //             Get.to(LanguageScreen());
+      //           },
+      //           icon: Icon(
+      //             Icons.menu,
+      //             size: 30,
+      //           )),
+      //       SizedBox(
+      //         width: width * 0.1,
+      //       ),
+      //       IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 30)),
+      //       SizedBox(
+      //         width: width * 0.1,
+      //       ),
+      //       IconButton(onPressed: () {}, icon: Icon(Icons.person, size: 30)),
+      //       SizedBox(
+      //         width: width * 0.1,
+      //       ),
+      //       IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 30)),
+      //     ],
+      //   ),),
+      //
+      // ],
     );
   }
 }

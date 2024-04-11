@@ -10,6 +10,8 @@ class OTPScreenController extends GetxController {
   TextEditingController fieldTwo = TextEditingController();
   TextEditingController fieldThree = TextEditingController();
   TextEditingController fieldFour = TextEditingController();
+  TextEditingController fieldFive = TextEditingController();
+  TextEditingController fieldSix = TextEditingController();
   RxString otp = RxString('');
   RxInt otpTimerSeconds = RxInt(60);
   Timer? _otpTimer;

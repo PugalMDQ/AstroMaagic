@@ -11,14 +11,20 @@ import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
 import 'package:astromaagic/UI/VastuConsulting/VastuConsulting.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
+import '../Binding/GeneralPredictionsBinding/GeneralPredictionVoiceMessageBinding.dart';
 import '../Binding/GeneralPredictionsBinding/GeneralPredictionsScreenOneBinding.dart';
 import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart';
 import '../Binding/LoginBinding/LoginBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
+import '../Binding/VastuConsultingBinding/VastuConsultingPaymentScreenBinding.dart';
+import '../Binding/VastuConsultingBinding/VastuConsultingPriceSlotBinding.dart';
 import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
+import '../UI/GeneralPredictions/GeneralPredictionsVoiceMessageScreen.dart';
 import '../UI/GeneralPredictions/SuccessfullyPaidScreen.dart';
 import '../UI/LoginUI/LoginScreen.dart';
 import '../UI/SplashScreen/SplashScreen.dart';
+import '../UI/VastuConsulting/VastuConsultingPaymentScreen.dart';
+import '../UI/VastuConsulting/VastuConsultingPriceSlot.dart';
 import 'app_routes.dart';
 
 class AppPages {
@@ -63,5 +69,17 @@ class AppPages {
         name: AppRoutes.generalPredictionScreenOne.toName,
         page: () => GeneralPredictionScreenOne(),
         binding: GeneralPredictionScreenOneBinding()),
+    GetPage(
+        name: AppRoutes.vastuConsultingPriceSlot.toName,
+        page: () => VastuConsultingPriceSlot(),
+        binding: VastuConsultingPriceSlotBinding()),
+    GetPage(
+        name: AppRoutes.vastuConsultingPaymentScreen.toName,
+        page: () => VastuConsultingPaymentScreen(),
+        binding: VastuConsultingPaymentScreenBinding()),
+    GetPage(
+        name: AppRoutes.generalPredictionVoiceMessage.toName,
+        page: () => GeneralPredictionVoiceMessageScreen(),
+        binding: GeneralPredictionVoiceMessageBinding()),
   ];
 }
