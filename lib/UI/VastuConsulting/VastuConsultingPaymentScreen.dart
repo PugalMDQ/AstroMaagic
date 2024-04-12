@@ -66,15 +66,13 @@ class VastuConsultingPaymentScreen
             Container(
               margin: EdgeInsets.only(left: 30, top: 20),
               width: width,
-              child: Expanded(
-                child: Text(
-                  'Vastu Consulting'.tr,
-                  maxLines: 1,
-                  style: GoogleFonts.lato(
-                    color: AppTheme.containerBackground,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                  ),
+              child: Text(
+                'Vastu Consulting'.tr,
+                maxLines: 1,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -83,22 +81,20 @@ class VastuConsultingPaymentScreen
                 left: 30,
               ),
               width: width,
-              child: Expanded(
-                child: Text(
-                  "Horoscope".tr,
-                  maxLines: 1,
-                  style: GoogleFonts.lato(
-                    color: AppTheme.containerBackground,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+              child: Text(
+                "Horoscope".tr,
+                maxLines: 1,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
             SingleChildScrollView(
               child: Container(
                 width: width,
-                height: height - 400,
+                height: height * 0.47,
                 child: ListView.builder(
                   itemCount: controller.listValues.length,
                   itemBuilder: (context, index) {
@@ -107,22 +103,18 @@ class VastuConsultingPaymentScreen
                 ),
               ),
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 20,
+
+            Container(
+              width: width,
+              padding: const EdgeInsets.only(left: 30),
+              child: Text(
+                'Select payment mode'.tr,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w800,
                 ),
-                Expanded(
-                  child: Text(
-                    'Select payment mode'.tr,
-                    style: GoogleFonts.lato(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 20,
-                    ),
-                  ),
-                )
-              ],
+              ),
             ),
             SizedBox(
               height: 20,

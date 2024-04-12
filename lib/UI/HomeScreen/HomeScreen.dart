@@ -110,7 +110,7 @@ class HomeScreen extends GetView<HomeScreenController> {
               ),
             ),
             Container(
-              height: MediaQuery.of(context).size.height - 233,
+              height: MediaQuery.of(context).size.height * 0.64,
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

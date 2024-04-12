@@ -10,6 +10,7 @@ import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LanguageScreenController/LanguageScreenController.dart';
 import '../../Utils/BottomNavBarScreen.dart';
+import '../CountrySelection/CountrySelectionScreen.dart';
 import '../LoginUI/RegisterScreen.dart';
 
 class LanguageScreen extends GetView<LanguageScreenController> {
@@ -67,7 +68,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Choose Language",
+                            "Choose Language".tr,
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -230,7 +231,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            RegisterScreen()));
+                                            CountrySelectionScreen()));
                               } else {
                                 Fluttertoast.showToast(
                                   msg: "Please Choose Language!",

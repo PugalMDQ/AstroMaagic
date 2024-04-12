@@ -57,32 +57,29 @@ class VastuConsultingPriceSlot
             Container(
               margin: EdgeInsets.only(left: 30, top: 20),
               width: width,
-              child: Expanded(
-                child: Text(
-                  'Vastu Consulting'.tr,
-                  maxLines: 1,
-                  style: GoogleFonts.lato(
-                    color: AppTheme.containerBackground,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                  ),
+              child: Text(
+                'Vastu Consulting'.tr,
+                maxLines: 1,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
+
             Container(
               margin: EdgeInsets.only(
                 left: 30,
               ),
               width: width,
-              child: Expanded(
-                child: Text(
-                  "Horoscope".tr,
-                  maxLines: 1,
-                  style: GoogleFonts.lato(
-                    color: AppTheme.containerBackground,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+              child: Text(
+                "Horoscope".tr,
+                maxLines: 1,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),

@@ -89,7 +89,10 @@ class LocaleString extends Translations {
           'fees': 'Fees',
           'Enter UPI': 'Enter UPI',
           'Numerology': 'Numerology',
-          'Gemmology': 'Gemmology'
+          'Gemmology': 'Gemmology',
+          'Choose Your Country': 'Choose Your Country',
+          'Choose Language':'Choose Language',
+          'Personalized Horoscope':'Personalized Horoscope'
         },
         //TAMIL LANGUAGE
         'ta_IN': {
@@ -178,7 +181,10 @@ class LocaleString extends Translations {
           'fees': 'கட்டணம்',
           'Enter UPI': 'UPI ஐ உள்ளிடவும்',
           'Numerology': 'எண் கணிதம்',
-          'Gemmology': 'ரத்தினவியல்'
+          'Gemmology': 'ரத்தினவியல்',
+          'Choose Your Country':"உங்கள் நாட்டைத் தேர்ந்தெடுக்கவும்",
+          'Choose Language':'மொழியைத் தேர்ந்தெடுக்கவும்',
+          'Personalized Horoscope':'தனிப்பயனாக்கப்பட்ட ஜாதகம்'
         },
         // KANNADA LANGUAGE
         'kn_IN': {

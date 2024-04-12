@@ -14,7 +14,7 @@ class HomeScreenController extends GetxController {
 
   final List<HomeListDetails> values = [
     HomeListDetails(
-      name: 'General Predictions'.tr,
+      name: 'Personalized Horoscope'.tr,
     ),
     HomeListDetails(
       name: 'Vastu Consulting'.tr,
