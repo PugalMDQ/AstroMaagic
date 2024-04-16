@@ -25,47 +25,47 @@ class RegisterScreenController extends GetxController {
   }
 
   loginCall(context) async {
-    // if (fullNameController.value.text.isEmpty) {
-    //   Fluttertoast.showToast(
-    //     msg: "Please Enter FullName number",
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     backgroundColor: Colors.black,
-    //     textColor: Colors.white,
-    //   );
-    //   return;
-    // }
-    // if (dateOfBirthController.text.length < 10) {
-    //   Fluttertoast.showToast(
-    //     msg: "Please Enter Valid DOB",
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     backgroundColor: Colors.black,
-    //     textColor: Colors.white,
-    //   );
-    //   return;
-    // }
-    //
-    // if (placeOfBirthController.value.text.isEmpty) {
-    //   Fluttertoast.showToast(
-    //     msg: "Please Enter Place Of Birth",
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     backgroundColor: Colors.black,
-    //     textColor: Colors.white,
-    //   );
-    //   return;
-    // }
-    // if (timeOfBirthController.value.text.isEmpty) {
-    //   Fluttertoast.showToast(
-    //     msg: "Please Enter Time Of Birth",
-    //     toastLength: Toast.LENGTH_SHORT,
-    //     gravity: ToastGravity.BOTTOM,
-    //     backgroundColor: Colors.black,
-    //     textColor: Colors.white,
-    //   );
-    //   return;
-    // }
+    if (fullNameController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter FullName number",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+    if (dateOfBirthController.text.length < 10) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Valid DOB",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+
+    if (placeOfBirthController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Place Of Birth",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+    if (timeOfBirthController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Time Of Birth",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
 
     Map<String, dynamic> payload = {
     'userName':fullNameController.text,
