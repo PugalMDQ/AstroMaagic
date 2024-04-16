@@ -29,11 +29,12 @@ class GeneralPredictionScreenOne
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavBar()),
-              (route) => false,
-            );
+            Get.back();
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => BottomNavBar()),
+            //   (route) => false,
+            // );
           },
           child: const Icon(
             Icons.keyboard_arrow_left,

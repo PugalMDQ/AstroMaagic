@@ -1,9 +1,10 @@
-
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Components/forms.dart';
 import '../Components/theme.dart';
 
 
@@ -94,6 +95,229 @@ class AppUtility {
     try {
       FocusManager.instance.primaryFocus?.unfocus();
     } catch (e) {}
+  }
+
+  Future<void> showYearMonthPicker(
+      BuildContext context, TextEditingController textEditingController) async {
+    RxString selectedMonthString =
+    RxString(DateFormat("MMM").format(DateTime.now()));
+    RxString selectedYearString =
+    RxString(DateFormat("yy").format(DateTime.now()));
+    RxInt selectedMonth = RxInt(DateTime.now().month);
+    RxInt selectedYear = RxInt(DateTime.now().year);
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    await showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: 400.0,
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
+          ),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 10, top: 15, bottom: 7),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(height: 20, width: 20),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: const Text("Select Month",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: AppTheme.secondaryColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(Icons.clear))
+                  ],
+                ),
+              ),
+              Divider(),
+              Container(
+                height: 50.0,
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: AppTheme.borderLightGrey,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_ios_rounded,
+                          size: 15,
+                        ),
+                        onPressed: () {
+                          selectedYear--;
+                          selectedYearString.value =
+                              selectedYear.toString().substring(2, 4);
+                        },
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Obx(
+                              () => Text(
+                            selectedYear.toString(),
+                            style:
+                            TextStyle(fontSize: 18.0, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: AppTheme.borderLightGrey,
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios_rounded,
+                          size: 15,
+                        ),
+                        onPressed: () {
+                          selectedYear++;
+                          selectedYearString.value =
+                              selectedYear.toString().substring(2, 4);
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio:
+                    MediaQuery.of(context).size.shortestSide < 500
+                        ? (.7 / .4)
+                        : (.5 / .2),
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 18.0,
+                    mainAxisSpacing: 20.0,
+                  ),
+                  itemCount: 12,
+                  padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+                  itemBuilder: (BuildContext context, int index) {
+                    int month = index + 1;
+                    String monthName =
+                    DateFormat('MMMM').format(DateTime(2020, month, 1));
+                    selectedMonthString.value =
+                        monthName.substring(0, 3).toString();
+                    return InkWell(
+                      onTap: () {
+                        selectedMonth.value = index + 1;
+                        selectedMonthString.value =
+                            monthName.substring(0, 3).toString();
+                      },
+                      child: Obx(
+                            () => Container(
+                          width: 60,
+                          height: 50,
+                          decoration: BoxDecoration(
+                            color: selectedMonthString.value ==
+                                monthName.substring(0, 3)
+                                ? AppTheme.secondaryColor
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(12.0),
+                            border: Border.all(
+                              color: selectedMonthString.value ==
+                                  monthName.substring(0, 3)
+                                  ? AppTheme.secondaryColor
+                                  : Colors.grey,
+                              width: 0.5,
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            monthName.substring(0, 3),
+                            style: TextStyle(
+                              color: selectedMonthString.value ==
+                                  monthName.substring(0, 3)
+                                  ? Colors.white
+                                  : Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    AppButton2(
+                      width: width * 0.45,
+                      height: 40,
+                      title: 'Cancel',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      onPressed: () {
+                        Get.back();
+                      },
+                      color: Colors.white,
+                      titleColor: AppTheme.bottomTabsLabelInActiveColor,
+                      borderColor: AppTheme.cancelBorder,
+                    ),
+                    AppButton2(
+                      width: width * 0.45,
+                      height: 40,
+                      title: 'Apply ',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      onPressed: () {
+                        textEditingController.text =
+                        "${selectedMonthString.value} ${selectedYearString.value}";
+
+                        Get.back();
+                      },
+                      titleColor: Colors.white,
+                      color: AppTheme.secondaryColor,
+                      borderColor: AppTheme.secondaryColor,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
 

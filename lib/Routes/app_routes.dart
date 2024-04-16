@@ -1,6 +1,7 @@
 enum AppRoutes {
   root,
-  login,
+  Login,
+  mobileNumberScreen,
   register,
   otp,
   forgotPassword,
@@ -8,15 +9,18 @@ enum AppRoutes {
   choosePaymentScreen,
   successfullyPaidScreen,
   vastuConsulting,
- vastuConsultingPriceSlot,
+  vastuConsultingPriceSlot,
   generalPredictionScreenOne,
-  vastuConsultingPaymentScreen, generalPredictionVoiceMessage, countryScreen,
+  vastuConsultingPaymentScreen,
+  generalPredictionVoiceMessage,
+  countryScreen,
 }
 
 extension AppRouteExtension on AppRoutes {
   static const appRoutes = {
     AppRoutes.root: "/",
-    AppRoutes.login: "/LoginScreen",
+    AppRoutes.Login: "/Login",
+    AppRoutes.mobileNumberScreen: "/mobileNumberScreen",
     AppRoutes.register: "/RegisterScreen",
     AppRoutes.otp: "/OTPScreen",
     AppRoutes.forgotPassword: "/ForgotPassword",

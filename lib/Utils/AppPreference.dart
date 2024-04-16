@@ -1,22 +1,43 @@
 import 'package:get_storage/get_storage.dart';
 
 class AppPreference {
-  static const STORAGE_NAME = 'igreen';
+  static const STORAGE_NAME = 'Astrolomagic';
   final _storage = GetStorage(STORAGE_NAME);
 
   Future<void> init() async {
     await _storage.initStorage;
   }
 
-  static const empId = 'EmployeeId';
-  static const empName = 'EmployeeName';
-  static const mobNumber = 'MobileNum';
-  static const depId = 'DepartmentId';
-  static const attendanceValueId = 'AttendanceId';
   static const lang = 'language';
   static const country = 'Country';
+  static const tokenValues = 'TOKEN';
+  static const loginUser_Id = 'USERID';
+  static const mobNumber = 'MOBILE';
+  static const USERNAME = 'USERNAME';
 
 
+  updateMobileNumber(String mobileNumber) {
+    _storage.write(mobNumber, mobileNumber);
+  }
+
+  String get getMobileNumber {
+    try {
+      return _storage.read(mobNumber);
+    } catch (e) {
+      return '';
+    }
+  }
+  updateUserName(String data) {
+    _storage.write(USERNAME, data);
+  }
+
+  String get getUserName {
+    try {
+      return _storage.read(USERNAME);
+    } catch (e) {
+      return '';
+    }
+  }
   updateLang(String language) {
     _storage.write(lang, language);
   }
@@ -41,63 +62,25 @@ class AppPreference {
     }
   }
 
-
-
-  updateEmpId(int employeeId) {
-    _storage.write(empId, employeeId);
+  updateToken(String token) {
+    _storage.write(tokenValues, token);
   }
 
-  int get getEmpId {
+  String get getToken {
     try {
-      return _storage.read(empId);
-    } catch (e) {
-      return 0;
-    }
-  }
-
-  updateDepId(int departmentId) {
-    _storage.write(depId, departmentId);
-  }
-
-  int get getDepId {
-    try {
-      return _storage.read(depId);
-    } catch (e) {
-      return 0;
-    }
-  }
-
-  updateEmpName(String employeeName) {
-    _storage.write(empName, employeeName);
-  }
-
-  String get getEmpName {
-    try {
-      return _storage.read(empName);
+      return _storage.read(tokenValues);
     } catch (e) {
       return '';
     }
   }
 
-  updateMobileNumber(String mobileNumber) {
-    _storage.write(mobNumber, mobileNumber);
+  updateLoginUserId(String loginUserId) {
+    _storage.write(loginUser_Id, loginUserId);
   }
 
-  String get getMobileNumber {
+  String get getLoginUserId {
     try {
-      return _storage.read(mobNumber);
-    } catch (e) {
-      return '';
-    }
-  }
-
-  updateAttendanceId(String attendanceID) {
-    _storage.write(attendanceValueId, attendanceID);
-  }
-
-  String get getAttendanceId {
-    try {
-      return _storage.read(attendanceValueId);
+      return _storage.read(loginUser_Id);
     } catch (e) {
       return '';
     }
@@ -107,3 +90,5 @@ class AppPreference {
     _storage.erase();
   }
 }
+
+

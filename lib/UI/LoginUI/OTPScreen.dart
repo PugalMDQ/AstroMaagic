@@ -17,145 +17,148 @@ class OTPScreen extends GetView<OTPScreenController> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     OTPScreenController controller = Get.put(OTPScreenController());
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            height: height,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  "assets/images/backgrountwo.png",
-                ),
-                fit: BoxFit.fill,
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppTheme.App_color,
+        leading: IconButton(
+            icon: const ImageIcon(AssetImage(
+              "assets/icons/back_ios.png",
+            )),
+            color: AppTheme.primaryColor,
+            iconSize: 18,
+            onPressed: () {
+              Get.back();
+            }),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          height: height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                "assets/images/backgrountwo.png",
               ),
+              fit: BoxFit.fill,
             ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 0, left: 10),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            //Get.offNamed(AppRoutes.register.toName);
-                            Get.back();
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back_ios,
-                            color: AppTheme.containerBackground,
-                            size: 20,
-                          ))
-                    ],
-                  ),
+          ),
+          child: Column(
+            children: [
+              Container(
+                child: Image.asset(
+                  "assets/images/otpImage.png",
+                  width: width * 0.8,
+                  height: height * 0.2,
+                  // color: Colors.white,
                 ),
-                Container(
-                  child: Image.asset(
-                    "assets/images/otpImage.png",
-                    width: width * 0.8,
-                    height: height * 0.2,
-                    // color: Colors.white,
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: width,
-                        padding: const EdgeInsets.only(left: 30),
-                        child: Text(
-                          "Enter OTP".tr,
-                          style: GoogleFonts.lato(
-                            color: AppTheme.containerBackground,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w800,
-                          ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(left: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: width,
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Text(
+                        "Enter OTP".tr,
+                        style: GoogleFonts.lato(
+                          color: AppTheme.containerBackground,
+                          fontSize: 25,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: height * 0.04,
-                ),
-                Container(
-                  color: AppTheme.screenBackground,
-                  width: width * 0.88,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      OtpInput(
-                        controller: controller.fieldOne,
+              ),
+              SizedBox(
+                height: height * 0.04,
+              ),
+              Container(
+                color: AppTheme.screenBackground,
+                width: width * 0.88,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    OtpInput(
+                      controller: controller.fieldOne,
+                      autoFocus: false,
+                    ), // auto focus
+                    OtpInput(
+                        controller: controller.fieldTwo, autoFocus: false),
+                    OtpInput(
+                        controller: controller.fieldThree, autoFocus: false),
+                    OtpInput(
+                      controller: controller.fieldFour,
+                      autoFocus: false,
+                    ),
+                    OtpInput(
+                        controller: controller.fieldFive, autoFocus: false),
+                    OtpInput(
+                        controller: controller.fieldSix,
                         autoFocus: false,
-                      ), // auto focus
-                      OtpInput(
-                          controller: controller.fieldTwo, autoFocus: false),
-                      OtpInput(
-                          controller: controller.fieldThree, autoFocus: false),
-                      OtpInput(
-                        controller: controller.fieldFour,
-                        autoFocus: false,
-                      ),
-                      OtpInput(
-                          controller: controller.fieldFive, autoFocus: false),
-                      OtpInput(
-                          controller: controller.fieldSix,
-                          autoFocus: false,
-                          isNextFocus: false)
-                    ],
-                  ),
+                        isNextFocus: false)
+                  ],
                 ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                // Obx(
-                //   () => Row(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       // TextButton(
-                //       //   child: Text(
-                //       //     controller.showResendOTP.value
-                //       //         ? "Re-Send Code".tr
-                //       //         : "Re-Send Code ${controller.otpTimerSeconds.value.toString().padLeft(2, '0')} "
-                //       //             .tr,
-                //       //     style: TextStyle(
-                //       //       fontSize: 15,
-                //       //       color: AppTheme.primaryColor,
-                //       //     ),
-                //       //   ),
-                //       //   onPressed: controller.showResendOTP.value
-                //       //       ? () {}
-                //       //       : null, // Disable button when countdown is active
-                //       // ),
-                //     ],
-                //   ),
-                // ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    margin: const EdgeInsets.only(left: 0),
-                    child: Button(
-                        widthFactor: 0.87,
-                        heightFactor: 0.06,
-                        onPressed: () {
-                          Get.toNamed(AppRoutes.register.toName);
+              ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              // Obx(
+              //   () => Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       // TextButton(
+              //       //   child: Text(
+              //       //     controller.showResendOTP.value
+              //       //         ? "Re-Send Code".tr
+              //       //         : "Re-Send Code ${controller.otpTimerSeconds.value.toString().padLeft(2, '0')} "
+              //       //             .tr,
+              //       //     style: TextStyle(
+              //       //       fontSize: 15,
+              //       //       color: AppTheme.primaryColor,
+              //       //     ),
+              //       //   ),
+              //       //   onPressed: controller.showResendOTP.value
+              //       //       ? () {}
+              //       //       : null, // Disable button when countdown is active
+              //       // ),
+              //     ],
+              //   ),
+              // ),
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  margin: const EdgeInsets.only(left: 0),
+                  child: Obx(() =>  Button(
+                      widthFactor: 0.91,
+                      heightFactor: 0.06,
+                      onPressed: () {
+    controller.verifyOTP();
+                      },
+                      child:  controller.isLoading.value
+                          ? Container(
+                          height: height * 0.04,
+                          width: height * 0.04,
 
-                        },
-                        child: Text("Verify OTP".tr,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ))),
-                  ),
+                          child: const CircularProgressIndicator(
+                            color: Colors.white,
+                          ))
+                          :
+                      Text("Verify OTP".tr,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ))),
                 ),
-              ],
-            ),
+              ),
+              ),
+            ],
           ),
         ),
       ),

@@ -8,7 +8,7 @@ class AppTheme {
   static const Color purpleColor = Color(0xFF74419D);
   static const Color screenColor = Color(0xFF282246);
   static const Color labelColor = Color(0x4D252525);
-  static const Color App_color = Color(0xfff7faff);
+  static const Color App_color = Color(0xFF393939);
   static const Color blueColor = Color(0xFF002049);
   static const Color buttonColor = Color(0xFF004097);
   static const Color liteWhite = Color(0xFFe2e4e3);

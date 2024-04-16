@@ -1,13 +1,25 @@
 class GetAllCountryResponse {
   String? message;
   bool? error;
+  int? dataPerPage;
+  int? pageNo;
+  int? totalPages;
   List<GetAllCountryResponseData>? data;
 
-  GetAllCountryResponse({this.message, this.error, this.data});
+  GetAllCountryResponse(
+      {this.message,
+      this.error,
+      this.dataPerPage,
+      this.pageNo,
+      this.totalPages,
+      this.data});
 
   GetAllCountryResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     error = json['error'];
+    dataPerPage = json['dataPerPage'];
+    pageNo = json['pageNo'];
+    totalPages = json['TotalPages'];
     if (json['data'] != null) {
       data = <GetAllCountryResponseData>[];
       json['data'].forEach((v) {
@@ -20,6 +32,9 @@ class GetAllCountryResponse {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['message'] = this.message;
     data['error'] = this.error;
+    data['dataPerPage'] = this.dataPerPage;
+    data['pageNo'] = this.pageNo;
+    data['TotalPages'] = this.totalPages;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }

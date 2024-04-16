@@ -17,6 +17,7 @@ import '../Binding/GeneralPredictionsBinding/GeneralPredictionVoiceMessageBindin
 import '../Binding/GeneralPredictionsBinding/GeneralPredictionsScreenOneBinding.dart';
 import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart';
 import '../Binding/LoginBinding/LoginBinding.dart';
+import '../Binding/LoginBinding/mobileNumberBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPaymentScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPriceSlotBinding.dart';
@@ -24,6 +25,7 @@ import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
 import '../UI/GeneralPredictions/GeneralPredictionsVoiceMessageScreen.dart';
 import '../UI/GeneralPredictions/SuccessfullyPaidScreen.dart';
 import '../UI/LoginUI/LoginScreen.dart';
+import '../UI/LoginUI/MobileNumberScreen.dart';
 import '../UI/SplashScreen/SplashScreen.dart';
 import '../UI/VastuConsulting/VastuConsultingPaymentScreen.dart';
 import '../UI/VastuConsulting/VastuConsultingPriceSlot.dart';
@@ -31,14 +33,21 @@ import 'app_routes.dart';
 
 class AppPages {
   static var list = [
+
     GetPage(
         name: AppRoutes.root.toName,
         page: () => const SplashScreen(),
         binding: SplashScreenBinding()),
+
     GetPage(
-        name: AppRoutes.login.toName,
+        name: AppRoutes.Login.toName,
         page: () => const LoginScreen(),
         binding: LoginBinding()),
+
+    GetPage(
+        name: AppRoutes.mobileNumberScreen.toName,
+        page: () => const MobileNumberScreen(),
+        binding: mobileNumberBinding()),
     GetPage(
         name: AppRoutes.register.toName,
         page: () => const RegisterScreen(),

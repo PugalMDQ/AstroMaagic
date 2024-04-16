@@ -1,255 +1,202 @@
 import 'package:astromaagic/Routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LoginController/ForgotPasswordController.dart';
+import '../../Provider/MenuDataProvider.dart';
 
 class ForgotPassword extends GetView<ForgotPasswordController> {
   const ForgotPassword({super.key});
+
 
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     ForgotPasswordController controller = Get.put(ForgotPasswordController());
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(
-                  "assets/images/splashOne.png",
-                ),
-                fit: BoxFit.cover,
+    controller. userDataProvider =
+        Provider.of<MenuDataProvider>(context, listen: false);
+    return WillPopScope(
+      onWillPop: () async{
+        Get.offAllNamed(AppRoutes.Login.toName);
+
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: AppTheme.App_color,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: AppTheme.App_color,
+          leading: IconButton(
+              icon: const ImageIcon(AssetImage(
+                "assets/icons/back_ios.png",
+              )),
+              color: AppTheme.primaryColor,
+              iconSize: 18,
+              onPressed: () {
+                Get.offAllNamed(AppRoutes.Login.toName);
+              }),
+        ),
+        body: Container(
+          height: height,
+          width: width,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                "assets/images/backgrountwo.png",
               ),
+              fit: BoxFit.cover,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30, left: 10),
-            child: Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Get.offNamed(AppRoutes.login.toName);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.black,
-                      size: 20,
-                    ))
-              ],
-            ),
-          ),
-          Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
+                  Container(
+                    child: Image.asset(
+                      "assets/images/otpImage.png",
+                      width: width * 0.8,
+                      height: height * 0.2,
+                      // color: Colors.white,
+                    ),
                   ),
-                  Card(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          color: AppTheme.white,
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 2, // spread radius
-                              blurRadius: 20, // blur radius
-                              offset: Offset(0, 3), // shadow color
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Forgot Password",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Phone",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: AppTheme.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5))),
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppTheme.containerBackground),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5)),
-                                    borderSide: BorderSide(
-                                        color: AppTheme.containerBackground),
-                                  ),
-                                  hintText: 'Phone',
-                                  hintStyle: const TextStyle(
-                                      fontSize: 12.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400),
-                                  contentPadding: const EdgeInsets.all(6),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: AppTheme.containerBackground),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                ),
-                                style: TextStyle(
-                                    decoration: TextDecoration.none,
-                                    decorationThickness: 0,
-                                    color: AppTheme.textColor,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Text(
-                                "Password",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Obx(
-                                () => Container(
-                                  decoration: BoxDecoration(
-                                      color: AppTheme.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(5))),
-                                  child: TextFormField(
-                                    obscureText: controller.newPass.value,
-                                    decoration: InputDecoration(
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color:
-                                                AppTheme.containerBackground),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(5)),
-                                        borderSide: BorderSide(
-                                            color:
-                                                AppTheme.containerBackground),
-                                      ),
-                                      hintText: 'Password',
-                                      hintStyle: const TextStyle(
-                                          fontSize: 12.0,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400),
-                                      suffixIcon: InkWell(
-                                        onTap: () {
-                                          controller.newPass.value =
-                                              !controller.newPass.value;
-                                        },
-                                        child: Icon(controller.newPass.value
-                                            ? Icons.visibility_off
-                                            : Icons.visibility),
-                                      ),
-                                      contentPadding: const EdgeInsets.all(6),
-                                      border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color:
-                                                AppTheme.containerBackground),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                    ),
-                                    style: TextStyle(
-                                        decoration: TextDecoration.none,
-                                        decorationThickness: 0,
-                                        color: AppTheme.textColor,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.normal),
-                                  ),
-                                ),
-                              )),
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Center(
-                                child: Button(
-                                    widthFactor: 0.78,
-                                    heightFactor: 0.06,
-                                    onPressed: () {
-                                      Get.offNamed(AppRoutes.otp.toName);
-                                    },
-                                    child: Text("CHANGE",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                        ))),
-                              ),
-                            ],
-                          ),
-                        ],
+                  Container(
+                    width: width,
+                    child: Text(
+                      "Forgot",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.lato(
+                        color: AppTheme.containerBackground,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w800,
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: AppTheme.screenBackground,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: TextFormField(
+                      controller: controller.passwordController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                        ),
+                        hintText: "Enter your Password".tr,
+                        hintStyle: const TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400),
+                        contentPadding: const EdgeInsets.only(left: 20),
+                        border: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      style: TextStyle(
+                          decoration: TextDecoration.none,
+                          decorationThickness: 0,
+                          color: AppTheme.containerBackground,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        color: AppTheme.screenBackground,
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    child: TextFormField(
+                      controller: controller.confirmPasswordController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        focusedBorder: const OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                        ),
+                        hintText: "Enter your Confirm password",
+                        hintStyle: const TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400),
+                        contentPadding: const EdgeInsets.only(left: 20),
+                        border: OutlineInputBorder(
+                          borderSide:
+                          BorderSide(width: 2, color: AppTheme.primaryColor),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                      ),
+                      style: TextStyle(
+                          decoration: TextDecoration.none,
+                          decorationThickness: 0,
+                          color: AppTheme.containerBackground,
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal),
+                    ),
+                  ),
+
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
+                  Container(
+                    child: Obx(() =>  Button(
+                        widthFactor: 0.91,
+                        heightFactor: 0.06,
+                        onPressed: () {
+                          if(controller.isLoading.value){
+                            return;
+                          }
+                          controller.loginCall(context);
+                        },
+                        child:
+                        controller.isLoading.value
+                            ? Container(
+                            height: height * 0.04,
+                            width: height * 0.04,
+                            child: const CircularProgressIndicator(
+                              color: Colors.white,
+                            ))
+                            :
+
+                        Text("Re-Set".tr,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
+                            ))),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
                 ],
               ),
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }

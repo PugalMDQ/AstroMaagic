@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../../Components/Key.dart';
+import '../../Provider/MenuDataProvider.dart';
 
 class VastuConsultingPaymentScreenController extends GetxController {
   RxBool consultationVirtualMeeting = RxBool(false);
@@ -10,10 +12,16 @@ class VastuConsultingPaymentScreenController extends GetxController {
   RxBool googlePayOnclick = RxBool(false);
   RxBool payamOnclick = RxBool(false);
   RxInt selectedTabIndex = 0.obs;
+  late MenuDataProvider userDataProvider;
+
   @override
   void onInit() {
+    userDataProvider =
+        Provider.of<MenuDataProvider>(Get.context!, listen: false);
+
     super.onInit();
   }
+
   List<Keyvalues> listValues = [
     Keyvalues(key: "0", value: "User"),
     Keyvalues(key: "1", value: "Employee"),

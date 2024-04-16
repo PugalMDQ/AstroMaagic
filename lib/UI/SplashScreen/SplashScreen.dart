@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../Controller/SplashController/SplashScreenController.dart';
 import '../LanguageScreen/LanguageScreen.dart';
+import '../LoginUI/LoginScreen.dart';
 import '../WelcomeScreenUI/WelcomeScreenOne.dart';
 
 class SplashScreen extends GetView<SplashScreenController> {
@@ -9,12 +10,16 @@ class SplashScreen extends GetView<SplashScreenController> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     Future.delayed(Duration(seconds: 4), () {
-      Get.off(() => LanguageScreen(), transition: Transition.rightToLeft);
+      Get.off(() => LoginScreen(), transition: Transition.rightToLeft);
     });
+ // Future.delayed(Duration(seconds: 4), () {
+ //      Get.off(() => LanguageScreen(), transition: Transition.rightToLeft);
+ //    });
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: SingleChildScrollView(
           child: Stack(
@@ -30,5 +35,6 @@ class SplashScreen extends GetView<SplashScreenController> {
         ],
       )),
     );
+
   }
 }

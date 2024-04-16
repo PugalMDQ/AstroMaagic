@@ -1,9 +1,16 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
+import 'package:provider/provider.dart';
+
+import '../../Provider/MenuDataProvider.dart';
+import '../../Routes/app_routes.dart';
 
 class OTPScreenController extends GetxController {
   TextEditingController fieldOne = TextEditingController();
@@ -16,11 +23,15 @@ class OTPScreenController extends GetxController {
   RxInt otpTimerSeconds = RxInt(60);
   Timer? _otpTimer;
   RxBool showResendOTP = RxBool(true);
-
+  RxBool isLoading = RxBool(false);
+  late MenuDataProvider userDataProvider;
+  final _auth = FirebaseAuth.instance;
   @override
   void onInit() {
     startOTPTimer();
     super.onInit();
+    userDataProvider =
+        Provider.of<MenuDataProvider>(Get.context!, listen: false);
   }
 
   void startOTPTimer() {
@@ -36,5 +47,80 @@ class OTPScreenController extends GetxController {
         showResendOTP.value = true;
       }
     });
+  }
+
+  Future<void> verifyOTP() async {
+    print('OnclickVerify1');
+    String _otp = fieldOne.text +
+        fieldTwo.text +
+        fieldThree.text +
+        fieldFour.text +
+        fieldFive.text +
+        fieldSix.text;
+
+    if (_otp.isEmpty || _otp.length != 6) {
+      _otp.isEmpty
+          ? Fluttertoast.showToast(
+              msg: "Please enter OTP",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            )
+          : Fluttertoast.showToast(
+              msg: "OTP must be of 6 digits",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            );
+      return;
+    }
+
+    print("Entered OTP:${_otp}");
+
+    try {
+      isLoading.value = true;
+
+      AuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: userDataProvider.getVerificationValues!,
+        smsCode: _otp,
+      );
+
+      print('authCredential:$credential');
+      var result = await _auth.signInWithCredential(credential);
+      isLoading.value = false;
+
+      Fluttertoast.showToast(
+        msg: "OTP verified successfully",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      print("userDataProvider.getIsFromForgotOrRegister${userDataProvider.getIsFromForgotOrRegister!}");
+      if(userDataProvider.getIsFromForgotOrRegister == "Forgot"){
+        Get.offAllNamed(AppRoutes.forgotPassword.toName);
+      }else {
+        Get.toNamed(AppRoutes.register.toName);
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException && e.code == 'invalid-verification-code') {
+        // Handle invalid OTP
+        print('Invalid OTP');
+
+        isLoading.value = false;
+
+        Fluttertoast.showToast(
+          msg: "Error occurred during OTP verification",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        );
+      } else {
+        print(e.toString());
+      }
+    }
   }
 }

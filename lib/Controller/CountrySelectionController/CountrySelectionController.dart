@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../../Api_Connect/ApiConnect.dart';
+import '../../Provider/MenuDataProvider.dart';
 import '../../ResponseModel/GetAllCountrysResponse.dart';
 
 class CountrySelectionScreenController extends GetxController {
@@ -11,6 +13,8 @@ class CountrySelectionScreenController extends GetxController {
   RxList<GetAllCountryResponseData> getAllCountry = RxList();
   RxBool isLoading = RxBool(false);
   bool isCall = false;
+  late MenuDataProvider userDataProvider;
+
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +22,9 @@ class CountrySelectionScreenController extends GetxController {
       isCall = true;
       getAllCountries();
     }
+    userDataProvider =
+        Provider.of<MenuDataProvider>(Get.context!, listen: false);
+
   }
 
   getAllCountries() async {
@@ -25,6 +32,7 @@ class CountrySelectionScreenController extends GetxController {
     var response = await _connect.getAllCountry();
     if (response.data != null) {
       getAllCountry.value = response.data!;
+
       debugPrint("getAllCountryResponse: ${response.toJson()}");
     } else {}
   }

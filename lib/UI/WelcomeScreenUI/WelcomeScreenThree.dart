@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Controller/WelcomeScreenController/WelcomeScreenThreeController.dart';
-import '../LoginUI/LoginScreen.dart';
+import '../LoginUI/MobileNumberScreen.dart';
 
 class WelcomeScreenThree extends GetView<WelcomeScreenThreeController> {
   const WelcomeScreenThree({super.key});
@@ -12,7 +12,7 @@ class WelcomeScreenThree extends GetView<WelcomeScreenThreeController> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Future.delayed(Duration(seconds: 4), () {
-      Get.off(() => LoginScreen(), transition: Transition.rightToLeft);
+      Get.off(() => MobileNumberScreen(), transition: Transition.rightToLeft);
     });
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;

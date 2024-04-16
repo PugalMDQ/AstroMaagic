@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/GeneralPredictionsController/GeneralPredictionScreenThreeController.dart';
 import '../../Controller/VastuConsulting/VastuConsultingPaymentScreenController.dart';
 import '../../Controller/VastuConsulting/VastuConsultingPriceSlotController.dart';
+import '../../Provider/MenuDataProvider.dart';
 import '../../Utils/BottomNavBarScreen.dart';
 
 class VastuConsultingPaymentScreen
@@ -22,17 +24,14 @@ class VastuConsultingPaymentScreen
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPaymentScreenController controller =
         Get.put(VastuConsultingPaymentScreenController());
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 55,
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => BottomNavBar()),
-              (route) => false,
-            );
+        Get.back();
           },
           child: const Icon(
             Icons.keyboard_arrow_left,
@@ -61,13 +60,16 @@ class VastuConsultingPaymentScreen
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
+        child:
+
+        Column(
           children: [
             Container(
               margin: EdgeInsets.only(left: 30, top: 20),
               width: width,
               child: Text(
-                'Vastu Consulting'.tr,
+                controller.userDataProvider.getAllServicesData!.services
+                    .toString(),
                 maxLines: 1,
                 style: GoogleFonts.lato(
                   color: AppTheme.containerBackground,
@@ -76,171 +78,134 @@ class VastuConsultingPaymentScreen
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.only(
-                left: 30,
-              ),
-              width: width,
-              child: Text(
-                "Horoscope".tr,
-                maxLines: 1,
-                style: GoogleFonts.lato(
-                  color: AppTheme.containerBackground,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            SingleChildScrollView(
-              child: Container(
-                width: width,
-                height: height * 0.47,
-                child: ListView.builder(
-                  itemCount: controller.listValues.length,
-                  itemBuilder: (context, index) {
-                    return slotList(context, index);
-                  },
-                ),
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(
+            //     left: 30,
+            //   ),
+            //   width: width,
+            //   child: Text(
+            //     ''
+            //     // "Horoscope".tr,
+            //     maxLines: 1,
+            //     style: GoogleFonts.lato(
+            //       color: AppTheme.containerBackground,
+            //       fontSize: 16,
+            //       fontWeight: FontWeight.w600,
+            //     ),
+            //   ),
+            // ),
+            // SingleChildScrollView(
+            //   child: Container(
+            //     width: width,
+            //     child: ListView.builder(
+            //       itemCount: 2,
+            //       itemBuilder: (context, index) {
+            //         return slotList(context, index);
+            //       },
+            //     ),
+            //   ),
+            // ),
 
             Container(
+              margin: EdgeInsets.only(left: 15, right: 15, top: 10),
               width: width,
-              padding: const EdgeInsets.only(left: 30),
-              child: Text(
-                'Select payment mode'.tr,
-                style: GoogleFonts.lato(
-                  color: AppTheme.containerBackground,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
+              height: height * 0.15,
+              decoration: BoxDecoration(
+                  color: AppTheme.screenBackground,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(color: AppTheme.primaryColor, width: 2)),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 15, top: 15, bottom: 20),
+                    width: width * 0.43,
+                    height: height * 0.15,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'noOfQuestions'.tr,
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Text(
+                          'fees'.tr,
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: width * 0.43,
+                      height: height * 0.15,
+                      child: Container(
+                        margin: EdgeInsets.all(20),
+                        width: width * 0.45,
+                        height: height * 0.15,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: AppTheme.primaryColor,
+                            border: Border.all(
+                                color: AppTheme.primaryColor, width: 2)),
+                        child: Container(
+                          margin: EdgeInsets.only(left: 15),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                controller.userDataProvider.getVastuData!
+                                        .noOfQuestions
+                                        .toString() ??
+                                    "",
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                              Text(
+                                '₹ ${controller.userDataProvider.getVastuData!.fees}' ??
+                                    '',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 50,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    UPIBottomSheet(context);
-                  },
-                  child: Container(
-                    width: width * 0.9,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppTheme.primaryColor,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 25,
-                          child: Image.asset("assets/images/upi.png"),
-                        ),
-                        Text(
-                          "UPI".tr,
+                Center(
+                  child: Button(
+                      widthFactor: 0.85,
+                      heightFactor: 0.06,
+                      onPressed: () {},
+                      child: Text("Pay".tr,
                           style: GoogleFonts.lato(
+                            fontSize: 18,
                             color: Colors.black,
-                            fontSize: 16,
                             fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 20,
+                          ))),
                 ),
-                GestureDetector(
-                  onTap: () {
-                    cardBottomSheet(context);
-                  },
-                  child: Container(
-                    width: width * 0.9,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppTheme.primaryColor,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 25,
-                          child: Image.asset("assets/images/card.png"),
-                        ),
-                        Text(
-                          "Credit or debit card".tr,
-                          style: GoogleFonts.lato(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 20,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    width: width * 0.9,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        color: AppTheme.primaryColor,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 40,
-                          height: 25,
-                          child: Image.asset("assets/images/NetBanking.png"),
-                        ),
-                        Text(
-                          "Net Banking".tr,
-                          style: GoogleFonts.lato(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
               ],
             ),
           ],
@@ -532,7 +497,7 @@ class VastuConsultingPaymentScreen
                       widthFactor: 0.85,
                       heightFactor: 0.06,
                       onPressed: () {
-                        Get.offNamed(AppRoutes.successfullyPaidScreen.toName);
+                        Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
                       },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(
@@ -677,7 +642,7 @@ class VastuConsultingPaymentScreen
                       widthFactor: 0.85,
                       heightFactor: 0.06,
                       onPressed: () {
-                        Get.offNamed(AppRoutes.successfullyPaidScreen.toName);
+                        Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
                       },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(

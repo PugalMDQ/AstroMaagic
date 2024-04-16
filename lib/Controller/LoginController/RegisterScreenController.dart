@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../../Api_Connect/ApiConnect.dart';
+import '../../Routes/app_routes.dart';
 import '../../Utils/BottomNavBarScreen.dart';
 
 class RegisterScreenController extends GetxController {
@@ -13,6 +14,7 @@ class RegisterScreenController extends GetxController {
   TextEditingController fullNameController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController placeOfBirthController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   TextEditingController timeOfBirthController = TextEditingController();
   RxString dateformat = RxString("");
   TextEditingController dateAndTimeController = TextEditingController();
@@ -65,6 +67,15 @@ class RegisterScreenController extends GetxController {
         textColor: Colors.white,
       );
       return;
+    } if (passwordController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Password",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
     }
 
     Map<String, dynamic> payload = {
@@ -72,15 +83,16 @@ class RegisterScreenController extends GetxController {
     'placeOfBirth': placeOfBirthController.text,
     'dateOfBirth':dateOfBirthController.text,
     'timeOfBirth':timeOfBirthController.text,
+    'userPassword':passwordController.text,
     'maritalStatus': married.value == true ? "married" : "unMarried",
     'userLanguage': AppPreference().getLanguage,
     'userCountry': AppPreference().getCountry,
-    'userMobile':'7558188330',
+    'userMobile':AppPreference().getMobileNumber,
     'isMobileVerified':1
     };
     print(payload);
 
-    var response = await _connect.login(payload);
+    var response = await _connect.register(payload);
     debugPrint("loginCallResponse: ${response.toJson()}");
     if (!response.error!) {
       Fluttertoast.showToast(
@@ -90,17 +102,16 @@ class RegisterScreenController extends GetxController {
         backgroundColor: Colors.black,
         textColor: Colors.white,
       );
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => BottomNavBar()),
-            (route) => false,
-      );
+      AppPreference().updateUserName(fullNameController.text ?? "");
+      AppPreference().updateToken("Bearer ${response.token!}");
+      AppPreference().updateLoginUserId(response.userId!.toString());
       // Navigator.pushAndRemoveUntil(
       //   context,
-      //   MaterialPageRoute(
-      //       builder: (context) => BottomNavBar()),
+      //   MaterialPageRoute(builder: (context) => BottomNavBar()),
       //       (route) => false,
       // );
+
+      Get.offAllNamed(AppRoutes.homeScreen.toName);
 
     } else {
       Fluttertoast.showToast(

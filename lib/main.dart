@@ -1,20 +1,29 @@
 import 'package:astromaagic/Components/LocaleString.dart';
 import 'package:astromaagic/Utils/AppPreference.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'Components/theme.dart';
+import 'Provider/MenuDataProvider.dart';
 import 'Routes/app_pages.dart';
 import 'Routes/app_routes.dart';
 import 'UI/SplashScreen/SplashScreen.dart';
 import 'package:flutter/cupertino.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await AppPreference().init();
-  runApp(const MyApp());
-}
+  runApp(
+    ChangeNotifierProvider<MenuDataProvider>(
+      create: (_) => MenuDataProvider(),
+      child: MyApp(),
+    ),
+  );}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
