@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:astromaagic/Utils/AppPreference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,8 +8,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../Components/forms.dart';
+import '../../Components/languageSelectionTab.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LanguageScreenController/LanguageScreenController.dart';
+import '../../Routes/app_routes.dart';
 import '../../Utils/BottomNavBarScreen.dart';
 import '../CountrySelection/CountrySelectionScreen.dart';
 import '../LoginUI/RegisterScreen.dart';
@@ -16,23 +19,7 @@ import '../LoginUI/RegisterScreen.dart';
 class LanguageScreen extends GetView<LanguageScreenController> {
   LanguageScreen({super.key});
 
-  final List localEnglish = [
-    {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
-  ];
-  final List localTamil = [
-    {'name': 'தமிழ்', 'locale': Locale('ta', 'IN')},
-  ];
-  final List localKannada = [
-    {'name': 'ಕನ್ನಡ', 'locale': Locale('kn', 'IN')},
-  ];
-  final List localHindi = [
-    {'name': 'हिन्दी', 'locale': Locale('hi', 'IN')},
-  ];
 
-  updateLanguage(Locale locale) {
-    Get.back();
-    Get.updateLocale(locale);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,8 +77,9 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       !controller.tamilOnclick.value;
                                   controller.englishOnclick.value = false;
                                   controller.hindiOnclick.value = false;
-                                  print("VALUES:${localTamil[0]['locale']}");
-                                  updateLanguage(localTamil[0]['locale']);
+                                  print("VALUES:${controller.localTamil[0]['locale']}");
+                                  controller.updateLanguage(controller.localTamil[0]['locale']);
+                                  AppPreference().updateLang('Tamil');
                                 },
                                 child: Container(
                                   width: width * 0.4,
@@ -130,8 +118,9 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       !controller.englishOnclick.value;
                                   controller.tamilOnclick.value = false;
                                   controller.hindiOnclick.value = false;
-                                  print("VALUES:${localEnglish[0]['locale']}");
-                                  updateLanguage(localEnglish[0]['locale']);
+                                  print("VALUES:${controller.localEnglish[0]['locale']}");
+                                  controller.updateLanguage(controller.localEnglish[0]['locale']);
+                                  AppPreference().updateLang('English');
                                 },
                                 child: Container(
                                   width: width * 0.4,
@@ -178,8 +167,9 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                   controller.englishOnclick.value = false;
                                   controller.tamilOnclick.value = false;
 
-                                  print("VALUES:${localHindi[0]['locale']}");
-                                  updateLanguage(localHindi[0]['locale']);
+                                  print("VALUES:${controller.localHindi[0]['locale']}");
+                                  controller.updateLanguage(controller.localHindi[0]['locale']);
+                                  AppPreference().updateLang('Hindhi');
                                 },
                                 child: Container(
                                   width: width * 0.4,
@@ -214,8 +204,43 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                     ],
                   ),
                   SizedBox(
-                    height: height * 0.32,
+                    height: height * 0.12,
                   ),
+                  // Container(
+                  //   height: MediaQuery.of(context).size.height * 0.44,
+                  //   child: GridView.builder(
+                  //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  //       crossAxisCount: 2,
+                  //       mainAxisSpacing: 5,
+                  //       mainAxisExtent: 50,
+                  //       childAspectRatio: 1.25,
+                  //     ),
+                  //     itemCount: controller.listValues.length,
+                  //     itemBuilder: (BuildContext context, int index) {
+                  //       return Obx(() => LanguageSelectionAppTab(
+                  //         title: controller.listValues[index].value,
+                  //         isSelected:
+                  //         controller.selectedTabIndex.value == index,
+                  //         onClick: () {
+                  //
+                  //           controller.updateCurrentTabIndex(index);
+                  //           if( controller.selectedTabIndex.value == 0){
+                  //             controller.updateLanguage(controller.localEnglish[0]['locale']);
+                  //           }  else if (controller.selectedTabIndex.value == 1){
+                  //             controller.updateLanguage(controller.localTamil[0]['locale']);
+                  //           } else if(controller.selectedTabIndex.value == 2){
+                  //             controller.updateLanguage(controller.localHindi[0]['locale']);
+                  //           }
+                  //
+                  //         },
+                  //
+                  //       ));
+                  //     },
+                  //   ),
+                  // ),
+
+
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -227,11 +252,21 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                               if (controller.englishOnclick.value == true ||
                                   controller.tamilOnclick.value == true ||
                                   controller.hindiOnclick.value == true) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            CountrySelectionScreen()));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (context) =>
+                                //             CountrySelectionScreen()));
+
+                                Get.toNamed(AppRoutes.countryScreen.toName);
+
+
+                                if(controller.englishOnclick.value == true){
+                                  AppPreference().updateLang("English");
+                                }else if ( controller.tamilOnclick.value == true){
+                                  AppPreference().updateLang("Tamil");
+                                }
+
                               } else {
                                 Fluttertoast.showToast(
                                   msg: "Please Choose Language!",
@@ -251,6 +286,9 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                       ),
                     ],
                   ),
+
+
+
                 ],
               ),
             )

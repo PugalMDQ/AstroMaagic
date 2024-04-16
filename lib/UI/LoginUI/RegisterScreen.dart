@@ -226,6 +226,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
+                            controller: controller.fullNameController,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -318,6 +319,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: TextFormField(
                             keyboardType: TextInputType.text,
+                            controller: controller.placeOfBirthController,
                             decoration: InputDecoration(
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -495,8 +497,8 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                 widthFactor: 0.85,
                                 heightFactor: 0.06,
                                 onPressed: () {
-                                  Get.toNamed(AppRoutes.login.toName);
-
+                                 // Get.toNamed(AppRoutes.login.toName);
+                                  controller.loginCall(context);
                                   // if (controller.married.value == true ||
                                   //     controller.unMarried.value == true) {
                                   //   Navigator.push(

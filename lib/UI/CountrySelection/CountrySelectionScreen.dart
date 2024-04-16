@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:astromaagic/Utils/AppPreference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,12 +11,12 @@ import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/CountrySelectionController/CountrySelectionController.dart';
 import '../../Controller/LanguageScreenController/LanguageScreenController.dart';
+import '../../Routes/app_routes.dart';
 import '../../Utils/BottomNavBarScreen.dart';
 import '../LoginUI/RegisterScreen.dart';
 
 class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
   CountrySelectionScreen({super.key});
-
 
 
   final List localEnglish = [
@@ -40,7 +41,7 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    LanguageScreenController controller = Get.put(LanguageScreenController());
+    CountrySelectionScreenController controller = Get.put(CountrySelectionScreenController());
 
     return SafeArea(
       child: Scaffold(
@@ -106,15 +107,13 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                                ),
                                child: TextFormField(
                                  readOnly: true,
-                                 obscureText: true,
-
+                                // obscureText: true,
                                    style: TextStyle(
-
                                        letterSpacing: 0.2,
                                        color: AppTheme.textColor,
                                        fontWeight: FontWeight.w400,
-                                       fontSize: 14),
-                                   controller: controller.countryController,
+                                       fontSize: 20),
+                                   controller: controller.indiaController,
                                    decoration: InputDecoration(
                                      fillColor: AppTheme.containerBackground,
                                      filled: true,
@@ -125,17 +124,18 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                                      hintText: "India",
                                      hintStyle: TextStyle(
                                        color: AppTheme.textColor,
-                                       fontSize: 20
+                                         fontWeight: FontWeight.w400,
+                                         fontSize: 25
                                      ),
 
                                      enabledBorder: OutlineInputBorder(
-                                       //borderRadius: BorderRadius.circular(5.5),
-                                       borderSide: BorderSide( color: Color(0x4d252525),width: 1.0),
+                                     borderRadius: BorderRadius.circular(15)
+                                       // borderSide: BorderSide( color: Color(0x4d252525),width: 1.0),
                                      ),
                                      focusedBorder: OutlineInputBorder(
-                                       // borderRadius: BorderRadius.circular(5.5),
-                                       borderSide:  BorderSide(
-                                           color: Color(0x4d252525), width: 1.0),
+                                     borderRadius: BorderRadius.circular(15)
+                                       // borderSide:  BorderSide(
+                                       //     color: Color(0x4d252525), width: 1.0),
                                      ),
 
 
@@ -165,24 +165,24 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
 
                                  ),
                                  child: TextFormField(
+                                     readOnly: true,
+                                   onTap: (){
+                                     _showBottomSheetCountry(context,controller.countryController);
+                                   },
                                      style: TextStyle(
                                          letterSpacing: 0.2,
                                          color: AppTheme.textColor,
                                          fontWeight: FontWeight.w400,
-                                         fontSize: 14),
+                                         fontSize: 20),
                                      controller: controller.countryController,
                                      decoration: InputDecoration(
                                        fillColor: AppTheme.containerBackground,
                                        filled: true,
                                        contentPadding: EdgeInsets.only(
-                                          left: 60,
+                                          left: 30,
 
                                        ),
-                                       // label: Text('Remarks'),
-                                       // labelStyle: TextStyle(
-                                       //     color:  AppTheme.labelColor,
-                                       //     fontSize: 12,
-                                       //     fontWeight: FontWeight.w500),
+
 
                                        hintText: "Other ",
                                        hintStyle: TextStyle(
@@ -191,15 +191,15 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
 
                                        ),
                                        enabledBorder: OutlineInputBorder(
-                                         //borderRadius: BorderRadius.circular(5.5),
-                                         borderSide: BorderSide( color: Color(0x4d252525),width: 1.0),
+                                       borderRadius: BorderRadius.circular(15),
+                                        // borderSide: BorderSide( color: Color(0x4d252525),width: 1.0),
                                        ),
                                        focusedBorder: OutlineInputBorder(
-                                         // borderRadius: BorderRadius.circular(5.5),
-                                         borderSide:  BorderSide(
-                                             color: Color(0x4d252525), width: 1.0),
+                                          borderRadius: BorderRadius.circular(15),
+                                         // borderSide:  BorderSide(
+                                         //     color: Color(0x4d252525), width: 1.0),
                                        ),
-
+                                       suffixIcon: Icon(Icons.arrow_drop_down_outlined,size: 20,),
 
 
                                      )
@@ -207,7 +207,9 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                                )
                              ],
                            ),
-                         ),],
+                         ),
+                       
+                       ],
                      )
 
                     ],
@@ -223,11 +225,15 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                             widthFactor: 0.85,
                             heightFactor: 0.06,
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          RegisterScreen()));
+
+                              AppPreference().updateCountry(controller.countryController.text);
+                              Get.toNamed(AppRoutes.login.toName);
+                              //
+                              // if(controller.indiaController.text == 'India'){
+                              //   AppPreference().updateCountry('India');
+                              // } else {
+                              //   AppPreference().updateCountry(controller.countryController.text);
+                              // }
 
                             },
                             child: Text("Next".tr,
@@ -247,4 +253,99 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
       ),
     );
   }
+
+  void _showBottomSheetCountry(
+      BuildContext context,
+      TextEditingController controller,
+
+      ) {
+    CountrySelectionScreenController controller = Get.put(CountrySelectionScreenController());
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+    Get.bottomSheet(
+        SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
+          padding: EdgeInsets.fromLTRB(6, 4, 6, 6),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppTheme.inputBorderColor,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+            color: AppTheme.screenBackground, // Set the desired background color
+          ),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(onPressed: (){
+                    Get.back();
+                  }, icon: Icon(Icons.clear,color: AppTheme.white,size: 20,))
+                ],
+              ),
+              IntrinsicHeight(
+                child: Column(
+                  children: List.generate(
+                    controller.getAllCountry.length,
+                        (index) {
+                      var model = controller.getAllCountry[index];
+                      return Container(
+                        color: AppTheme.screenBackground,
+                        child: Column(
+                          children: [
+
+
+                            Container(
+                              color: AppTheme.screenBackground,
+                              child: TextInput(
+                                onPressed: () {
+                                  controller.countryController
+                                      .text =
+                                  controller.getAllCountry[index]
+                                      .countryName!;
+                                  Navigator.pop(context);
+                                  },
+                                margin: false,
+
+                                isSelected: controller
+                                    .countryController
+                                    .text ==
+                                    controller.getAllCountry[index]
+                                        .countryName,
+                                label: "",
+                                isEntryField: false,
+                                textInputType: TextInputType.text,
+                                textColor:AppTheme.white,
+                                hintTextColor:AppTheme.white ,
+                                hintText: model.countryName,
+                                obscureText: true,
+                                onTextChange: (String) {},
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 2,
+                            ),
+                            Visibility(
+                                visible: controller
+                                    .getAllCountry.length !=
+                                    index + 1,
+                                child: Container(
+                                  height: 1,
+                                  color: AppTheme.screenBackground,
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        )));
+  }
+
 }

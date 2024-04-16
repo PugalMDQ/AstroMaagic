@@ -16,7 +16,8 @@ class VastuConsultingPaymentScreenController extends GetxController {
   }
   List<Keyvalues> listValues = [
     Keyvalues(key: "0", value: "User"),
-    Keyvalues(key: "1", value: "Employee"),  Keyvalues(key: "", value: "Employee"),
+    Keyvalues(key: "1", value: "Employee"),
+    Keyvalues(key: "", value: "Employee"),
   ];
 
   updateCurrentTabIndex(int index) {

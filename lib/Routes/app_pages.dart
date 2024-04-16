@@ -1,8 +1,10 @@
+import 'package:astromaagic/Binding/CountrySelectionBinding/CountrySelectionBinding.dart';
 import 'package:astromaagic/Binding/HomeBinding/HomeScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/ForgotPasswordBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/OTPScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/RegisterScreenBinding.dart';
 import 'package:astromaagic/Binding/VastuConsultingBinding/VastuConsultingBinding.dart';
+import 'package:astromaagic/UI/CountrySelection/CountrySelectionScreen.dart';
 import 'package:astromaagic/UI/GeneralPredictions/GeneralPredictionScreenOne.dart';
 import 'package:astromaagic/UI/HomeScreen/HomeScreen.dart';
 import 'package:astromaagic/UI/LoginUI/ForgotPassword.dart';
@@ -81,5 +83,9 @@ class AppPages {
         name: AppRoutes.generalPredictionVoiceMessage.toName,
         page: () => GeneralPredictionVoiceMessageScreen(),
         binding: GeneralPredictionVoiceMessageBinding()),
+    GetPage(
+        name: AppRoutes.countryScreen.toName,
+        page: () => CountrySelectionScreen(),
+        binding: CountrySelectionBinding()),
   ];
 }

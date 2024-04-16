@@ -10,7 +10,7 @@ enum AppRoutes {
   vastuConsulting,
  vastuConsultingPriceSlot,
   generalPredictionScreenOne,
-  vastuConsultingPaymentScreen, generalPredictionVoiceMessage,
+  vastuConsultingPaymentScreen, generalPredictionVoiceMessage, countryScreen,
 }
 
 extension AppRouteExtension on AppRoutes {
@@ -21,6 +21,7 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.otp: "/OTPScreen",
     AppRoutes.forgotPassword: "/ForgotPassword",
     AppRoutes.homeScreen: "/HomeScreen",
+    AppRoutes.countryScreen: "/CountryScreen",
     AppRoutes.choosePaymentScreen: "/ChoosePaymentScreen",
     AppRoutes.successfullyPaidScreen: "/SuccessfullyPaidScreen",
     AppRoutes.vastuConsulting: "/VastuConsulting",

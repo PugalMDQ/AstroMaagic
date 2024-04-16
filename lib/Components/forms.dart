@@ -80,7 +80,7 @@ class _TextInputState extends State<TextInput> {
     List<String> lines = widget.hintText!.split('\n');
 
     return Container(
-      color: widget.isEntryField ? AppTheme.screenBackground : Colors.white,
+      //color: widget.isEntryField ? AppTheme.screenBackground : Colors.white,
       margin: widget.margin
           ? EdgeInsets.fromLTRB(12, 0, 12, 0)
           : EdgeInsets.only(top: 2),
@@ -91,8 +91,8 @@ class _TextInputState extends State<TextInput> {
             widget.isEntryField
                 ? Container(
                     decoration: BoxDecoration(
-                        color: AppTheme.screenBackground,
-                        borderRadius: BorderRadius.circular(10)),
+                        color: AppTheme.screenBackground,),
+                       // borderRadius: BorderRadius.circular(10)),
                     height: 50,
                     child: Align(
                       alignment: Alignment.center,
@@ -156,16 +156,16 @@ class _TextInputState extends State<TextInput> {
                                   ? 5.0
                                   : widget.contentPaddingV!),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                           // borderRadius: BorderRadius.circular(10.0),
                             borderSide: BorderSide(width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                           // borderRadius: BorderRadius.circular(10.0),
                             borderSide: widget.isMistake
                                 ? BorderSide(
                                     color: Colors.deepOrangeAccent, width: 1.0)
                                 : BorderSide(
-                                    color: Color(0x4d252525), width: 1.0),
+                                    color:AppTheme.screenBackground, width: 1.0),
                           ),
                           prefixIcon: widget.obscureText
                               ? IconButton(
@@ -186,12 +186,12 @@ class _TextInputState extends State<TextInput> {
                           disabledBorder:
                               FormThemes.inputOutlineBorder['disabledBorder'],
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10.0),
+                           // borderRadius: BorderRadius.circular(10.0),
                             borderSide: widget.isMistake
                                 ? BorderSide(
                                     color: Colors.deepOrangeAccent, width: 1.0)
                                 : BorderSide(
-                                    color: Color(0x4d252525), width: 1.0),
+                                    color: AppTheme.screenBackground, width: 1.0),
                           ),
                         ),
                       ),
@@ -205,8 +205,8 @@ class _TextInputState extends State<TextInput> {
                           decoration: BoxDecoration(
                             color: widget.isSelected
                                 ? AppTheme.selectedOrange
-                                : Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                                : AppTheme.screenBackground,
+                           // borderRadius: BorderRadius.circular(10),
                           ),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
@@ -244,10 +244,8 @@ class _TextInputState extends State<TextInput> {
                     : Material(
                         color: widget.isSelected
                             ? AppTheme.selectedOrange
-                            : Colors.white,
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(10.0),
-                        ),
+                            : AppTheme.screenBackground,
+                        // borderRadius: BorderRadius.all(Radius.circular(10.0),),
                         child: TextFormField(
                           controller: _controller,
                           readOnly: true,
@@ -286,8 +284,8 @@ class _TextInputState extends State<TextInput> {
                             hintText: widget.hintText,
                             hintStyle: TextStyle(
                                 color: widget.isSelected
-                                    ? Colors.deepOrangeAccent
-                                    : Colors.black),
+                                    ? AppTheme.white
+                                    : Colors.white),
                             errorText: widget.errorText,
                             contentPadding: EdgeInsets.symmetric(
                                 horizontal: 16.0, vertical: 0.0),
@@ -298,11 +296,11 @@ class _TextInputState extends State<TextInput> {
                             disabledBorder:
                                 FormThemes.inputOutlineBorder['disabledBorder'],
                             enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              //borderRadius: BorderRadius.circular(10.0),
                               borderSide: BorderSide(
                                 color: widget.isSelected
-                                    ? Colors.white
-                                    : Colors.white,
+                                    ? AppTheme.screenBackground
+                                    : AppTheme.screenBackground,
                                 width: 1.0,
                               ),
                             ),

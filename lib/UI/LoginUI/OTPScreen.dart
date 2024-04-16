@@ -143,13 +143,8 @@ class OTPScreen extends GetView<OTPScreenController> {
                         widthFactor: 0.87,
                         heightFactor: 0.06,
                         onPressed: () {
-                          //Get.toNamed(AppRoutes.homeScreen.toName);
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => BottomNavBar()),
-                            (route) => false,
-                          );
+                          Get.toNamed(AppRoutes.register.toName);
+
                         },
                         child: Text("Verify OTP".tr,
                             style: TextStyle(
