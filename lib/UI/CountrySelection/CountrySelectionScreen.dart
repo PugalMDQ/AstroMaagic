@@ -226,8 +226,8 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                             heightFactor: 0.06,
                             onPressed: () {
 
-                              AppPreference().updateCountry(controller.countryController.text);
-                              Get.toNamed(AppRoutes.login.toName);
+
+
                               //
                               // if(controller.indiaController.text == 'India'){
                               //   AppPreference().updateCountry('India');
@@ -235,6 +235,19 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                               //   AppPreference().updateCountry(controller.countryController.text);
                               // }
 
+                              if(controller.countryController.text.isEmpty){
+                                Fluttertoast.showToast(
+                                  msg: "Please Enter Country",
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  backgroundColor: Colors.black,
+                                  textColor: Colors.white,
+                                );
+                                return;
+
+                              }
+                              Get.toNamed(AppRoutes.login.toName);
+                              AppPreference().updateCountry(controller.countryController.text);
                             },
                             child: Text("Next".tr,
                                 style: GoogleFonts.lato(

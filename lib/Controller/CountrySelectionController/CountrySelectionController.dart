@@ -28,4 +28,6 @@ class CountrySelectionScreenController extends GetxController {
       debugPrint("getAllCountryResponse: ${response.toJson()}");
     } else {}
   }
+
+
 }

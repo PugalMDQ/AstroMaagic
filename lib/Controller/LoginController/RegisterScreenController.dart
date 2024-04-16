@@ -27,7 +27,7 @@ class RegisterScreenController extends GetxController {
   loginCall(context) async {
     if (fullNameController.value.text.isEmpty) {
       Fluttertoast.showToast(
-        msg: "Please Enter FullName number",
+        msg: "Please Enter FullName",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -75,7 +75,7 @@ class RegisterScreenController extends GetxController {
     'maritalStatus': married.value == true ? "married" : "unMarried",
     'userLanguage': AppPreference().getLanguage,
     'userCountry': AppPreference().getCountry,
-    'userMobile':'7550207382',
+    'userMobile':'7558188330',
     'isMobileVerified':1
     };
     print(payload);
