@@ -31,7 +31,7 @@ class VastuConsultingPaymentScreen
         backgroundColor: AppTheme.screenBackground,
         leading: GestureDetector(
           onTap: () {
-        Get.back();
+            Get.back();
           },
           child: const Icon(
             Icons.keyboard_arrow_left,
@@ -60,9 +60,7 @@ class VastuConsultingPaymentScreen
             fit: BoxFit.cover,
           ),
         ),
-        child:
-
-        Column(
+        child: Column(
           children: [
             Container(
               margin: EdgeInsets.only(left: 30, top: 20),
@@ -78,34 +76,24 @@ class VastuConsultingPaymentScreen
                 ),
               ),
             ),
-            // Container(
-            //   margin: EdgeInsets.only(
-            //     left: 30,
-            //   ),
-            //   width: width,
-            //   child: Text(
-            //     ''
-            //     // "Horoscope".tr,
-            //     maxLines: 1,
-            //     style: GoogleFonts.lato(
-            //       color: AppTheme.containerBackground,
-            //       fontSize: 16,
-            //       fontWeight: FontWeight.w600,
-            //     ),
-            //   ),
-            // ),
-            // SingleChildScrollView(
-            //   child: Container(
-            //     width: width,
-            //     child: ListView.builder(
-            //       itemCount: 2,
-            //       itemBuilder: (context, index) {
-            //         return slotList(context, index);
-            //       },
-            //     ),
-            //   ),
-            // ),
-
+            Container(
+              margin: EdgeInsets.only(
+                left: 30,
+              ),
+              width: width,
+              child: Text(
+                controller.userDataProvider.getRemediesData!.remedy.toString(),
+                maxLines: 1,
+                style: GoogleFonts.lato(
+                  color: AppTheme.containerBackground,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               margin: EdgeInsets.only(left: 15, right: 15, top: 10),
               width: width,
@@ -189,7 +177,7 @@ class VastuConsultingPaymentScreen
               ),
             ),
             SizedBox(
-              height: 50,
+              height: height * 0.53,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -198,7 +186,9 @@ class VastuConsultingPaymentScreen
                   child: Button(
                       widthFactor: 0.85,
                       heightFactor: 0.06,
-                      onPressed: () {},
+                      onPressed: () {
+                        controller.addUser();
+                      },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(
                             fontSize: 18,

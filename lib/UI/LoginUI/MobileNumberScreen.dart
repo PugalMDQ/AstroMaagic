@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LoginController/mobileNumberScreenController.dart';
@@ -72,43 +73,99 @@ class MobileNumberScreen extends GetView<mobileNumberScreenController> {
                     height: height * 0.04,
                   ),
                   Container(
-                    decoration: BoxDecoration(
-                        color: AppTheme.screenBackground,
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    child: TextFormField(
+                    width: width * 0.9,
+                    height: 70,
+                    child: IntlPhoneField(
+                      textAlign: TextAlign.start,
+                      style: const TextStyle(
+                          color: AppTheme.white,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14),
                       controller: controller.mobileController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              width: 2, color: AppTheme.primaryColor),
+                      decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(top: 20),
+                        labelText: 'Mobile',
+                        hintText: 'Mobile',
+                        hintStyle: TextStyle(
+                          color: AppTheme.white,
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(5)),
-                          borderSide: BorderSide(
-                              width: 2, color: AppTheme.primaryColor),
+                        labelStyle: TextStyle(
+                          color: AppTheme.white,
                         ),
-                        hintText: "Enter your mobile number".tr,
-                        hintStyle: const TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w400),
-                        contentPadding: const EdgeInsets.only(left: 20),
                         border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
                           borderSide: BorderSide(
-                              width: 2, color: AppTheme.primaryColor),
-                          borderRadius: BorderRadius.circular(5),
+                            color: AppTheme.primaryColor,
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderSide: BorderSide(
+                              color: AppTheme.primaryColor,
+                            )),
+                        disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            borderSide: BorderSide(
+                              color: AppTheme.primaryColor,
+                            )),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          borderSide: BorderSide(
+                            color: AppTheme.primaryColor,
+                          ),
+                        ),
+                        counterStyle: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
-                      style: TextStyle(
-                          decoration: TextDecoration.none,
-                          decorationThickness: 0,
-                          color: AppTheme.containerBackground,
-                          fontSize: 16,
-                          fontWeight: FontWeight.normal),
+                      dropdownIcon: const Icon(
+                        Icons.arrow_drop_down,
+                        color: Colors.white,
+                      ),
+                      initialCountryCode: 'IN',
+                      onChanged: (phone) {
+                        print(phone.completeNumber);
+                      },
                     ),
                   ),
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //       color: AppTheme.screenBackground,
+                  //       borderRadius: BorderRadius.all(Radius.circular(5))),
+                  //   child: TextFormField(
+                  //     controller: controller.mobileController,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: InputDecoration(
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             width: 2, color: AppTheme.primaryColor),
+                  //       ),
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.all(Radius.circular(5)),
+                  //         borderSide: BorderSide(
+                  //             width: 2, color: AppTheme.primaryColor),
+                  //       ),
+                  //       hintText: "Enter your mobile number".tr,
+                  //       hintStyle: const TextStyle(
+                  //           fontSize: 16.0,
+                  //           color: Colors.white,
+                  //           fontWeight: FontWeight.w400),
+                  //       contentPadding: const EdgeInsets.only(left: 20),
+                  //       border: OutlineInputBorder(
+                  //         borderSide: BorderSide(
+                  //             width: 2, color: AppTheme.primaryColor),
+                  //         borderRadius: BorderRadius.circular(5),
+                  //       ),
+                  //     ),
+                  //     style: TextStyle(
+                  //         decoration: TextDecoration.none,
+                  //         decorationThickness: 0,
+                  //         color: AppTheme.containerBackground,
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.normal),
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -121,7 +178,7 @@ class MobileNumberScreen extends GetView<mobileNumberScreenController> {
                     widthFactor: 0.91,
                     heightFactor: 0.06,
                     onPressed: () {
-                     controller.generateOTP();
+                      controller.generateOTP();
                     },
                     child: controller.isLoading.value
                         ? Container(

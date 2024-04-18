@@ -1,8 +1,11 @@
+import 'package:astromaagic/Utils/AppPreference.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
-
+import '../../Api_Connect/ApiConnect.dart';
 import '../../Components/Key.dart';
 import '../../Provider/MenuDataProvider.dart';
+import '../../Routes/app_routes.dart';
 
 class VastuConsultingPaymentScreenController extends GetxController {
   RxBool consultationVirtualMeeting = RxBool(false);
@@ -13,12 +16,13 @@ class VastuConsultingPaymentScreenController extends GetxController {
   RxBool payamOnclick = RxBool(false);
   RxInt selectedTabIndex = 0.obs;
   late MenuDataProvider userDataProvider;
+  ApiConnect _connect = Get.put(ApiConnect());
+  RxBool isLoading = RxBool(false);
 
   @override
   void onInit() {
     userDataProvider =
         Provider.of<MenuDataProvider>(Get.context!, listen: false);
-
     super.onInit();
   }
 
@@ -33,5 +37,27 @@ class VastuConsultingPaymentScreenController extends GetxController {
     selectedTabIndex.value = index;
     listValues[selectedTabIndex.value].key;
     update();
+  }
+
+  addUser() async {
+    Map<String, dynamic> payload = {
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+      'userId': AppPreference().getLoginUserId.toString(),
+      'serviceId':
+          userDataProvider.getAllServicesData!.serviceId.toString() ?? '',
+      'remedyId': userDataProvider.getRemediesData!.remedyId.toString(),
+      'remedyChargeId':
+          userDataProvider.getVastuData!.remedyChargeId.toString() ?? "",
+      'paymentStatus': '1',
+    };
+    isLoading.value = true;
+    print("addUserPayload:$payload");
+    var response = await _connect.addUserCall(payload);
+    debugPrint("addUserResponse: ${response.toJson()}");
+    if (!response.error!) {
+      Get.toNamed(AppRoutes.serviceHistory.toName);
+      // getParticularData = response.data;
+      isLoading.value = false;
+    } else {}
   }
 }

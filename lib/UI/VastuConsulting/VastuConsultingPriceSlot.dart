@@ -23,7 +23,7 @@ class VastuConsultingPriceSlot
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPriceSlotController controller =
         Get.put(VastuConsultingPriceSlotController());
-   controller. userDataProvider =
+    controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -128,21 +128,25 @@ class VastuConsultingPriceSlot
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(
-                      //     left: 30,
-                      //   ),
-                      //   width: width,
-                      //   child: Text(
-                      //     controller.vastuData[0].remedy.toString(),
-                      //     maxLines: 1,
-                      //     style: GoogleFonts.lato(
-                      //       color: AppTheme.containerBackground,
-                      //       fontSize: 16,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),
-                      //   ),
-                      // ),
+                      Container(
+                        margin: EdgeInsets.only(
+                          left: 30,
+                        ),
+                        width: width,
+                        child: Text(
+                          controller.userDataProvider.getRemediesData!.remedy
+                              .toString(),
+                          maxLines: 1,
+                          style: GoogleFonts.lato(
+                            color: AppTheme.containerBackground,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Obx(
                         () => controller.isLoading.value
                             ? const Center(child: CircularProgressIndicator())
@@ -169,9 +173,8 @@ class VastuConsultingPriceSlot
     VastuConsultingPriceSlotController controller =
         Get.put(VastuConsultingPriceSlotController());
     return Obx(() => GestureDetector(
-          onTap: () {
-            controller.userDataProvider
-                .setVastuData(controller.vastuData[index]);
+          onTap: () async {
+           await controller.userDataProvider.setVastuData(controller.vastuData[index]);
 
             for (int i = 0;
                 i < controller.remedyChargesListOnClick.length;

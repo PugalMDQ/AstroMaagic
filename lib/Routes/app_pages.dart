@@ -10,6 +10,7 @@ import 'package:astromaagic/UI/HomeScreen/HomeScreen.dart';
 import 'package:astromaagic/UI/LoginUI/ForgotPassword.dart';
 import 'package:astromaagic/UI/LoginUI/OTPScreen.dart';
 import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
+import 'package:astromaagic/UI/VastuConsulting/ServiceHistory.dart';
 import 'package:astromaagic/UI/VastuConsulting/VastuConsulting.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
@@ -19,6 +20,7 @@ import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart'
 import '../Binding/LoginBinding/LoginBinding.dart';
 import '../Binding/LoginBinding/mobileNumberBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
+import '../Binding/VastuConsultingBinding/ServiceHistoryBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPaymentScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPriceSlotBinding.dart';
 import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
@@ -33,17 +35,14 @@ import 'app_routes.dart';
 
 class AppPages {
   static var list = [
-
     GetPage(
         name: AppRoutes.root.toName,
         page: () => const SplashScreen(),
         binding: SplashScreenBinding()),
-
     GetPage(
         name: AppRoutes.Login.toName,
         page: () => const LoginScreen(),
         binding: LoginBinding()),
-
     GetPage(
         name: AppRoutes.mobileNumberScreen.toName,
         page: () => const MobileNumberScreen(),
@@ -96,5 +95,9 @@ class AppPages {
         name: AppRoutes.countryScreen.toName,
         page: () => CountrySelectionScreen(),
         binding: CountrySelectionBinding()),
+    GetPage(
+        name: AppRoutes.serviceHistory.toName,
+        page: () => ServiceHistory(),
+        binding: ServiceHistoryBinding()),
   ];
 }

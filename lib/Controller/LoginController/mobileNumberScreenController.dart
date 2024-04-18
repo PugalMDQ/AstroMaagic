@@ -24,27 +24,24 @@ class mobileNumberScreenController extends GetxController {
         Provider.of<MenuDataProvider>(Get.context!, listen: false);
   }
 
-
-
-
   Future<void> generateOTP() async {
     if (mobileController.value.text.isEmpty ||
         mobileController.value.text.length != 10) {
       mobileController.value.text.isEmpty
           ? Fluttertoast.showToast(
-        msg: "Please enter Mobile number",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-      )
+              msg: "Please enter Mobile number",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            )
           : Fluttertoast.showToast(
-        msg: "Mobile Number must be of 10 digit",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-      );
+              msg: "Mobile Number must be of 10 digit",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            );
       return;
     }
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -82,13 +79,9 @@ class mobileNumberScreenController extends GetxController {
           AppPreference().updateMobileNumber(mobileController.text.toString());
 
           // Get.to(OTPScreen());
-          Get.offNamed(AppRoutes.otp.toName);
-
-          },
+          Get.toNamed(AppRoutes.otp.toName);
+        },
         codeAutoRetrievalTimeout: (String verificationId) {},
         phoneNumber: phone);
   }
-
 }
-
-

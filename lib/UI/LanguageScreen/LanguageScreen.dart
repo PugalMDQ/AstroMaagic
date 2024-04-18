@@ -19,8 +19,6 @@ import '../LoginUI/RegisterScreen.dart';
 class LanguageScreen extends GetView<LanguageScreenController> {
   LanguageScreen({super.key});
 
-
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -77,8 +75,10 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       !controller.tamilOnclick.value;
                                   controller.englishOnclick.value = false;
                                   controller.hindiOnclick.value = false;
-                                  print("VALUES:${controller.localTamil[0]['locale']}");
-                                  controller.updateLanguage(controller.localTamil[0]['locale']);
+                                  print(
+                                      "VALUES:${controller.localTamil[0]['locale']}");
+                                  controller.updateLanguage(
+                                      controller.localTamil[0]['locale']);
                                   AppPreference().updateLang('Tamil');
                                 },
                                 child: Container(
@@ -118,8 +118,10 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                       !controller.englishOnclick.value;
                                   controller.tamilOnclick.value = false;
                                   controller.hindiOnclick.value = false;
-                                  print("VALUES:${controller.localEnglish[0]['locale']}");
-                                  controller.updateLanguage(controller.localEnglish[0]['locale']);
+                                  print(
+                                      "VALUES:${controller.localEnglish[0]['locale']}");
+                                  controller.updateLanguage(
+                                      controller.localEnglish[0]['locale']);
                                   AppPreference().updateLang('English');
                                 },
                                 child: Container(
@@ -167,8 +169,10 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                                   controller.englishOnclick.value = false;
                                   controller.tamilOnclick.value = false;
 
-                                  print("VALUES:${controller.localHindi[0]['locale']}");
-                                  controller.updateLanguage(controller.localHindi[0]['locale']);
+                                  print(
+                                      "VALUES:${controller.localHindi[0]['locale']}");
+                                  controller.updateLanguage(
+                                      controller.localHindi[0]['locale']);
                                   AppPreference().updateLang('Hindhi');
                                 },
                                 child: Container(
@@ -206,6 +210,7 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                   SizedBox(
                     height: height * 0.12,
                   ),
+
                   // Container(
                   //   height: MediaQuery.of(context).size.height * 0.44,
                   //   child: GridView.builder(
@@ -239,8 +244,6 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                   //   ),
                   // ),
 
-
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -260,13 +263,12 @@ class LanguageScreen extends GetView<LanguageScreenController> {
 
                                 Get.toNamed(AppRoutes.countryScreen.toName);
 
-
-                                if(controller.englishOnclick.value == true){
+                                if (controller.englishOnclick.value == true) {
                                   AppPreference().updateLang("English");
-                                }else if ( controller.tamilOnclick.value == true){
+                                } else if (controller.tamilOnclick.value ==
+                                    true) {
                                   AppPreference().updateLang("Tamil");
                                 }
-
                               } else {
                                 Fluttertoast.showToast(
                                   msg: "Please Choose Language!",
@@ -286,9 +288,6 @@ class LanguageScreen extends GetView<LanguageScreenController> {
                       ),
                     ],
                   ),
-
-
-
                 ],
               ),
             )

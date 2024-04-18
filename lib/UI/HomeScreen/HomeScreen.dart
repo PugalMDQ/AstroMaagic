@@ -29,22 +29,49 @@ class HomeScreen extends GetView<HomeScreenController> {
           fit: BoxFit.cover,
         ),
       ),
-      child: SafeArea(
-        child: Scaffold(
-            body: Container(
-              height: height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    "assets/images/backgroundImage.png",
+      child: Scaffold(
+          appBar: AppBar(
+              elevation: 0,
+              backgroundColor: AppTheme.App_color,
+              leadingWidth: 250,
+              leading: Container(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "  welcome ${AppPreference().getUserName}",
+                    textAlign: TextAlign.left,
+                    style: GoogleFonts.lato(
+                      color: AppTheme.primaryColor,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  fit: BoxFit.cover,
                 ),
               ),
-              child: Obx(
-                () => controller.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
-                    : SingleChildScrollView(
+              actions: [
+                IconButton(
+                    icon: const ImageIcon(
+                        AssetImage("assets/icons/statusIcon.png")),
+                    iconSize: 28,
+                    color: Colors.white,
+                    onPressed: () {
+                      Get.toNamed(AppRoutes.serviceHistory.toName);
+                    })
+              ]),
+          body: Container(
+            height: height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/backgroundImage.png",
+                ),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Obx(
+              () => controller.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : SingleChildScrollView(
                       child: Column(
                         children: [
                           Padding(
@@ -53,30 +80,6 @@ class HomeScreen extends GetView<HomeScreenController> {
                             child: Container(
                               child: Column(
                                 children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'welcome'.tr,
-                                        maxLines: 1,
-                                        style: GoogleFonts.lato(
-                                          color: AppTheme.containerBackground,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        AppPreference().getUserName,
-                                        style: GoogleFonts.lato(
-                                          color: AppTheme.primaryColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      )
-                                    ],
-                                  ),
                                   Container(
                                     child: Row(
                                       children: [
@@ -190,45 +193,44 @@ class HomeScreen extends GetView<HomeScreenController> {
                         ],
                       ),
                     ),
-              ),
-            )
-
-            //bottomNavigationBar: BottomNavBar(),
-            // persistentFooterAlignment: AlignmentDirectional.center,
-            // persistentFooterButtons: [
-            //
-            //   Container(
-            //     height: height * 0.05 ,
-            //     //color: AppTheme.primaryColor,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //     children: [
-            //       IconButton(
-            //           onPressed: () {
-            //             Get.to(LanguageScreen());
-            //           },
-            //           icon: Icon(
-            //             Icons.menu,
-            //             size: 30,
-            //           )),
-            //       SizedBox(
-            //         width: width * 0.1,
-            //       ),
-            //       IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 30)),
-            //       SizedBox(
-            //         width: width * 0.1,
-            //       ),
-            //       IconButton(onPressed: () {}, icon: Icon(Icons.person, size: 30)),
-            //       SizedBox(
-            //         width: width * 0.1,
-            //       ),
-            //       IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 30)),
-            //     ],
-            //   ),),
-            //
-            // ],
             ),
-      ),
+          )
+
+          //bottomNavigationBar: BottomNavBar(),
+          // persistentFooterAlignment: AlignmentDirectional.center,
+          // persistentFooterButtons: [
+          //
+          //   Container(
+          //     height: height * 0.05 ,
+          //     //color: AppTheme.primaryColor,
+          //     child: Row(
+          //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //     children: [
+          //       IconButton(
+          //           onPressed: () {
+          //             Get.to(LanguageScreen());
+          //           },
+          //           icon: Icon(
+          //             Icons.menu,
+          //             size: 30,
+          //           )),
+          //       SizedBox(
+          //         width: width * 0.1,
+          //       ),
+          //       IconButton(onPressed: () {}, icon: Icon(Icons.home, size: 30)),
+          //       SizedBox(
+          //         width: width * 0.1,
+          //       ),
+          //       IconButton(onPressed: () {}, icon: Icon(Icons.person, size: 30)),
+          //       SizedBox(
+          //         width: width * 0.1,
+          //       ),
+          //       IconButton(onPressed: () {}, icon: Icon(Icons.search, size: 30)),
+          //     ],
+          //   ),),
+          //
+          // ],
+          ),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:astromaagic/ResponseModel/AddUserServiceResponse.dart';
 import 'package:astromaagic/ResponseModel/CommonResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
@@ -7,6 +8,7 @@ import '../ResponseModel/GetAllCountrysResponse.dart';
 import '../ResponseModel/GetAllServicesResponse.dart';
 import '../ResponseModel/GetParticularServicesResponse.dart';
 import '../ResponseModel/GetRemediesResponse.dart';
+import '../ResponseModel/GetUserServiceResponse.dart';
 import '../ResponseModel/SignInResponse.dart';
 import '../ResponseModel/SignUpResponse.dart';
 import '../ResponseModel/VastuPriceSlotResponse.dart';
@@ -110,5 +112,31 @@ class ApiConnect extends GetConnect {
         headers: header);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return VastuPriceSlotResponse.fromJson(response.body);
+  }
+
+  Future<AddUserServiceResponse> addUserCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.addUserService, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return AddUserServiceResponse.fromJson(response.body);
+  }
+
+  Future<GetUserServiceResponse> getUserServicesCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.getUserService, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return GetUserServiceResponse.fromJson(response.body);
   }
 }

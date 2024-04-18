@@ -4,12 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/VastuConsulting/VastuConsultingController.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../Routes/app_routes.dart';
-import '../../Utils/BottomNavBarScreen.dart';
 
 class VastuConsulting extends GetView<VastuConsultingController> {
   const VastuConsulting({super.key});
@@ -22,12 +20,11 @@ class VastuConsulting extends GetView<VastuConsultingController> {
     controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-
       if (!controller.isCall) {
-    controller.  isCall = true;
-     controller. getParticularServices();
-     controller. getRemedies();
-    }
+        controller.isCall = true;
+        controller.getParticularServices();
+        controller.getRemedies();
+      }
     });
     return Scaffold(
         appBar: AppBar(
@@ -35,7 +32,7 @@ class VastuConsulting extends GetView<VastuConsultingController> {
           backgroundColor: AppTheme.screenBackground,
           leading: GestureDetector(
             onTap: () {
-             Get.back();
+              Get.back();
             },
             child: const Icon(
               Icons.keyboard_arrow_left,
@@ -61,169 +58,166 @@ class VastuConsulting extends GetView<VastuConsultingController> {
               fit: BoxFit.cover,
             ),
           ),
-
           child: Obx(
-            () => controller.isLoading.value || controller.getParticularData == null
+            () => controller.isLoading.value ||
+                    controller.getParticularData == null
                 ? const Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: width,
-                        height: 70,
-                        //color: Colors.yellow,
-                        margin: EdgeInsets.only(
-                            right: 25, top: 10, left: 25, bottom: 3),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  controller.getParticularData!.services
-                                          .toString() ??
-                                      "",
-                                  maxLines: 2,
-                                  style: GoogleFonts.lato(
-                                    color: AppTheme.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w800,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: width,
+                          height: 70,
+                          //color: Colors.yellow,
+                          margin: EdgeInsets.only(
+                              right: 25, top: 10, left: 25, bottom: 3),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    controller.getParticularData!.services
+                                            .toString() ??
+                                        "",
+                                    maxLines: 2,
+                                    style: GoogleFonts.lato(
+                                      color: AppTheme.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                    child: Row(
-                                  children: [
-                                    Container(
-                                        child: Image.asset(
-                                      "assets/images/ratingbar.png",
-                                      width: width * 0.3,
-                                      color: AppTheme.primaryColor,
-                                    )),
-                                    Container(
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                      child: Row(
+                                    children: [
+                                      Container(
+                                          child: Image.asset(
+                                        "assets/images/ratingbar.png",
+                                        width: width * 0.3,
+                                        color: AppTheme.primaryColor,
+                                      )),
+                                      Container(
+                                        child: Text(
+                                          '4.5+',
+                                          maxLines: 1,
+                                          style: GoogleFonts.lato(
+                                            color: AppTheme.containerBackground,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                      color: AppTheme.containerBackground,
+                                      width: 1.0, // Underline thickness
+                                    ))),
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
                                       child: Text(
-                                        '4.5+',
-                                        maxLines: 1,
+                                        'Reviews',
                                         style: GoogleFonts.lato(
-                                          color:
-                                              AppTheme.containerBackground,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w800,
+                                          color: AppTheme.containerBackground,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w400,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                )),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                    color: AppTheme.containerBackground,
-                                    width: 1.0, // Underline thickness
-                                  ))),
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Text(
-                                      'Reviews',
-                                      style: GoogleFonts.lato(
-                                        color: AppTheme.containerBackground,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
                                   ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Container(
-                          margin: EdgeInsets.all(20),
-                          width: width * 0.95,
-                          height: height * 0.4,
-                          //color: Colors.white,
-                          child: SingleChildScrollView(
-                            child: Text(
-                              controller
-                                  .getParticularData!.serviceDescription
-                                  .toString(),
-                              style: GoogleFonts.lato(
-                                color: AppTheme.containerBackground,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          )),
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
-                        child: Text(
-                          "Select your remedy".tr,
-                          style: GoogleFonts.lato(
-                            color: AppTheme.containerBackground,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400,
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-
-                      Obx(
-                        () => controller.isLoading.value
-                            ? const Center(
-                                child: CircularProgressIndicator())
-                            : Container(
-                                child: ListView.builder(
-                                  itemCount: controller.remediesData.length,
-                                  shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    return remdiesList(context, index);
-                                  },
+                        Container(
+                            margin: EdgeInsets.all(20),
+                            width: width * 0.95,
+                            height: height * 0.4,
+                            //color: Colors.white,
+                            child: SingleChildScrollView(
+                              child: Text(
+                                controller.getParticularData!.serviceDescription
+                                    .toString(),
+                                style: GoogleFonts.lato(
+                                  color: AppTheme.containerBackground,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
-                      )
+                            )),
+                        Container(
+                          margin: EdgeInsets.only(left: 20),
+                          child: Text(
+                            "Select your remedy".tr,
+                            style: GoogleFonts.lato(
+                              color: AppTheme.containerBackground,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
 
-                      // SizedBox(
-                      //   height: height * 0.06,
-                      // ),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Center(
-                      //       child: Button(
-                      //           widthFactor: 0.85,
-                      //           heightFactor: 0.06,
-                      //           onPressed: () {
-                      //             Get.offNamed(AppRoutes
-                      //                 .vastuConsultingPriceSlot.toName);
-                      //           },
-                      //           child: Text("Proceed".tr,
-                      //               style: TextStyle(
-                      //                 fontSize: 18,
-                      //                 color: Colors.black,
-                      //                 fontWeight: FontWeight.w600,
-                      //               ))),
-                      //     ),
-                      //   ],
-                      // ),
-                      // SizedBox(
-                      //   height: height * 0.2,
-                      // )
-                    ],
+                        Obx(
+                          () => controller.isLoading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : Container(
+                                  child: ListView.builder(
+                                    itemCount: controller.remediesData.length,
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return remdiesList(context, index);
+                                    },
+                                  ),
+                                ),
+                        )
+
+                        // SizedBox(
+                        //   height: height * 0.06,
+                        // ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Center(
+                        //       child: Button(
+                        //           widthFactor: 0.85,
+                        //           heightFactor: 0.06,
+                        //           onPressed: () {
+                        //             Get.offNamed(AppRoutes
+                        //                 .vastuConsultingPriceSlot.toName);
+                        //           },
+                        //           child: Text("Proceed".tr,
+                        //               style: TextStyle(
+                        //                 fontSize: 18,
+                        //                 color: Colors.black,
+                        //                 fontWeight: FontWeight.w600,
+                        //               ))),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(
+                        //   height: height * 0.2,
+                        // )
+                      ],
+                    ),
                   ),
-                ),
           ),
         ));
   }
@@ -238,14 +232,6 @@ class VastuConsulting extends GetView<VastuConsultingController> {
             print('ONPRESSED');
             controller.userDataProvider
                 .setRemediesData(controller.remediesData[index]);
-            // for (int i = 0; i < controller.remediesListOnClick.length; i++) {
-            //   if (index == i) {
-            //     controller.remediesListOnClick[index] =
-            //         !controller.remediesListOnClick[index];
-            //   } else {
-            //     controller.remediesListOnClick[i] = false;
-            //   }
-            // }
             Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
           },
           child: Row(

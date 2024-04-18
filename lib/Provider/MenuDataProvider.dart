@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-
 import '../ResponseModel/GetAllServicesResponse.dart';
 import '../ResponseModel/GetRemediesResponse.dart';
 import '../ResponseModel/VastuPriceSlotResponse.dart';
-// import '../ResponseModel/GetAllServicesResponse.dart';
-// import '../ResponseModel/GetRemediesResponse.dart';
 
 class MenuDataProvider extends ChangeNotifier {
 
@@ -42,8 +39,9 @@ class MenuDataProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setVastuData(VastuPriceSlotResponseData? data) {
+  bool setVastuData(VastuPriceSlotResponseData? data) {
     vastuValues = data;
     notifyListeners();
+    return true;
   }
 }

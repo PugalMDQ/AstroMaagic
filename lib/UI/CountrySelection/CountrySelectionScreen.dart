@@ -98,8 +98,7 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
                               children: [
                                 InkWell(
                                   onTap: () {
-                                    controller.countryController.text =
-                                        "India";
+                                    controller.countryController.text = "India";
                                     AppPreference().updateCountry("India");
                                   },
                                   child: Container(
