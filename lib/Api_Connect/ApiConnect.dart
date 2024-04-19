@@ -16,6 +16,7 @@ import '../Utils/AppPreference.dart';
 import '../Utils/app_utility.dart';
 
 class ApiConnect extends GetConnect {
+
   @override
   onInit() {
     super.allowAutoSignedCert = true;
@@ -37,8 +38,8 @@ class ApiConnect extends GetConnect {
     return SignInResponse.fromJson(response.body);
   }
 
-  Future<GetAllCountryResponse> getAllCountry() async {
-    Map<String, dynamic> payload = {"dataPerPage": "1000", "pageNo": "1"};
+  Future<GetAllCountryResponse> getAllCountry(int pageNum) async {
+    Map<String, dynamic> payload = {"dataPerPage": "20", "pageNo": pageNum};
     FormData formData = FormData(payload);
     var response = await post(ApiUrl.baseUrl + ApiUrl.all_country, formData);
     print("response");

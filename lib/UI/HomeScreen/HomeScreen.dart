@@ -232,5 +232,6 @@ class HomeScreen extends GetView<HomeScreenController> {
           // ],
           ),
     );
+
   }
 }

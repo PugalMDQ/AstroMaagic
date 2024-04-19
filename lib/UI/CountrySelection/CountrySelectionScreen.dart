@@ -18,6 +18,11 @@ import '../LoginUI/RegisterScreen.dart';
 class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
   CountrySelectionScreen({super.key});
 
+  CountrySelectionScreenController controller =
+  Get.put(CountrySelectionScreenController());
+  ScrollController scrollController = ScrollController();
+
+
   final List localEnglish = [
     {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
   ];
@@ -36,12 +41,25 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
     Get.updateLocale(locale);
   }
 
+  void scrollListener() {
+    if (scrollController.position.pixels >=
+        scrollController.position.maxScrollExtent) {
+      if (controller.page.value < controller.totalpage.value) {
+        controller.page.value++;
+          controller.getAllCountries();
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    CountrySelectionScreenController controller =
-        Get.put(CountrySelectionScreenController());
+
+    scrollController.addListener(scrollListener);
+
+
 
     return SafeArea(
       child: Scaffold(
@@ -245,6 +263,7 @@ class CountrySelectionScreen extends GetView<CountrySelectionScreenController> {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     Get.bottomSheet(SingleChildScrollView(
+      controller: scrollController,
         child: Container(
       margin: EdgeInsets.fromLTRB(12, 4, 12, 0),
       padding: EdgeInsets.fromLTRB(6, 4, 6, 6),
