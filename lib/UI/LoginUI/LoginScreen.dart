@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
+import '../../Api_Config/ApiUrl.dart';
 import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/LoginController/LoginController.dart';
 import '../../Provider/MenuDataProvider.dart';
-import '../../Routes/app_routes.dart';
 import '../LanguageScreen/LanguageScreen.dart';
 
 class LoginScreen extends GetView<LoginController> {
@@ -19,7 +18,7 @@ class LoginScreen extends GetView<LoginController> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     LoginController controller = Get.put(LoginController());
-   controller. userDataProvider =
+    controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: AppTheme.App_color,
@@ -40,8 +39,9 @@ class LoginScreen extends GetView<LoginController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
-                SizedBox(height: height*0.2,),
+                SizedBox(
+                  height: height * 0.2,
+                ),
                 Container(
                   child: Image.asset(
                     "assets/images/otpImage.png",
@@ -71,18 +71,18 @@ class LoginScreen extends GetView<LoginController> {
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: TextFormField(
                     controller: controller.mobileController,
-                    keyboardType: TextInputType.phone ,
+                    keyboardType: TextInputType.phone,
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
                         borderSide:
-                            BorderSide(width: 2, color: AppTheme.primaryColor),
+                            BorderSide(width: 1, color: AppTheme.primaryColor),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                         borderSide:
-                            BorderSide(width: 2, color: AppTheme.primaryColor),
+                            BorderSide(width: 1, color: AppTheme.primaryColor),
                       ),
-                      hintText: "Enter your mobile number".tr,
+                      hintText: "Enter Your Mobile Number".tr,
                       hintStyle: const TextStyle(
                           fontSize: 16.0,
                           color: Colors.white,
@@ -115,14 +115,14 @@ class LoginScreen extends GetView<LoginController> {
                     decoration: InputDecoration(
                       focusedBorder: const OutlineInputBorder(
                         borderSide:
-                            BorderSide(width: 2, color: AppTheme.primaryColor),
+                            BorderSide(width: 1, color: AppTheme.primaryColor),
                       ),
                       enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                         borderSide:
-                            BorderSide(width: 2, color: AppTheme.primaryColor),
+                            BorderSide(width: 1, color: AppTheme.primaryColor),
                       ),
-                      hintText: "Enter your password",
+                      hintText: "Enter Your Password",
                       hintStyle: const TextStyle(
                           fontSize: 16.0,
                           color: Colors.white,
@@ -130,7 +130,7 @@ class LoginScreen extends GetView<LoginController> {
                       contentPadding: const EdgeInsets.only(left: 20),
                       border: OutlineInputBorder(
                         borderSide:
-                            BorderSide(width: 2, color: AppTheme.primaryColor),
+                            BorderSide(width: 1, color: AppTheme.primaryColor),
                         borderRadius: BorderRadius.circular(5),
                       ),
                     ),
@@ -143,56 +143,54 @@ class LoginScreen extends GetView<LoginController> {
                   ),
                 ),
                 Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    width: width,
-                    child:  InkWell(
-                      onTap: (){
-                        controller.forgot();
-                      },
-                      child:Text(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  width: width,
+                  child: InkWell(
+                    onTap: () {
+                      controller.forgot();
+                    },
+                    child: Text(
                       "Forgot Password?",
-                      textAlign: TextAlign.end,style: GoogleFonts.lato(
-                      color: AppTheme.containerBackground,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w800,
-                    ),
+                      textAlign: TextAlign.end,
+                      style: GoogleFonts.lato(
+                        color: AppTheme.containerBackground,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
                   ),
                 ),
-
                 SizedBox(
                   height: height * 0.04,
                 ),
                 Container(
-                  child: Obx(() =>  Button(
-                      widthFactor: 0.91,
-                      heightFactor: 0.06,
-                      onPressed: () {
-                        if(controller.isLoading.value){
-                          return;
-                        }
-                      controller.loginCall(context);
-                      },
-                      child:
-                      controller.isLoading.value
-                          ? Container(
-                          height: height * 0.04,
-                          width: height * 0.04,
-                          child: const CircularProgressIndicator(
-                            color: Colors.white,
-                          ))
-                          :
-
-                      Text("Login".tr,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ))),
-                ),
+                  child: Obx(
+                    () => Button(
+                        widthFactor: 0.91,
+                        heightFactor: 0.06,
+                        onPressed: () {
+                          if (controller.isLoading.value) {
+                            return;
+                          }
+                          controller.loginCall(context);
+                        },
+                        child: controller.isLoading.value
+                            ? Container(
+                                height: height * 0.04,
+                                width: height * 0.04,
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))
+                            : Text("Login".tr,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ))),
+                  ),
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 15,
                 ),
                 Container(
                   width: width,
@@ -205,20 +203,21 @@ class LoginScreen extends GetView<LoginController> {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.lato(
                           color: AppTheme.containerBackground,
-                          fontSize: 12,
+                          fontSize: 14,
                           fontWeight: FontWeight.w800,
                         ),
                       ),
                       InkWell(
-                        onTap: (){
-                          Get.off(() => LanguageScreen(), transition: Transition.rightToLeft);
+                        onTap: () {
+                          Get.off(() => LanguageScreen(),
+                              transition: Transition.rightToLeft);
                         },
                         child: Text(
                           "Register",
                           textAlign: TextAlign.center,
                           style: GoogleFonts.lato(
                             color: AppTheme.containerBackground,
-                            fontSize: 14,
+                            fontSize: 16,
                             textStyle: TextStyle(
                                 decoration: TextDecoration.underline,
                                 decorationColor: AppTheme.primaryColor),
@@ -229,6 +228,16 @@ class LoginScreen extends GetView<LoginController> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: height * 0.1,
+                ),
+                Center(
+                    child: Text("Version : " + ApiUrl.appVersion,
+                        style: const TextStyle(
+                            fontSize: 18,
+                            color: AppTheme.primaryColor,
+                            fontFamily: 'lato',
+                            fontWeight: FontWeight.w600))),
               ],
             ),
           ),
@@ -236,5 +245,4 @@ class LoginScreen extends GetView<LoginController> {
       ),
     );
   }
-
 }

@@ -1,7 +1,8 @@
 class ApiUrl {
   static const bool isProductionUrl = false;
   static const String appVersion = "1.5";
-  static const String baseUrl =
+  static const String baseUrl = isProductionUrl
+      ? "https://mdqualityapps.in/API/astromaagic/production/" :
       "https://mdqualityapps.in/API/astromaagic/development/";
   static String login = 'user_login';
   static String forgot = 'user_forgot_password';
@@ -13,4 +14,11 @@ class ApiUrl {
   static String vastuPriceSlot = 'get_remedy_charges';
   static String addUserService = 'add_user_service';
   static String getUserService = 'get_user_service';
+  static String getViewPdf = 'get_pdf';
+  static String paymentProcess = 'process_payment';
+  static String scheduleMeeting = 'schedule_meeting';
+  static String getAllEventSlots = 'get_all_event_slots';
+  static String scheduleEvent = 'schedule_event';
+
+
 }

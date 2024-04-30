@@ -1,11 +1,20 @@
+import 'dart:developer';
+
 import 'package:astromaagic/Utils/AppPreference.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../../Api_Connect/ApiConnect.dart';
-import '../../Components/Key.dart';
 import '../../Provider/MenuDataProvider.dart';
+import '../../ResponseModel/AddUserServiceResponse.dart';
+import '../../ResponseModel/VastuPriceSlotResponse.dart';
 import '../../Routes/app_routes.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
+
+import '../../Utils/app_utility.dart';
+import '../../WebPage/WebPageScreen.dart';
 
 class VastuConsultingPaymentScreenController extends GetxController {
   RxBool consultationVirtualMeeting = RxBool(false);
@@ -17,26 +26,76 @@ class VastuConsultingPaymentScreenController extends GetxController {
   RxInt selectedTabIndex = 0.obs;
   late MenuDataProvider userDataProvider;
   ApiConnect _connect = Get.put(ApiConnect());
+  RxList<VastuPriceSlotResponseData> vastuData = RxList();
+  RxList<AddUserServiceResponseData> paymentData = RxList();
   RxBool isLoading = RxBool(false);
+  RxBool isApiCalled = RxBool(false);
+  Razorpay razorpay = Razorpay();
+  late BuildContext context;
 
   @override
   void onInit() {
-    userDataProvider =
-        Provider.of<MenuDataProvider>(Get.context!, listen: false);
     super.onInit();
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  List<Keyvalues> listValues = [
-    Keyvalues(key: "0", value: "User"),
-    Keyvalues(key: "1", value: "Employee"),
-    Keyvalues(key: "", value: "Employee"),
-  ];
+  @override
+  void dispose() {
+    super.dispose();
+    razorpay.clear();
+  }
 
-  updateCurrentTabIndex(int index) {
-    print("INDEX$index");
-    selectedTabIndex.value = index;
-    listValues[selectedTabIndex.value].key;
-    update();
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    print("Payment Success");
+    paymentProcess(response.orderId.toString(), response.paymentId.toString(),
+        response.signature.toString(), 1);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print("Payment Failed");
+    paymentProcess("", "", "", 0);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet is selected
+  }
+
+  paymentProcess(
+      String orderId, String paymentId, String signature, int status) async {
+    Map<String, dynamic> payload = {
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+      'userId': AppPreference().getLoginUserId.toString(),
+      'orderId': orderId,
+      'paymentId': paymentId,
+      'signatures': signature,
+      "paymentStatus": status,
+    };
+
+    isLoading.value = true;
+    print("paymentRequest:$payload");
+    var response = await _connect.getPaymentSuccess(payload);
+    debugPrint("paymentResponse: ${response.toString()}");
+    if (userDataProvider.getIsFromZoomMeeting!) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  WenView(userDataProvider.getEventURL ?? "")));
+    } else {
+      Get.toNamed(AppRoutes.serviceHistory.toName);
+    }
+    if (!response.error!) {
+      Fluttertoast.showToast(
+        msg: response.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+    } else {}
+    isLoading.value = false;
   }
 
   addUser() async {
@@ -46,18 +105,76 @@ class VastuConsultingPaymentScreenController extends GetxController {
       'serviceId':
           userDataProvider.getAllServicesData!.serviceId.toString() ?? '',
       'remedyId': userDataProvider.getRemediesData!.remedyId.toString(),
-      'remedyChargeId':
-          userDataProvider.getVastuData!.remedyChargeId.toString() ?? "",
-      'paymentStatus': '1',
+      'remedyChargeId': userDataProvider.getRemediesData!.remedy == 'Text/PDF'
+          ? userDataProvider.getVastuData!.remedyChargeId
+          : vastuData[0].remedyChargeId.toString(),
+      "fees": userDataProvider.getRemediesData!.remedy == 'Text/PDF'
+          ? userDataProvider.getVastuData!.fees
+          : vastuData[0].fees.toString(),
     };
     isLoading.value = true;
     print("addUserPayload:$payload");
-    var response = await _connect.addUserCall(payload);
-    debugPrint("addUserResponse: ${response.toJson()}");
-    if (!response.error!) {
-      Get.toNamed(AppRoutes.serviceHistory.toName);
-      // getParticularData = response.data;
-      isLoading.value = false;
+    Map<String, dynamic> response = await _connect.addUserCall(payload);
+    debugPrint("addUserResponse: ${response.toString()}");
+    final model = AddUserServiceResponse.fromJson(response);
+    if (model != null) {
+      if (model.data![0].status.toString() == "created") {
+        var orderId = model.data![0].id.toString();
+        var amount = model.data![0].amount.toString();
+        print("order Id ${orderId}");
+        openCheckOut(orderId, amount);
+        // Get.toNamed(AppRoutes.serviceHistory.toName);
+      }
     } else {}
+    isLoading.value = false;
+  }
+
+  void openCheckOut(String orderId, String amount) {
+    var options = {
+      'key': 'rzp_test_y7jlqVGKmyovVX',
+      'amount': amount, //in the smallest currency sub-unit.
+      'name': 'Astro Maggic',
+      'order_id': orderId, // Generate order_id using Orders API
+      'description': 'Fine T-Shirt',
+      'timeout': 300, // in seconds
+      'prefill': {
+        'contact': AppPreference().getMobileNumber.toString(),
+        'email': ''
+      },
+      'external': {
+        'wallets': ['paytm']
+      },
+      'experiments.upi_turbo': true,
+    };
+
+    try {
+      razorpay.open(options);
+
+      // log(payment);
+      // print(payment);
+      // debugPrint(payment);
+    } catch (e) {
+      debugPrint("error : e");
+    }
+  }
+
+  Future<void> vastuPriceSlot() async {
+    Map<String, dynamic> payload = {
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+      'remedyId': userDataProvider.getRemediesData!.remedyId.toString()
+    };
+    isLoading.value = true;
+    AppUtility.loader(context);
+    print('VastuPriceSlotRequest$payload');
+    var response = await _connect.vastuPriceSlot(payload);
+    debugPrint("VastuPriceSlotResponse: ${response.toJson()}");
+    if (!response.error!) {
+      vastuData.value = response.data!;
+      // for (int i = 0; i < response.data!.length; i++) {
+      //   remedyChargesListOnClick.add(false);
+      // }
+    } else {}
+    Get.back();
+    isLoading.value = false;
   }
 }

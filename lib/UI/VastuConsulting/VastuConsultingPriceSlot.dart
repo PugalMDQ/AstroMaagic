@@ -34,6 +34,7 @@ class VastuConsultingPriceSlot
     });
 
     return Scaffold(
+      backgroundColor: AppTheme.App_color,
         floatingActionButton: GestureDetector(
           onTap: () {
             for (int i = 0;
@@ -55,6 +56,7 @@ class VastuConsultingPriceSlot
                 textColor: Colors.white,
               );
             }
+
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
@@ -171,12 +173,11 @@ class VastuConsultingPriceSlot
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPriceSlotController controller =
-        Get.put(VastuConsultingPriceSlotController());
+        Get.put( VastuConsultingPriceSlotController());
     return Obx(() => GestureDetector(
           onTap: () async {
            await controller.userDataProvider.setVastuData(controller.vastuData[index]);
-
-            for (int i = 0;
+           for (int i = 0;
                 i < controller.remedyChargesListOnClick.length;
                 i++) {
               if (index == i) {
@@ -208,7 +209,7 @@ class VastuConsultingPriceSlot
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'noOfQuestions'.tr,
+                        'No of Questions '.tr,
                         style: TextStyle(
                             fontSize: 18,
                             color: controller.remedyChargesListOnClick[index]

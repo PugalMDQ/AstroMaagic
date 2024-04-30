@@ -4,10 +4,12 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/VastuConsulting/VastuConsultingController.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../Routes/app_routes.dart';
+import '../../Utils/AppPreference.dart';
 
 class VastuConsulting extends GetView<VastuConsultingController> {
   const VastuConsulting({super.key});
@@ -17,13 +19,13 @@ class VastuConsulting extends GetView<VastuConsultingController> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     VastuConsultingController controller = Get.put(VastuConsultingController());
+    controller.context = context;
     controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!controller.isCall) {
         controller.isCall = true;
         controller.getParticularServices();
-        controller.getRemedies();
       }
     });
     return Scaffold(
@@ -61,7 +63,7 @@ class VastuConsulting extends GetView<VastuConsultingController> {
           child: Obx(
             () => controller.isLoading.value ||
                     controller.getParticularData == null
-                ? const Center(child: CircularProgressIndicator())
+                ? Container()
                 : SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +175,131 @@ class VastuConsulting extends GetView<VastuConsultingController> {
                         SizedBox(
                           height: 10,
                         ),
-
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     print('ONPRESSED');
+                        //     controller.userDataProvider
+                        //         .setRemediesData(controller.remediesData[0]);
+                        //     Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+                        //     },
+                        //   child: Row(
+                        //     children: [
+                        //       SizedBox(
+                        //         width: 20,
+                        //       ),
+                        //       Container(
+                        //           width: 20,
+                        //           height: 15,
+                        //           child: Image.asset("assets/images/RadioButton.png")),
+                        //       SizedBox(
+                        //         width: 5,
+                        //       ),
+                        //       Expanded(
+                        //         child: Text(
+                        //            "Horoscope in text/pdf",
+                        //           maxLines: 2,
+                        //           style: GoogleFonts.lato(
+                        //             color: Colors.white,
+                        //             fontWeight: FontWeight.w600,
+                        //             fontSize: 16,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     print('ONPRESSED');
+                        //     controller.userDataProvider
+                        //         .setRemediesData(controller.remediesData[1]);
+                        //     Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+                        //   },
+                        //   child: Row(
+                        //     children: [
+                        //       SizedBox(
+                        //         width: 20,
+                        //       ),
+                        //       Container(
+                        //           width: 20,
+                        //           height: 15,
+                        //           child: Image.asset("assets/images/RadioButton.png")),
+                        //       SizedBox(
+                        //         width: 5,
+                        //       ),
+                        //       Expanded(
+                        //         child: Text(
+                        //            "Consultation through voice message",
+                        //           maxLines: 2,
+                        //           style: GoogleFonts.lato(
+                        //             color: Colors.white,
+                        //             fontWeight: FontWeight.w600,
+                        //             fontSize: 16,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     SizedBox(
+                        //       width: 20,
+                        //     ),
+                        //     Container(
+                        //         width: 20,
+                        //         height: 15,
+                        //         child: Image.asset("assets/images/RadioButton.png")),
+                        //     SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //     Expanded(
+                        //       child: Text(
+                        //          "Consultation through Virtual Meeting",
+                        //         maxLines: 2,
+                        //         style: GoogleFonts.lato(
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.w600,
+                        //           fontSize: 16,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // SizedBox(
+                        //   height: 5,
+                        // ),
+                        // Row(
+                        //   children: [
+                        //     SizedBox(
+                        //       width: 20,
+                        //     ),
+                        //     Container(
+                        //         width: 20,
+                        //         height: 15,
+                        //         child: Image.asset("assets/images/RadioButton.png")),
+                        //     SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //     Expanded(
+                        //       child: Text(
+                        //         "Personalized Consultation with Dr. Kanimozhi",
+                        //         maxLines: 2,
+                        //         style: GoogleFonts.lato(
+                        //           color: Colors.white,
+                        //           fontWeight: FontWeight.w600,
+                        //           fontSize: 16,
+                        //         ),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                         Obx(
                           () => controller.isLoading.value
                               ? const Center(child: CircularProgressIndicator())
@@ -187,34 +313,34 @@ class VastuConsulting extends GetView<VastuConsultingController> {
                                     },
                                   ),
                                 ),
-                        )
+                        ),
 
-                        // SizedBox(
-                        //   height: height * 0.06,
-                        // ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     Center(
-                        //       child: Button(
-                        //           widthFactor: 0.85,
-                        //           heightFactor: 0.06,
-                        //           onPressed: () {
-                        //             Get.offNamed(AppRoutes
-                        //                 .vastuConsultingPriceSlot.toName);
-                        //           },
-                        //           child: Text("Proceed".tr,
-                        //               style: TextStyle(
-                        //                 fontSize: 18,
-                        //                 color: Colors.black,
-                        //                 fontWeight: FontWeight.w600,
-                        //               ))),
-                        //     ),
-                        //   ],
-                        // ),
-                        // SizedBox(
-                        //   height: height * 0.2,
-                        // )
+                        SizedBox(
+                          height: height * 0.06,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: Button(
+                                  widthFactor: 0.85,
+                                  heightFactor: 0.06,
+                                  onPressed: () {
+                                    Get.offNamed(AppRoutes
+                                        .vastuConsultingPriceSlot.toName);
+                                  },
+                                  child: Text("Proceed".tr,
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                      ))),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: height * 0.2,
+                        )
                       ],
                     ),
                   ),
@@ -232,7 +358,18 @@ class VastuConsulting extends GetView<VastuConsultingController> {
             print('ONPRESSED');
             controller.userDataProvider
                 .setRemediesData(controller.remediesData[index]);
-            Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+            // if(controller.remediesData[index] == 0){
+            //   Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+            // }
+
+            if(controller.remediesData[index].remedyId == 1){
+              Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+            } else if (controller.remediesData[index].remedyId == 2){
+              Get.toNamed(AppRoutes.calendlyView.toName);
+            } else {
+              Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
+            }
+
           },
           child: Row(
             children: [

@@ -92,7 +92,9 @@ class LocaleString extends Translations {
           'Gemmology': 'Gemmology',
           'Choose Your Country': 'Choose Your Country',
           'Choose Language':'Choose Language',
-          'Personalized Horoscope':'Personalized Horoscope'
+          'Personalized Horoscope':'Personalized Horoscope',
+          'india':'India',
+          'others': 'Other Country'
         },
         //TAMIL LANGUAGE
         'ta_IN': {
@@ -184,7 +186,9 @@ class LocaleString extends Translations {
           'Gemmology': 'ரத்தினவியல்',
           'Choose Your Country':"உங்கள் நாட்டைத் தேர்ந்தெடுக்கவும்",
           'Choose Language':'மொழியைத் தேர்ந்தெடுக்கவும்',
-          'Personalized Horoscope':'தனிப்பயனாக்கப்பட்ட ஜாதகம்'
+          'Personalized Horoscope':'தனிப்பயனாக்கப்பட்ட ஜாதகம்',
+          'india':'இந்தியா',
+          'others': 'மற்ற நாடுகள்'
         },
         // KANNADA LANGUAGE
         'kn_IN': {

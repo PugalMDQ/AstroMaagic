@@ -8,6 +8,7 @@ import '../../Api_Connect/ApiConnect.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../ResponseModel/GetRemediesResponse.dart';
 import '../../Utils/AppPreference.dart';
+import '../../Utils/app_utility.dart';
 
 class VastuConsultingController extends GetxController {
   RxBool consultationVirtualMeeting = RxBool(false);
@@ -19,11 +20,11 @@ class VastuConsultingController extends GetxController {
   bool isCall = false;
   RxList<bool> remediesListOnClick = RxList();
   RxList<GetRemediesData> remediesData = RxList();
+  late BuildContext context;
 
   @override
   void onInit() {
     super.onInit();
-
   }
 
   getParticularServices() async {
@@ -33,13 +34,16 @@ class VastuConsultingController extends GetxController {
           userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
     };
     isLoading.value = true;
+    AppUtility.loader(context);
     print("getParticularServicesPayload:$payload");
     var response = await _connect.getParticularServicesCall(payload);
     debugPrint("getParticularServicesResponse: ${response.toJson()}");
+    Get.back();
     if (!response.error!) {
       getParticularData = response.data;
-      isLoading.value = false;
     } else {}
+    isLoading.value = false;
+    getRemedies();
 
   }
 
@@ -50,15 +54,18 @@ class VastuConsultingController extends GetxController {
           userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
     };
     isLoading.value = true;
+    AppUtility.loader(context);
     print("getRemediesPayload:$payload");
     var response = await _connect.getRemediesServicesCall(payload);
     debugPrint("getRemediesPayloadResponse: ${response.toJson()}");
-    isLoading.value = false;
+    Get.back();
     if (!response.error!) {
       remediesData.value = response.data!;
       for (int i = 0; i < response.data!.length; i++) {
         remediesListOnClick.add(false);
       }
     } else {}
+    isLoading.value = false;
+
   }
 }

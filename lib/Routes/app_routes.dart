@@ -14,7 +14,7 @@ enum AppRoutes {
   vastuConsultingPaymentScreen,
   generalPredictionVoiceMessage,
   countryScreen,
-  serviceHistory,
+  serviceHistory, calendlyView, timeSelectionProcessSlot,
 }
 
 extension AppRouteExtension on AppRoutes {
@@ -35,6 +35,8 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.vastuConsultingPaymentScreen: "/VastuConsultingPaymentScreen",
     AppRoutes.generalPredictionVoiceMessage: "/GeneralPredictionVoiceMessage",
     AppRoutes.serviceHistory: "/ServiceHistory",
+    AppRoutes.calendlyView: "/CalendlyView",
+    AppRoutes.timeSelectionProcessSlot: "/TimeSelectionProcessSlot",
   };
   String get toName => appRoutes[this]!;
 }

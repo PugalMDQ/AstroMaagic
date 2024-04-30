@@ -105,13 +105,13 @@ class RegisterScreenController extends GetxController {
       AppPreference().updateUserName(fullNameController.text ?? "");
       AppPreference().updateToken("Bearer ${response.token!}");
       AppPreference().updateLoginUserId(response.userId!.toString());
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => BottomNavBar()),
-      //       (route) => false,
-      // );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => BottomNavBar()),
+            (route) => false,
+      );
 
-      Get.offAllNamed(AppRoutes.homeScreen.toName);
+
 
     } else {
       Fluttertoast.showToast(

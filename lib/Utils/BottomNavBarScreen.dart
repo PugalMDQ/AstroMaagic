@@ -4,6 +4,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
+import '../UI/Settings/Setting.dart';
+import '../UI/VastuConsulting/ServiceHistory.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -13,21 +16,21 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  late PageController pageController;
+   PageController pageController = PageController(initialPage: 1) ;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController();
+    pageController = PageController(initialPage: 1);
   }
 
   int _selectedIndex = 2;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
+    ChoosePaymentScreen(),
     HomeScreen(),
-    HomeScreen(),
-    HomeScreen(),
+    ServiceHistory(),
   ];
 
   @override
@@ -36,68 +39,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
       body: PageView(
           controller: pageController,
           children: <Widget>[
+            ServiceHistory(),
             HomeScreen(),
-            HomeScreen(),
-            HomeScreen(),
+            Setting(),
           ],
           onPageChanged: (int index) {
             setState(() {
               pageController.jumpToPage(index);
             });
           }),
-      // bottomNavigationBar: Container(
-      //   decoration: BoxDecoration(
-      //     color: AppTheme.screenColor,
-      //     boxShadow: [
-      //       BoxShadow(
-      //         blurRadius: 20,
-      //         color: Colors.black.withOpacity(.1),
-      //       )
-      //     ],
-      //   ),
-      //   child: SafeArea(
-      //     child: Padding(
-      //       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-      //       child: GNav(
-      //         rippleColor: Colors.grey[300]!,
-      //         hoverColor: Colors.grey[100]!,
-      //         gap: 8,
-      //         activeColor: AppTheme.appBlack,
-      //         iconSize: 24,
-      //         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      //         duration: Duration(milliseconds: 400),
-      //         tabBackgroundColor: AppTheme.primaryColor,
-      //         color: Colors.white,
-      //         tabs: const [
-      //           GButton(
-      //             icon: Icons.menu,
-      //             text: 'Menu',
-      //           ),
-      //           GButton(
-      //             icon: Icons.home,
-      //             text: 'Home',
-      //           ),
-      //           GButton(
-      //             icon: Icons.account_circle_rounded,
-      //             text: 'Profile',
-      //           ),
-      //           GButton(
-      //             icon: Icons.account_circle_rounded,
-      //             text: 'Profile',
-      //           ),
-      //         ],
-      //         selectedIndex: _selectedIndex,
-      //         onTabChange: (index) {
-      //           setState(() {
-      //             _selectedIndex = index;
-      //           });
-      //         },
-      //       ),
-      //     ),
-      //   ),
-      // ),
       bottomNavigationBar: CurvedNavigationBar(
-          index: 0,
+          index: 1,
           animationCurve: Curves.elasticIn,
           animationDuration: Duration(milliseconds: 10),
           color: AppTheme.primaryColor,
@@ -110,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           },
           items: [
             Icon(
-              Icons.settings,
+              Icons.history,
               color: Colors.black,
               size: 30,
             ),

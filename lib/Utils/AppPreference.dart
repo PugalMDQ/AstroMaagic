@@ -12,6 +12,7 @@ class AppPreference {
   static const country = 'Country';
   static const tokenValues = 'TOKEN';
   static const loginUser_Id = 'USERID';
+  static const remeady_Id = 'Reameady_id';
   static const mobNumber = 'MOBILE';
   static const USERNAME = 'USERNAME';
 
@@ -81,6 +82,17 @@ class AppPreference {
   String get getLoginUserId {
     try {
       return _storage.read(loginUser_Id);
+    } catch (e) {
+      return '';
+    }
+  }
+  updateReamedyId(String remeadyId) {
+    _storage.write(remeady_Id, remeadyId);
+  }
+
+  String get getReameadyId {
+    try {
+      return _storage.read(remeady_Id);
     } catch (e) {
       return '';
     }

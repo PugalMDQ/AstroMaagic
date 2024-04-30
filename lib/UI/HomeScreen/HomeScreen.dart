@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import '../../Components/forms.dart';
 import '../../Controller/HomeController/HomeScreenController.dart';
+import '../../Provider/MenuDataProvider.dart';
 
 class HomeScreen extends GetView<HomeScreenController> {
   const HomeScreen({super.key});
@@ -17,6 +19,13 @@ class HomeScreen extends GetView<HomeScreenController> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     HomeScreenController controller = Get.put(HomeScreenController());
+    controller.context = context;
+    controller.userDataProvider =
+        Provider.of<MenuDataProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getAllServices();
+      controller.userDataProvider.setIsFromZoomMeeting(false);
+    });
 
     return Container(
       height: height,
@@ -30,6 +39,7 @@ class HomeScreen extends GetView<HomeScreenController> {
         ),
       ),
       child: Scaffold(
+          backgroundColor: AppTheme.App_color,
           appBar: AppBar(
               elevation: 0,
               backgroundColor: AppTheme.App_color,
@@ -38,7 +48,7 @@ class HomeScreen extends GetView<HomeScreenController> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "  welcome ${AppPreference().getUserName}",
+                    "      Welcome ${AppPreference().getUserName}",
                     textAlign: TextAlign.left,
                     style: GoogleFonts.lato(
                       color: AppTheme.primaryColor,
@@ -48,16 +58,21 @@ class HomeScreen extends GetView<HomeScreenController> {
                   ),
                 ),
               ),
-              actions: [
-                IconButton(
-                    icon: const ImageIcon(
-                        AssetImage("assets/icons/statusIcon.png")),
-                    iconSize: 28,
-                    color: Colors.white,
-                    onPressed: () {
-                      Get.toNamed(AppRoutes.serviceHistory.toName);
-                    })
-              ]),
+              // actions: [
+              //   IconButton(
+              //       icon: const ImageIcon(
+              //           AssetImage("assets/icons/statusIcon.png")),
+              //       iconSize: 28,
+              //       color: Colors.white,
+              //       onPressed: () {
+              //         Get.toNamed(AppRoutes.serviceHistory.toName);
+              //       })
+              // ]
+
+
+
+
+          ),
           body: Container(
             height: height,
             decoration: const BoxDecoration(
@@ -70,7 +85,7 @@ class HomeScreen extends GetView<HomeScreenController> {
             ),
             child: Obx(
               () => controller.isLoading.value
-                  ? const Center(child: CircularProgressIndicator())
+                  ?  Container()
                   : SingleChildScrollView(
                       child: Column(
                         children: [
@@ -232,6 +247,5 @@ class HomeScreen extends GetView<HomeScreenController> {
           // ],
           ),
     );
-
   }
 }

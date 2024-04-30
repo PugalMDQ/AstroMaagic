@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-import '../../Components/Key.dart';
+
 
 class LanguageScreenController extends GetxController {
   RxInt selectedTabIndex = RxInt(0);
@@ -40,18 +40,8 @@ class LanguageScreenController extends GetxController {
   void onInit() {
     super.onInit();
   }
-  List<Keyvalues> listValues = [
-    Keyvalues(key: "0", value: 'ENGLISH'),
-    Keyvalues(key: "1", value: 'தமிழ்'),
-    Keyvalues(key: "2", value: 'ಕನ್ನಡ'),
-    Keyvalues(key: "3", value: 'हिन्दी'),
-  ];
 
 
-  updateCurrentTabIndex(int index) {
-    print("INDEX$index");
-    selectedTabIndex.value = index;
-     listValues[selectedTabIndex.value].key;
-    update();
-  }
+
+
 }

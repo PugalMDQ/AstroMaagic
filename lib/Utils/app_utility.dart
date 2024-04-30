@@ -2,6 +2,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../Components/forms.dart';
@@ -319,6 +320,24 @@ class AppUtility {
       },
     );
   }
-
+  static Future loader(BuildContext context) {
+    return showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => Center(
+          child: PopScope(
+            canPop: false,
+            child: Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  color: AppTheme.primaryColor,
+                  borderRadius: BorderRadius.circular(4.0),
+                ),
+                child: Lottie.asset("assets/images/Animation - 1713414492401.json",
+                    fit: BoxFit.fitWidth, height: 50, width: 50)),
+          )),
+    );
+  }
 
 }

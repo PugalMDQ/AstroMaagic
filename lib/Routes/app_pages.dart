@@ -13,6 +13,8 @@ import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
 import 'package:astromaagic/UI/VastuConsulting/ServiceHistory.dart';
 import 'package:astromaagic/UI/VastuConsulting/VastuConsulting.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import '../Binding/CalenderViewBinding/CalendlyViewBinding.dart';
+import '../Binding/CalenderViewBinding/TimeSelectionProcessSlotBinding.dart';
 import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
 import '../Binding/GeneralPredictionsBinding/GeneralPredictionVoiceMessageBinding.dart';
 import '../Binding/GeneralPredictionsBinding/GeneralPredictionsScreenOneBinding.dart';
@@ -23,6 +25,9 @@ import '../Binding/SplashBinding/SplashScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/ServiceHistoryBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPaymentScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPriceSlotBinding.dart';
+import '../Controller/CalenderViewController/TimeSlotProcessController.dart';
+import '../UI/CalenderView/CalendlyView.dart';
+import '../UI/CalenderView/TimeSlotSelectionProcess.dart';
 import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
 import '../UI/GeneralPredictions/GeneralPredictionsVoiceMessageScreen.dart';
 import '../UI/GeneralPredictions/SuccessfullyPaidScreen.dart';
@@ -99,5 +104,13 @@ class AppPages {
         name: AppRoutes.serviceHistory.toName,
         page: () => ServiceHistory(),
         binding: ServiceHistoryBinding()),
+    GetPage(
+        name: AppRoutes.calendlyView.toName,
+        page: () => CalendlyView(),
+        binding: CalendlyViewBinding()),
+    GetPage(
+        name: AppRoutes.timeSelectionProcessSlot.toName,
+        page: () => TimeSelectionProcessSlot(),
+        binding: TimeSelectionSlotBinding()),
   ];
 }

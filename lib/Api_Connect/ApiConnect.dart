@@ -1,14 +1,21 @@
+import 'dart:convert';
+
 import 'package:astromaagic/ResponseModel/AddUserServiceResponse.dart';
 import 'package:astromaagic/ResponseModel/CommonResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
 
 import '../Api_Config/ApiUrl.dart';
+import '../ResponseModel/AvailableDateResponse.dart';
 import '../ResponseModel/GetAllCountrysResponse.dart';
 import '../ResponseModel/GetAllServicesResponse.dart';
 import '../ResponseModel/GetParticularServicesResponse.dart';
 import '../ResponseModel/GetRemediesResponse.dart';
 import '../ResponseModel/GetUserServiceResponse.dart';
+import '../ResponseModel/GetViewPdfResponse.dart';
+import '../ResponseModel/PaymentSuccessResponse.dart';
+import '../ResponseModel/ScheduleMeetingResponse.dart';
+import '../ResponseModel/ScheduleResponse.dart';
 import '../ResponseModel/SignInResponse.dart';
 import '../ResponseModel/SignUpResponse.dart';
 import '../ResponseModel/VastuPriceSlotResponse.dart';
@@ -16,7 +23,6 @@ import '../Utils/AppPreference.dart';
 import '../Utils/app_utility.dart';
 
 class ApiConnect extends GetConnect {
-
   @override
   onInit() {
     super.allowAutoSignedCert = true;
@@ -39,7 +45,7 @@ class ApiConnect extends GetConnect {
   }
 
   Future<GetAllCountryResponse> getAllCountry(int pageNum) async {
-    Map<String, dynamic> payload = {"dataPerPage": "20", "pageNo": pageNum};
+    Map<String, dynamic> payload = {"dataPerPage": "250", "pageNo": pageNum};
     FormData formData = FormData(payload);
     var response = await post(ApiUrl.baseUrl + ApiUrl.all_country, formData);
     print("response");
@@ -115,7 +121,7 @@ class ApiConnect extends GetConnect {
     return VastuPriceSlotResponse.fromJson(response.body);
   }
 
-  Future<AddUserServiceResponse> addUserCall(
+  addUserCall(
       Map<String, dynamic> payload) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
@@ -125,8 +131,25 @@ class ApiConnect extends GetConnect {
     var response = await post(ApiUrl.baseUrl + ApiUrl.addUserService, formData,
         headers: header);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
-    return AddUserServiceResponse.fromJson(response.body);
+    return response.body;
   }
+// adduserCall (Map<String, dynamic> payload) async {
+//     dynamic jsonResponse = "[]";
+//   Map<String, String> header = {
+//         'Authorization': AppPreference().getToken.toString(),
+//         'loginUserId': AppPreference().getLoginUserId.toString(),
+//       };
+//   FormData formData = FormData(payload);
+//   var response = await post(ApiUrl.baseUrl + ApiUrl.addUserService, formData, headers: header);
+//   print(response.body.toString());
+//   try{
+//     jsonResponse = json.decode(response.body.toString());
+//   }catch (e){
+//     print(e);
+//   }
+//   return jsonResponse;
+//   }
+
 
   Future<GetUserServiceResponse> getUserServicesCall(
       Map<String, dynamic> payload) async {
@@ -140,4 +163,71 @@ class ApiConnect extends GetConnect {
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return GetUserServiceResponse.fromJson(response.body);
   }
+  Future<GetViewPdfResponse> getViewPdfCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+
+    };
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.getViewPdf, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return GetViewPdfResponse.fromJson(response.body);
+  }
+
+
+
+  Future<ScheduleResponse> scheduleEvent(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.scheduleEvent, formData,);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return ScheduleResponse.fromJson(response.body);
+  }
+
+
+
+  Future<PaymentSuccessResponse> getPaymentSuccess(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.paymentProcess, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return PaymentSuccessResponse.fromJson(response.body);
+  }
+
+  Future<ScheduleMeetingResponse> scheduleMeetingCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.scheduleMeeting, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return ScheduleMeetingResponse.fromJson(response.body);
+  }
+
+  Future<AvailableDateResponse> getAllEventSlot(
+      Map<String, dynamic> payload) async {
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.getAllEventSlots, formData);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return AvailableDateResponse.fromJson(response.body);
+  }
+
+
 }

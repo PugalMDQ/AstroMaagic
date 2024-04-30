@@ -1,4 +1,4 @@
-import 'package:astromaagic/Components/ContainerOnchanged.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:astromaagic/Routes/app_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +24,15 @@ class VastuConsultingPaymentScreen
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPaymentScreenController controller =
         Get.put(VastuConsultingPaymentScreenController());
+    controller.context = context;
+    controller.userDataProvider =
+        Provider.of<MenuDataProvider>(context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if(!controller.isApiCalled.value) {
+        controller.vastuPriceSlot();
+        controller.isApiCalled.value = false;
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -94,6 +103,8 @@ class VastuConsultingPaymentScreen
             SizedBox(
               height: 10,
             ),
+
+            controller.userDataProvider.getRemediesData!.remedy == 'Text/PDF' ?
             Container(
               margin: EdgeInsets.only(left: 15, right: 15, top: 10),
               width: width,
@@ -113,7 +124,7 @@ class VastuConsultingPaymentScreen
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'noOfQuestions'.tr,
+                          controller.userDataProvider.getRemediesData!.remedy == 'Text/PDF' ? 'No Of Questions'.tr : 'Meeting Duration'.tr,
                           style: TextStyle(
                               fontSize: 18,
                               color: Colors.white,
@@ -141,8 +152,7 @@ class VastuConsultingPaymentScreen
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: AppTheme.primaryColor,
-                            border: Border.all(
-                                color: AppTheme.primaryColor, width: 2)),
+                            border: Border.all(color: AppTheme.primaryColor, width: 2)),
                         child: Container(
                           margin: EdgeInsets.only(left: 15),
                           child: Column(
@@ -153,6 +163,7 @@ class VastuConsultingPaymentScreen
                                 controller.userDataProvider.getVastuData!
                                         .noOfQuestions
                                         .toString() ??
+
                                     "",
                                 style: TextStyle(
                                     fontSize: 14,
@@ -160,8 +171,8 @@ class VastuConsultingPaymentScreen
                                     fontWeight: FontWeight.w800),
                               ),
                               Text(
-                                '₹ ${controller.userDataProvider.getVastuData!.fees}' ??
-                                    '',
+                                '₹ ${controller.userDataProvider.getVastuData!.fees}' ,
+                               // controller.vastuData[index].fees.toString() ?? '',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
@@ -172,8 +183,22 @@ class VastuConsultingPaymentScreen
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
+              ),
+            ) :
+            Obx(
+                  () => controller.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : Container(
+                child: ListView.builder(
+                  itemCount: controller.vastuData.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return slotList(context, index);
+                  },
+                ),
               ),
             ),
             SizedBox(
@@ -188,6 +213,8 @@ class VastuConsultingPaymentScreen
                       heightFactor: 0.06,
                       onPressed: () {
                         controller.addUser();
+                        //controller.openCheckOut();
+                        // controller.razorpay.open(controller.getTurboPaymentOptions());
                       },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(
@@ -209,99 +236,103 @@ class VastuConsultingPaymentScreen
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPaymentScreenController controller =
         Get.put(VastuConsultingPaymentScreenController());
-    return Obx(() => AppTab(
-        isSelected: controller.selectedTabIndex.value == index,
-        onClick: () {
-          controller.updateCurrentTabIndex(index);
-        },
-        titleOne: 'noOfQuestions'.tr,
-        titleTwo: 'fees'.tr,
-        titleThree: '2',
-        titleFour: '₹ 3000'));
+    return Obx(
+      () => GestureDetector(
+        onTap: () async {
 
-    //   Container(
-    //   margin: EdgeInsets.only(left: 15, right: 15, top: 10),
-    //   width: width,
-    //   height: height * 0.15,
-    //   decoration: BoxDecoration(
-    //       borderRadius: BorderRadius.circular(5),
-    //       border: Border.all(color: AppTheme.primaryColor,width: 2)
-    //   ),
-    //   child: Row(
-    //     children: [
-    //       Container(
-    //         margin: EdgeInsets.only(left: 15,top: 15,bottom: 20),
-    //         width: width * 0.43,
-    //         height: height * 0.15,
-    //         child: Column(
-    //           mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Text(
-    //               'noOfQuestions'.tr,
-    //
-    //               style: TextStyle(
-    //
-    //                   fontSize: 18,
-    //                   color: Colors.white,
-    //                   fontWeight: FontWeight.w600),
-    //             ), Text(
-    //               'fees'.tr,
-    //
-    //               style: TextStyle(
-    //
-    //                   fontSize: 18,
-    //                   color: Colors.white,
-    //                   fontWeight: FontWeight.w600),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       Container(
-    //         width: width * 0.43,
-    //         height: height * 0.15,
-    //
-    //         child: Container(
-    //           margin: EdgeInsets.all(20),
-    //           width: width * 0.45,
-    //           height: height * 0.15,
-    //
-    //           decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(8),
-    //               color: AppTheme.primaryColor,
-    //               border: Border.all(color: AppTheme.primaryColor,width: 2)
-    //           ),
-    //           child: Container(
-    //             margin: EdgeInsets.only(left: 15),
-    //             child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: [
-    //                 Text(
-    //                   '2',
-    //
-    //                   style: TextStyle(
-    //
-    //                       fontSize: 14,
-    //                       color: Colors.black,
-    //                       fontWeight: FontWeight.w800),
-    //                 ), Text(
-    //                   '₹ 3000',
-    //
-    //                   style: TextStyle(
-    //
-    //                       fontSize: 14,
-    //                       color: Colors.black,
-    //                       fontWeight: FontWeight.w800),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //         ) ,
-    //       ),
-    //     ],
-    //   ),
-    // );
+        },
+        child: Container(
+          margin: EdgeInsets.only(left: 15, right: 15, top: 10),
+          width: width,
+          height: height * 0.15,
+          decoration: BoxDecoration(
+              color: AppTheme.screenBackground,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: AppTheme.primaryColor, width: 2)),
+          child: Row(
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: 15, top: 15, bottom: 20),
+                width: width * 0.43,
+                height: height * 0.15,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Meeting Duration'.tr,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color:  Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'fees'.tr,
+                      style: TextStyle(
+                          fontSize: 18,
+                          color:  Colors.white,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+
+                },
+                child: Container(
+                  width: width * 0.43,
+                  height: height * 0.15,
+                  child: Container(
+                    margin: EdgeInsets.all(20),
+                    width: width * 0.45,
+                    height: height * 0.15,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color:  AppTheme.primaryColor,
+                        border: Border.all(
+                            color: AppTheme.primaryColor,
+                            width: 2)),
+                    child: Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+
+
+
+                          Text(
+                            controller.vastuData[index].meetingDuration
+                                .toString(),
+                            style: TextStyle(
+                                fontSize: 14,
+                                color:
+                                Colors.black,
+                                fontWeight: FontWeight.w800),
+                          ) ,
+
+
+                       Text(
+                            '₹ ${controller.vastuData[index].fees.toString()}',
+                            style: TextStyle(
+                                fontSize: 14,
+                                color:
+                                Colors.black,
+                                fontWeight: FontWeight.w800),
+                          ) ,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      )
+    );
   }
 
   static void UPIBottomSheet(context) {
@@ -487,7 +518,8 @@ class VastuConsultingPaymentScreen
                       widthFactor: 0.85,
                       heightFactor: 0.06,
                       onPressed: () {
-                        Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
+                        // Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
+                       // controller.openCheckOut();
                       },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(
@@ -632,7 +664,8 @@ class VastuConsultingPaymentScreen
                       widthFactor: 0.85,
                       heightFactor: 0.06,
                       onPressed: () {
-                        Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
+                        // Get.toNamed(AppRoutes.successfullyPaidScreen.toName);
+                       // controller.openCheckOut();
                       },
                       child: Text("Pay".tr,
                           style: GoogleFonts.lato(

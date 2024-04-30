@@ -9,6 +9,7 @@ import '../../Api_Connect/ApiConnect.dart';
 import '../../Components/HomeListDetails.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../ResponseModel/GetAllServicesResponse.dart';
+import '../../Utils/app_utility.dart';
 
 class HomeScreenController extends GetxController {
   final CarouselController controllerOne = CarouselController();
@@ -18,7 +19,7 @@ class HomeScreenController extends GetxController {
   ApiConnect _connect = Get.put(ApiConnect());
   RxBool isLoading = RxBool(false);
   RxList<GetAllServicesData> getServicesData = RxList();
-
+  late BuildContext context;
   void updatePageIndicator(index) {
     currentIndex.value = index;
   }
@@ -26,9 +27,6 @@ class HomeScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    userDataProvider =
-        Provider.of<MenuDataProvider>(Get.context!, listen: false);
-    getAllServices();
   }
 
   final List<HomeListDetails> values = [
@@ -54,13 +52,15 @@ class HomeScreenController extends GetxController {
       'loginUserId': AppPreference().getLoginUserId.toString()
     };
     isLoading.value = true;
+    AppUtility.loader(context);
     print("getServicesPayload:$payload");
     var response = await _connect.getAllServicesCall(payload);
     debugPrint("getAllServicesResponse: ${response.toJson()}");
-    isLoading.value = false;
+    Get.back();
     if (!response.error!) {
       getServicesData.value = response.data!;
-
     } else {}
+    isLoading.value = false;
+
   }
 }
