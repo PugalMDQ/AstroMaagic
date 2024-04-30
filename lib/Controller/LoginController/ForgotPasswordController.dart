@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../../Api_Config/ApiUrl.dart';
 import '../../Api_Connect/ApiConnect.dart';
 import '../../Provider/MenuDataProvider.dart';
 
@@ -59,7 +60,7 @@ class ForgotPasswordController extends GetxController {
     };
 
     isLoading.value = true;
-    var response = await _connect.commonUpload(payload);
+    var response = await _connect.commonUpload(payload,  ApiUrl.forgot);
     isLoading.value = false;
 
     debugPrint("loginCallResponse: ${response.toJson()}");

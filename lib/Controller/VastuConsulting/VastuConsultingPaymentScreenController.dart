@@ -1,6 +1,6 @@
-import 'dart:developer';
-
+import 'package:intl/intl.dart';
 import 'package:astromaagic/Utils/AppPreference.dart';
+import 'package:date_format/date_format.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -40,7 +40,6 @@ class VastuConsultingPaymentScreenController extends GetxController {
     razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-
   }
 
   @override
@@ -49,29 +48,30 @@ class VastuConsultingPaymentScreenController extends GetxController {
     razorpay.clear();
   }
 
-
-
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     print("Payment Success");
-    paymentProcess(response.orderId.toString(), response.paymentId.toString(),  response.signature.toString(), 1);
+    paymentProcess(response.orderId.toString(), response.paymentId.toString(),
+        response.signature.toString(), 1);
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
     print("Payment Failed");
-    paymentProcess("", "",  "", 0);
+    paymentProcess("", "", "", 0);
   }
 
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet is selected
   }
-  paymentProcess(String orderId, String paymentId, String signature , int status ) async {
+
+  paymentProcess(
+      String orderId, String paymentId, String signature, int status) async {
     Map<String, dynamic> payload = {
       'loginUserId': AppPreference().getLoginUserId.toString(),
       'userId': AppPreference().getLoginUserId.toString(),
-      'orderId':orderId,
-    'paymentId': paymentId,
-    'signatures': signature,
-    "paymentStatus": status,
+      'orderId': orderId,
+      'paymentId': paymentId,
+      'signatures': signature,
+      "paymentStatus": status,
     };
     isLoading.value = true;
     print("paymentRequest:$payload");
@@ -85,7 +85,8 @@ class VastuConsultingPaymentScreenController extends GetxController {
                   WenView(userDataProvider.getEventURL ?? "")));
     } else {
       Get.toNamed(AppRoutes.serviceHistory.toName);
-    }    if (!response.error!) {
+    }
+    if (!response.error!) {
       Fluttertoast.showToast(
         msg: response.message!,
         toastLength: Toast.LENGTH_SHORT,
@@ -94,11 +95,8 @@ class VastuConsultingPaymentScreenController extends GetxController {
         textColor: Colors.white,
       );
       isLoading.value = false;
-    } else {
-
-    }
+    } else {}
   }
-
 
   addUser() async {
     Map<String, dynamic> payload = {
@@ -114,9 +112,18 @@ class VastuConsultingPaymentScreenController extends GetxController {
       //     ? userDataProvider.getVastuData!.feesq
       //     : vastuData[0].fees.toString(),
       "remedyChargeId": vastuData[0].remedyChargeId.toString(),
-      "fees":  vastuData[0].remedyChargeId.toString()
-
+      "fees": vastuData[0].remedyChargeId.toString()
     };
+    if (userDataProvider.getIsFromZoomMeeting!) {
+      Map<String, dynamic> additional = {
+        'meetingTime':
+            DateFormat.jm().format(userDataProvider.selectedMeetingTime!),
+        'meetingDate': formatDate(
+            userDataProvider.selectedMeetingTime!, [yyyy, '-', mm, '-', dd]),
+      };
+
+      payload.addAll(additional);
+    }
     isLoading.value = true;
     print("addUserPayload:$payload");
     Map<String, dynamic> response = await _connect.addUserCall(payload);
@@ -127,15 +134,14 @@ class VastuConsultingPaymentScreenController extends GetxController {
         var orderId = model.data![0].id.toString();
         var amount = model.data![0].amount.toString();
         print("order Id ${orderId}");
-        openCheckOut( orderId , amount);
+        openCheckOut(orderId, amount);
         isLoading.value = false;
-       // Get.toNamed(AppRoutes.serviceHistory.toName);
+        // Get.toNamed(AppRoutes.serviceHistory.toName);
       }
-    } else {
-
-    }
+    } else {}
   }
- void openCheckOut(String orderId ,String amount)  {
+
+  void openCheckOut(String orderId, String amount) {
     var options = {
       'key': 'rzp_test_y7jlqVGKmyovVX',
       'amount': amount, //in the smallest currency sub-unit.
@@ -144,10 +150,9 @@ class VastuConsultingPaymentScreenController extends GetxController {
       'description': 'Fine T-Shirt',
       'timeout': 300, // in seconds
       'prefill': {
-
-
-
-        'contact': AppPreference().getMobileNumber.toString(), 'email': ''},
+        'contact': AppPreference().getMobileNumber.toString(),
+        'email': ''
+      },
       'external': {
         'wallets': ['paytm']
       },
@@ -184,6 +189,7 @@ class VastuConsultingPaymentScreenController extends GetxController {
     Get.back();
     isLoading.value = false;
   }
+
   Future<void> vastuPriceSlotOne() async {
     Map<String, dynamic> payload = {
       'loginUserId': AppPreference().getLoginUserId.toString(),

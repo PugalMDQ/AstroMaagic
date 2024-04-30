@@ -9,6 +9,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 
 import '../../Components/forms.dart';
+import '../../Components/image_pickers.dart';
 import '../../Components/theme.dart';
 import '../../Controller/Settings/EditProfileScreenController.dart';
 import '../../Utils/BottomNavBarScreen.dart';
@@ -57,14 +58,71 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
             SizedBox(
               height: height * 0.03,
             ),
+
             Center(
-              child: CircleAvatar(
-                  radius: 50,
-                  backgroundColor: Colors.blue,
-                  backgroundImage: AssetImage(
-                    'assets/images/Ellipse 69.png',
-                  )),
-            ),
+                child: Stack(children: [
+              Obx(
+                () => Container(
+                  width: 150,
+                  height: 150,
+                  child: controller.itemImage.value != null
+                      ? CircleAvatar(
+                          backgroundImage: Image.file(
+                            controller.itemImage.value?.imagePath,
+                            fit: BoxFit.cover,
+                          ).image,
+                        )
+                      : controller.imageString.value != null &&
+                              controller.imageString.value.isNotEmpty
+                          ? CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(controller.imageString.value),
+                            )
+                          : const CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'https://autorevog.blob.core.windows.net/autorevog/uploads/images/18942381.jpg'),
+                            ),
+                ),
+              ),
+              Positioned(
+                right: -25,
+                bottom: 5,
+                child: MaterialButton(
+                    color: AppTheme.primaryColor,
+                    shape: const CircleBorder(),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ImagePicks(
+                                    previewImageList: [],
+                                    isMultiple: true,
+                                    title: "Select Image",
+                                    onClose: () => Get.back(),
+                                    onSave: (List<PickedImage> images) {
+                                      if (images.isNotEmpty) {
+                                        controller.itemImage.value =
+                                            images.first;
+                                      }
+                                      Get.back();
+                                    },
+                                  )));
+                    },
+                    child: const Icon(
+                      Icons.camera_alt_rounded,
+                      color: Colors.white,
+                    )),
+              ),
+            ])),
+
+            // Center(
+            //   child: CircleAvatar(
+            //       radius: 50,
+            //       backgroundColor: Colors.blue,
+            //       backgroundImage: AssetImage(
+            //         'assets/images/Ellipse 69.png',
+            //       )),
+            // ),
             // Container(
             //     decoration: BoxDecoration(
             //         color: Colors.yellowAccent[100],
@@ -90,7 +148,7 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
                     color: AppTheme.white,
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 child: TextFormField(
-                  onChanged:(value) {
+                  onChanged: (value) {
                     controller.editData!.userName = value;
                   },
                   keyboardType: TextInputType.text,
@@ -648,35 +706,28 @@ class EditProfileScreen extends GetView<EditProfileScreenController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Button(
+                  child: Obx(() => Button(
                       widthFactor: 0.85,
                       heightFactor: 0.06,
                       onPressed: () {
-                        // Get.toNamed(AppRoutes.login.toName);
-                          controller.updateProfile(context);
-                        // if (controller.married.value == true ||
-                        //     controller.unMarried.value == true) {
-                        //   Navigator.push(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //           builder: (context) =>
-                        //               RegisterScreen()));
-                        // } else {
-                        //   Fluttertoast.showToast(
-                        //     msg: "Please Select Marriage Status!!",
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     gravity: ToastGravity.BOTTOM,
-                        //     backgroundColor: Colors.black,
-                        //     textColor: Colors.white,
-                        //   );
-                        // }
+                        if (controller.isUploading.value) {
+                          return;
+                        }
+                        controller.updateProfile(context);
                       },
-                      child: Text("Submit".tr,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          ))),
+                      child: controller.isLoading.value
+                          ? Container(
+                              height: height * 0.04,
+                              width: height * 0.04,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                          : Text("Submit".tr,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
+                              )))),
                 ),
               ],
             ),

@@ -8,12 +8,20 @@ import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:path/path.dart';
 
+import '../../Api_Config/ApiUrl.dart';
 import '../../Api_Connect/ApiConnect.dart';
+import '../../Components/image_pickers.dart';
+import '../../ResponseModel/CommonResponse.dart';
 import '../../ResponseModel/GetEditProfileResponse.dart';
 import '../../Utils/BottomNavBarScreen.dart';
 
 class EditProfileScreenController extends GetxController {
   EditProfileResponseData? editData = EditProfileResponseData();
+  Rx<PickedImage?> itemImage = Rx<PickedImage?>(null);
+  RxList<PickedImage> productImages = RxList();
+  RxBool isImageSelected = false.obs;
+  RxString imageString = RxString("");
+  RxBool isUpdateImageAvailable = false.obs;
 
   @override
   void onInit() {
@@ -38,6 +46,7 @@ class EditProfileScreenController extends GetxController {
   RxString selectedDate = RxString("");
   final ApiConnect _connect = Get.put(ApiConnect());
   RxBool isLoading = RxBool(false);
+  RxBool isUploading = RxBool(false);
 
   Future<void> editProfile() async {
     Map<String, dynamic> payload = {
@@ -50,15 +59,7 @@ class EditProfileScreenController extends GetxController {
     isLoading.value = false;
     print("getParticularServicesPayload:$payload");
     debugPrint("EditProfilerResponse: ${response.toJson()}");
-    if (!response.error!) {
-      Fluttertoast.showToast(
-        msg: response.message!,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-      );
-    }
+
     fullNameController.text = response.data!.userName!;
     dateOfBirthController.text = response.data!.dateOfBirth!;
     stateController.text = response.data!.stateOfBirth!;
@@ -74,10 +75,11 @@ class EditProfileScreenController extends GetxController {
     response.data!.employment! == "Working"
         ? working.value = true
         : business.value = true;
+    imageString.value = response.data!.profileImage!;
   }
 
   Future<void> updateProfile(context) async {
-    Map<String, dynamic> payload = {
+    Map<String, String> payload = {
       'userId': AppPreference().getLoginUserId.toString(),
       "userName": fullNameController.text,
       "areaOfBirth": areaController.text,
@@ -91,12 +93,21 @@ class EditProfileScreenController extends GetxController {
       "userLanguage": AppPreference().getLanguage,
       "userCountry": AppPreference().getCountry,
       "applicationType": "",
-      "profileImage": ""
+      'Authorization': AppPreference().getToken.toString(),
     };
 
-    isLoading.value = true;
-    var response = await _connect.getUpdateProfileCall(payload);
-    isLoading.value = false;
+    isUploading.value = true;
+
+    CommonResponse response;
+
+    if (itemImage.value == null) {
+      response = await _connect.commonUpload(payload, ApiUrl.getUpdateProfile);
+    } else {
+      response = await _connect.imgUpdateCall(
+          ApiUrl.getUpdateProfile, itemImage.value!.file!, payload);
+    }
+
+    isUploading.value = false;
     print("getUpdateProfilePayload:$payload");
     debugPrint("UpdateProfilerResponse: ${response.toJson()}");
     if (!response.error!) {

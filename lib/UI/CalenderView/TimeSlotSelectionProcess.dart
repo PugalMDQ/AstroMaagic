@@ -74,7 +74,6 @@ class TimeSelectionProcessSlot extends GetView<TimeSelectionSlotController> {
                     controller.isClicked.value = true;
                   }
                 }
-
                 if (!controller.isClicked.value) {
                   Fluttertoast.showToast(
                     msg: 'Please Select Slot',
@@ -262,27 +261,7 @@ class TimeSelectionProcessSlot extends GetView<TimeSelectionSlotController> {
                                         : AppTheme.white,
                                 fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            ' to '.tr,
-                            style: TextStyle(
-                                fontSize: 14,
-                                color:
-                                    controller.remedyChargesListOnClick[index]
-                                        ? Colors.black
-                                        : AppTheme.primaryColor,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            DateFormat.jm()
-                                .format(DateTime.parse(data.startTime ?? "")),
-                            style: TextStyle(
-                                fontSize: 14,
-                                color:
-                                    controller.remedyChargesListOnClick[index]
-                                        ? Colors.white
-                                        : AppTheme.white,
-                                fontWeight: FontWeight.w600),
-                          ),
+
                         ],
                       ),
                     ],

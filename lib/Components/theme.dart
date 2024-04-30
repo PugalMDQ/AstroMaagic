@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   ///use colors
-  static const Color primaryColor = Color(0xFFfbd302);
+  static const Color primaryColor = Color(0xfffbd302);
   static const Color screenBackground = Color(0xFF393939);
   static const Color containerBackground = Color(0xFFEDEBF6);
   static const Color purpleColor = Color(0xFF74419D);

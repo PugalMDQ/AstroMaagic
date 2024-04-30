@@ -1,9 +1,9 @@
 import 'dart:convert';
-
-import 'package:astromaagic/ResponseModel/AddUserServiceResponse.dart';
+import 'package:http/http.dart' as http;
 import 'package:astromaagic/ResponseModel/CommonResponse.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../Api_Config/ApiUrl.dart';
 import '../ResponseModel/AcceptUserServiceResponse.dart';
@@ -66,9 +66,9 @@ class ApiConnect extends GetConnect {
     return SignUpResponse.fromJson(response.body);
   }
 
-  Future<CommonResponse> commonUpload(Map<String, dynamic> payload) async {
+  Future<CommonResponse> commonUpload(Map<String, dynamic> payload ,String endpoint) async {
     FormData formData = FormData(payload);
-    var response = await post(ApiUrl.baseUrl + ApiUrl.forgot, formData);
+    var response = await post(ApiUrl.baseUrl + endpoint, formData);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return CommonResponse.fromJson(response.body);
   }
@@ -249,6 +249,7 @@ class ApiConnect extends GetConnect {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
     };
+
     FormData formData = FormData(payload);
     var response = await post(
         ApiUrl.baseUrl + ApiUrl.acceptUserService, formData,
@@ -273,6 +274,49 @@ class ApiConnect extends GetConnect {
     return MobileNumberResponse.fromJson(response.body);
   }
 
+  Future<CommonResponse> imgUpdateCall(
+      String url,
+      XFile? imageFile,
+      Map<String, String> payload,
+      ) async {
 
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    print("URL$url");
+    var request =
+    http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
+    // var response = await post(
+    //     ApiUrl.baseUrl + ApiUrl.getUpdateProfile,
+    //     headers: header);
+    if (imageFile != null) {
+      var imageStream = http.ByteStream(imageFile.openRead());
+      var imageLength = await imageFile.length();
+      var multipartFile = http.MultipartFile('profileImage', imageStream, imageLength,
+          filename: imageFile.path.split('/').last);
+      request.files.add(multipartFile);
+    }
+    request.fields.addAll(payload);
+    // Send the request
+    var response = await request.send();
+
+    var responseBody = await response.stream.bytesToString();
+    debugPrint("responseBody : ${responseBody}");
+
+    var parsedResponse;
+
+    try {
+      parsedResponse = json.decode(responseBody) as Map<String, dynamic>;
+    } catch (e) {
+      return CommonResponse();
+    }
+    debugPrint("url : ${url}");
+    debugPrint("imageFile : ${parsedResponse}");
+
+    var convertedResponse = CommonResponse.fromJson(parsedResponse);
+
+    return convertedResponse;
+  }
 
 }

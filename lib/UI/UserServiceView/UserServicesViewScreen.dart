@@ -204,7 +204,7 @@ class UserServicesViewScreen
                           ),
                           controller.userDataProvider.getServiceData
                                       ?.meetingDate
-                                      .toString() ==
+                                      .toString() !=
                                   null
                               ? Text(
                                   controller.userDataProvider.getServiceData!

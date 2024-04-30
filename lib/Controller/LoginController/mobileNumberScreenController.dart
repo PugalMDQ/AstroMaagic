@@ -89,25 +89,25 @@ class mobileNumberScreenController extends GetxController {
   }
 
   Future<void> otpGenerated() async{
-    if (mobileController.value.text.isEmpty ||
-        mobileController.value.text.length != 10) {
-      mobileController.value.text.isEmpty
-          ? Fluttertoast.showToast(
-        msg: "Please enter Mobile number",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-      )
-          : Fluttertoast.showToast(
-        msg: "Mobile Number must be of 10 digit",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-      );
-      return;
-    }
+    // if (mobileController.value.text.isEmpty ||
+    //     mobileController.value.text.length != 10) {
+    //   mobileController.value.text.isEmpty
+    //       ? Fluttertoast.showToast(
+    //     msg: "Please enter Mobile number",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Colors.black,
+    //     textColor: Colors.white,
+    //   )
+    //       : Fluttertoast.showToast(
+    //     msg: "Mobile Number must be of 10 digit",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Colors.black,
+    //     textColor: Colors.white,
+    //   );
+    //   return;
+    // }
 
     Map<String, dynamic> payload = {
       'userMobile':mobileController.text,

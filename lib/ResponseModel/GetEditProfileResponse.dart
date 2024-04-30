@@ -35,6 +35,7 @@ class EditProfileResponseData {
   String? userLanguage;
   String? userCountry;
   String? userMobile;
+  String? profileImage;
 
   EditProfileResponseData(
       {this.userName,
@@ -48,6 +49,7 @@ class EditProfileResponseData {
         this.employment,
         this.userLanguage,
         this.userCountry,
+        this.profileImage,
         this.userMobile});
 
   EditProfileResponseData.fromJson(Map<String, dynamic> json) {
@@ -63,6 +65,7 @@ class EditProfileResponseData {
     userLanguage = json['userLanguage'];
     userCountry = json['userCountry'];
     userMobile = json['userMobile'];
+    profileImage = json['profileImage'] ?? "";
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +82,7 @@ class EditProfileResponseData {
     data['userLanguage'] = this.userLanguage;
     data['userCountry'] = this.userCountry;
     data['userMobile'] = this.userMobile;
+    data['profileImage'] = this.profileImage;
     return data;
   }
 }

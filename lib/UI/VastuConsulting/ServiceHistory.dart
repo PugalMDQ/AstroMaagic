@@ -37,15 +37,6 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.App_color,
-        leading: IconButton(
-            icon: const ImageIcon(AssetImage(
-              "assets/icons/back_ios.png",
-            )),
-            color: AppTheme.primaryColor,
-            iconSize: 18,
-            onPressed: () {
-              Get.back();
-            }),
         title: Text(
           'Service History',
           style: TextStyle(color: Colors.white),
@@ -246,7 +237,7 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
                       // ),
 
                       ButtonWithoutBackground(
-                          widthFactor: 0.2,
+                          widthFactor: 0.3,
                           heightFactor: 0.035,
                           onPressed: () async {
                             controller.userDataProvider.setUserServiceData(
@@ -262,7 +253,7 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
                               // openPdf(context, file, url);
 
                             } else {
-                              controller.scheduleMeeting();
+                              // controller.scheduleMeeting();
                             }
                           },
                           child: Text("View".tr,
