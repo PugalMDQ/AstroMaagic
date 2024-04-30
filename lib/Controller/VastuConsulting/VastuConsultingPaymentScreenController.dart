@@ -14,6 +14,7 @@ import '../../Routes/app_routes.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../Utils/app_utility.dart';
+import '../../WebPage/WebPageScreen.dart';
 
 class VastuConsultingPaymentScreenController extends GetxController {
   RxBool consultationVirtualMeeting = RxBool(false);
@@ -76,8 +77,15 @@ class VastuConsultingPaymentScreenController extends GetxController {
     print("paymentRequest:$payload");
     var response = await _connect.getPaymentSuccess(payload);
     debugPrint("paymentResponse: ${response.toString()}");
-    Get.toNamed(AppRoutes.serviceHistory.toName);
-    if (!response.error!) {
+    if (userDataProvider.getIsFromZoomMeeting!) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  WenView(userDataProvider.getEventURL ?? "")));
+    } else {
+      Get.toNamed(AppRoutes.serviceHistory.toName);
+    }    if (!response.error!) {
       Fluttertoast.showToast(
         msg: response.message!,
         toastLength: Toast.LENGTH_SHORT,
