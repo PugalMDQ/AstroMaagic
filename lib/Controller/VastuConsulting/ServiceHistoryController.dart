@@ -57,14 +57,13 @@ class ServiceHistoryController extends GetxController {
     print("scheduleMeetingPayload:$payload");
     var response = await _connect.scheduleMeetingCall(payload);
     debugPrint("scheduleMeetingResponse: ${response.toJson()}");
+    isLoading.value = false;
     Get.back();
     if (!response.error!) {
       meetingData = response.data!;
       userDataProvider.setMeetingData(meetingData);
       Get.toNamed(AppRoutes.calendlyView.toName);
     } else {}
-    isLoading.value = false;
-
   }
   getUserServices() async {
     Map<String, dynamic> payload = {
@@ -81,8 +80,8 @@ class ServiceHistoryController extends GetxController {
 
     if (!response.error!) {
       servicesData.value = response.data!;
-    } else {}
 
-    isLoading.value = false;
+      isLoading.value = false;
+    } else {}
   }
 }

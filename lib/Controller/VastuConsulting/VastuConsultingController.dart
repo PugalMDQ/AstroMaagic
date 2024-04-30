@@ -41,9 +41,8 @@ class VastuConsultingController extends GetxController {
     Get.back();
     if (!response.error!) {
       getParticularData = response.data;
+      isLoading.value = false;
     } else {}
-    isLoading.value = false;
-    getRemedies();
 
   }
 
@@ -59,13 +58,12 @@ class VastuConsultingController extends GetxController {
     var response = await _connect.getRemediesServicesCall(payload);
     debugPrint("getRemediesPayloadResponse: ${response.toJson()}");
     Get.back();
+    isLoading.value = false;
     if (!response.error!) {
       remediesData.value = response.data!;
       for (int i = 0; i < response.data!.length; i++) {
         remediesListOnClick.add(false);
       }
     } else {}
-    isLoading.value = false;
-
   }
 }

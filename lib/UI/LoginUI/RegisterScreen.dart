@@ -16,7 +16,28 @@ import 'package:intl/intl.dart';
 
 class RegisterScreen extends GetView<RegisterScreenController> {
   const RegisterScreen({super.key});
-
+  Future<void> selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2100),
+       // selectableDayPredicate: selectableDay,
+        builder: (BuildContext context, Widget? child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+              primaryColor: Color(0xFF455636),
+              hintColor: Color(0xFF455636),
+              colorScheme: ColorScheme.light(primary: Color(0xFF455636)),
+            ),
+            child: child!,
+          );
+        });
+    if (picked != null) {
+      controller.marriageController.text =
+          DateFormat('yyyy-MM-dd').format(picked);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -254,7 +275,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
-                        controller: controller.placeOfBirthController,
+                        controller: controller.areaController,
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -264,7 +285,89 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(color: AppTheme.white),
                             ),
-                            hintText: 'Place of Birth'.tr,
+                            hintText: 'Area'.tr,
+                            hintStyle: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400),
+                            contentPadding: const EdgeInsets.all(6),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppTheme.white),
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            prefixIcon: Icon(Icons.location_on_rounded)),
+                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            decorationThickness: 0,
+                            color: AppTheme.textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppTheme.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        controller: controller.cityController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppTheme.white),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppTheme.white),
+                            ),
+                            hintText: 'City'.tr,
+                            hintStyle: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w400),
+                            contentPadding: const EdgeInsets.all(6),
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(color: AppTheme.white),
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            prefixIcon: Icon(Icons.location_on_rounded)),
+                        style: TextStyle(
+                            decoration: TextDecoration.none,
+                            decorationThickness: 0,
+                            color: AppTheme.textColor,
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppTheme.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: TextFormField(
+                        keyboardType: TextInputType.text,
+                        controller: controller.stateController,
+                        decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppTheme.white),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: AppTheme.white),
+                            ),
+                            hintText: 'State'.tr,
                             hintStyle: const TextStyle(
                                 fontSize: 12.0,
                                 color: Colors.black,
@@ -379,6 +482,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                   SizedBox(
                     height: 20,
                   ),
+
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
@@ -386,29 +490,29 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                       children: [
                         Obx(() => GestureDetector(
                               onTap: () {
-                                controller.married.value =
-                                    !controller.married.value;
-                                controller.unMarried.value = false;
+                                controller.working.value =
+                                    !controller.working.value;
+                                controller.business.value = false;
                               },
                               child: Container(
                                 width: width * 0.4,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: controller.married.value
+                                  color: controller.working.value
                                       ? AppTheme.primaryColor
                                       : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: controller.married.value
+                                    color: controller.working.value
                                         ? AppTheme.primaryColor
                                         : Colors.white,
                                   ),
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Married".tr,
+                                    "Working".tr,
                                     style: TextStyle(
-                                      color: controller.married.value
+                                      color: controller.working.value
                                           ? Colors.white
                                           : Colors.black,
                                       fontSize: 16,
@@ -420,30 +524,30 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                             )),
                         Obx(() => GestureDetector(
                               onTap: () {
-                                controller.unMarried.value =
-                                    !controller.unMarried.value;
-                                controller.married.value = false;
+                                controller.business.value =
+                                    !controller.business.value;
+                                controller.working.value = false;
                                 ;
                               },
                               child: Container(
                                 width: width * 0.4,
                                 height: 40,
                                 decoration: BoxDecoration(
-                                  color: controller.unMarried.value
+                                  color: controller.business.value
                                       ? AppTheme.primaryColor
                                       : Colors.white,
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(
-                                    color: controller.unMarried.value
+                                    color: controller.business.value
                                         ? AppTheme.primaryColor
                                         : Colors.white,
                                   ),
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Unmarried".tr,
+                                    "Business".tr,
                                     style: TextStyle(
-                                      color: controller.unMarried.value
+                                      color: controller.business.value
                                           ? Colors.white
                                           : Colors.black,
                                       fontSize: 16,
@@ -456,6 +560,158 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(() => GestureDetector(
+                          onTap: () {
+                            controller.married.value =
+                            !controller.married.value;
+                            controller.unMarried.value = false;
+                          },
+                          child: Container(
+                            width: width * 0.4,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: controller.married.value
+                                  ? AppTheme.primaryColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: controller.married.value
+                                    ? AppTheme.primaryColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Married".tr,
+                                style: TextStyle(
+                                  color: controller.married.value
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
+                        Obx(() => GestureDetector(
+                          onTap: () {
+                            controller.unMarried.value =
+                            !controller.unMarried.value;
+                            controller.married.value = false;
+                            ;
+                          },
+                          child: Container(
+                            width: width * 0.4,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              color: controller.unMarried.value
+                                  ? AppTheme.primaryColor
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                color: controller.unMarried.value
+                                    ? AppTheme.primaryColor
+                                    : Colors.white,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Unmarried".tr,
+                                style: TextStyle(
+                                  color: controller.unMarried.value
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ))
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+              Obx(()=> controller.married.value == true ?
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: AppTheme.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: TextFormField(
+                    onTap: () {
+                      DateTime now = DateTime.now();
+                      showModalBottomSheet(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          context: context,
+                          builder: (BuildContext context) {
+                            return SizedBox(
+                              height: 250,
+                              child: CupertinoDatePicker(
+                                onDateTimeChanged: (DateTime newTime) {
+                                  String date =
+                                      "${newTime.year}-${newTime.month.toString().length <= 1 ? "0${newTime.month}" : newTime.month.toString()}-${newTime.day.toString().length <= 1 ? "0${newTime.day}" : newTime.day.toString()}";
+                                  controller.marriageController.text =
+                                      date;
+                                },
+                                minimumDate: DateTime(
+                                    now.year - 104, now.month, now.day),
+                                maximumDate: DateTime.now(),
+                                initialDateTime: DateTime(2001, 5, 5),
+                                use24hFormat: true,
+                                mode: CupertinoDatePickerMode.date,
+                              ),
+                            );
+                          });
+                    },
+                    readOnly: true,
+                    controller: controller.marriageController,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: AppTheme.white),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: AppTheme.white),
+                        ),
+                        hintText: 'Marriage  Date'.tr,
+                        hintStyle: const TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                        contentPadding: const EdgeInsets.all(6),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: AppTheme.white),
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        prefixIcon: Icon(Icons.calendar_month)),
+                    style: TextStyle(
+                        decoration: TextDecoration.none,
+                        decorationThickness: 0,
+                        color: AppTheme.textColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+              ) : Container(),)    ,
+
                   SizedBox(
                     height: height * 0.10,
                   ),
@@ -494,6 +750,9 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                                 ))),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: height * 0.1,
                   ),
                 ],
               )
@@ -618,71 +877,5 @@ class RegisterScreen extends GetView<RegisterScreenController> {
     );
   }
 
-  void _showBottomSheetDate(
-    BuildContext context,
-    TextEditingController controller,
-    RxString selectedDate,
-    RxString dateformat,
-  ) {
-    DateTime focusDay = DateTime.now();
-    DateTime? selectedDay = focusDay;
-    selectedDate.value = formatDate(selectedDay!, [yyyy, '-', mm, '-', dd]);
-    dateformat.value = formatDate(selectedDay, [dd, '.', M, '.', yyyy]);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    Get.bottomSheet(SingleChildScrollView(
-        child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-            child: Container(
-                color: Colors.white,
-                child: Column(children: [
-                  Container(
-                    height: 350,
-                    child: DateRangeExample(
-                        controller: controller,
-                        selectedDate: selectedDate,
-                        dateformat: dateformat),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AppButton2(
-                        width: width * 0.45,
-                        height: 40,
-                        title: 'Cancel',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        onPressed: () {
-                          Get.back();
-                        },
-                        color: Colors.white,
-                        titleColor: AppTheme.bottomTabsLabelInActiveColor,
-                        borderColor: AppTheme.cancelBorder,
-                      ),
-                      AppButton2(
-                        width: width * 0.45,
-                        height: 40,
-                        title: 'Save ',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        onPressed: () {
-                          controller.text = dateformat.value;
-                          Navigator.pop(context);
-                          // _showbottomTimePicker(context, controller,
-                          //     controller.value.text, dateformat, selectedDate);
-                        },
-                        titleColor: Colors.black,
-                        color: AppTheme.primaryColor,
-                        borderColor: AppTheme.primaryColor,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ])))));
-  }
+
 }

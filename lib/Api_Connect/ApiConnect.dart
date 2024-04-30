@@ -6,18 +6,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get_connect/connect.dart';
 
 import '../Api_Config/ApiUrl.dart';
+import '../ResponseModel/AcceptUserServiceResponse.dart';
 import '../ResponseModel/AvailableDateResponse.dart';
 import '../ResponseModel/GetAllCountrysResponse.dart';
 import '../ResponseModel/GetAllServicesResponse.dart';
+import '../ResponseModel/GetEditProfileResponse.dart';
 import '../ResponseModel/GetParticularServicesResponse.dart';
 import '../ResponseModel/GetRemediesResponse.dart';
 import '../ResponseModel/GetUserServiceResponse.dart';
 import '../ResponseModel/GetViewPdfResponse.dart';
+import '../ResponseModel/MobileNumberResponse.dart';
+import '../ResponseModel/OtpVerifyResponse.dart';
 import '../ResponseModel/PaymentSuccessResponse.dart';
 import '../ResponseModel/ScheduleMeetingResponse.dart';
 import '../ResponseModel/ScheduleResponse.dart';
 import '../ResponseModel/SignInResponse.dart';
 import '../ResponseModel/SignUpResponse.dart';
+import '../ResponseModel/UpdateProfile.dart';
 import '../ResponseModel/VastuPriceSlotResponse.dart';
 import '../Utils/AppPreference.dart';
 import '../Utils/app_utility.dart';
@@ -133,23 +138,6 @@ class ApiConnect extends GetConnect {
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return response.body;
   }
-// adduserCall (Map<String, dynamic> payload) async {
-//     dynamic jsonResponse = "[]";
-//   Map<String, String> header = {
-//         'Authorization': AppPreference().getToken.toString(),
-//         'loginUserId': AppPreference().getLoginUserId.toString(),
-//       };
-//   FormData formData = FormData(payload);
-//   var response = await post(ApiUrl.baseUrl + ApiUrl.addUserService, formData, headers: header);
-//   print(response.body.toString());
-//   try{
-//     jsonResponse = json.decode(response.body.toString());
-//   }catch (e){
-//     print(e);
-//   }
-//   return jsonResponse;
-//   }
-
 
   Future<GetUserServiceResponse> getUserServicesCall(
       Map<String, dynamic> payload) async {
@@ -193,7 +181,6 @@ class ApiConnect extends GetConnect {
   }
 
 
-
   Future<PaymentSuccessResponse> getPaymentSuccess(
       Map<String, dynamic> payload) async {
     Map<String, String> header = {
@@ -228,6 +215,64 @@ class ApiConnect extends GetConnect {
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return AvailableDateResponse.fromJson(response.body);
   }
+
+  Future<EditProfileResponse> getEditProfileCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.getEditProfile, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return EditProfileResponse.fromJson(response.body);
+  }
+
+  Future<UpdateProfileResponse> getUpdateProfileCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(
+        ApiUrl.baseUrl + ApiUrl.getUpdateProfile, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return UpdateProfileResponse.fromJson(response.body);
+  }
+
+  Future<AcceptUserServiceResponse> acceptUserServiceCall(
+      Map<String, dynamic> payload) async {
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    FormData formData = FormData(payload);
+    var response = await post(
+        ApiUrl.baseUrl + ApiUrl.acceptUserService, formData,
+        headers: header);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return AcceptUserServiceResponse.fromJson(response.body);
+  }
+  Future<OtpVerifyResponse> otpVerifyCall(
+      Map<String, dynamic> payload) async {
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.otpVerify, formData);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return OtpVerifyResponse.fromJson(response.body);
+  }
+
+
+  Future<MobileNumberResponse> mobileNumberCall(
+      Map<String, dynamic> payload) async {
+    FormData formData = FormData(payload);
+    var response = await post(ApiUrl.baseUrl + ApiUrl.mobileNumber, formData);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return MobileNumberResponse.fromJson(response.body);
+  }
+
 
 
 }

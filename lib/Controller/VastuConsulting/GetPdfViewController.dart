@@ -47,8 +47,8 @@ class GetPdfViewController extends GetxController {
     debugPrint("getUserServicesResponse: ${response.toJson()}");
     if (!response.error!) {
       servicesData.value = response.data!;
+      isLoading.value = false;
     } else {}
-    isLoading.value = false;
   }
   getViewPdf(String url) async {
     Map<String, dynamic> payload = {
@@ -61,8 +61,11 @@ class GetPdfViewController extends GetxController {
     debugPrint("getPdfViewResponse: ${response.toJson()}");
     if (!response.error!) {
       getViewPdfData = response.data!;
+
+
+      isLoading.value = false;
+
     } else {}
-    isLoading.value = false;
   }
 
   // Future<void> loadPdf(String url) async {

@@ -14,7 +14,8 @@ enum AppRoutes {
   vastuConsultingPaymentScreen,
   generalPredictionVoiceMessage,
   countryScreen,
-  serviceHistory, calendlyView, timeSelectionProcessSlot,
+  serviceHistory, calendlyView, timeSelectionProcessSlot, adminServicesList, userServicesList,
+  adminServicesViewScreen, editProfile
 }
 
 extension AppRouteExtension on AppRoutes {
@@ -37,6 +38,10 @@ extension AppRouteExtension on AppRoutes {
     AppRoutes.serviceHistory: "/ServiceHistory",
     AppRoutes.calendlyView: "/CalendlyView",
     AppRoutes.timeSelectionProcessSlot: "/TimeSelectionProcessSlot",
+    AppRoutes.userServicesList: "/UserServicesList",
+    AppRoutes.adminServicesList: "/AdminServicesList",
+    AppRoutes.adminServicesViewScreen: "/AdminServicesViewScreen",
+    AppRoutes.editProfile: "/EditProfileScreen",
   };
   String get toName => appRoutes[this]!;
 }

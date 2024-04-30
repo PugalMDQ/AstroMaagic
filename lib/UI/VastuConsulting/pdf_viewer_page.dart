@@ -10,8 +10,9 @@ import 'package:get/get_core/src/get_main.dart';
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:permission_handler/permission_handler.dart';
+
+
 import '../../Components/theme.dart';
 import '../../Controller/VastuConsulting/GetPdfViewController.dart';
 
@@ -83,7 +84,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          controller.userDataProvider.getUserServicesData!.services.toString() ??
+                          controller.userDataProvider.getServiceData!.services.toString() ??
                               "",
                           style: TextStyle(
                               fontSize: 17,
@@ -100,7 +101,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          controller.userDataProvider.getUserServicesData!.remedy.toString() ??
+                          controller.userDataProvider.getServiceData!.remedy.toString() ??
                               "",
                           style: TextStyle(
                               fontSize: 12,
@@ -127,7 +128,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                             Padding(
                               padding: EdgeInsets.only(top: 2),
                               child: Text(
-                                controller.userDataProvider.getUserServicesData!.fees.toString() ??
+                                controller.userDataProvider.getServiceData!.fees.toString() ??
                                     "",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(

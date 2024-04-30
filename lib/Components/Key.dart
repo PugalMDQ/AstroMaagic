@@ -1,6 +1,5 @@
-class Keyvalues {
+class KeyValues {
   String key, value;
   bool status;
-
-  Keyvalues({required this.key, required this.value, this.status = true});
+  KeyValues({required this.key, required this.value, this.status = true});
 }

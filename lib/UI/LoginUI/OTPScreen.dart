@@ -85,8 +85,7 @@ class OTPScreen extends GetView<OTPScreenController> {
                       controller: controller.fieldOne,
                       autoFocus: false,
                     ), // auto focus
-                    OtpInput(
-                        controller: controller.fieldTwo, autoFocus: false),
+                    OtpInput(controller: controller.fieldTwo, autoFocus: false),
                     OtpInput(
                         controller: controller.fieldThree, autoFocus: false),
                     OtpInput(
@@ -134,29 +133,29 @@ class OTPScreen extends GetView<OTPScreenController> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Container(
                   margin: const EdgeInsets.only(left: 0),
-                  child: Obx(() =>  Button(
-                      widthFactor: 0.91,
-                      heightFactor: 0.06,
-                      onPressed: () {
-    controller.verifyOTP();
-                      },
-                      child:  controller.isLoading.value
-                          ? Container(
-                          height: height * 0.04,
-                          width: height * 0.04,
-
-                          child: const CircularProgressIndicator(
-                            color: Colors.white,
-                          ))
-                          :
-                      Text("Verify OTP".tr,
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
-                          ))),
+                  child: Obx(
+                    () => Button(
+                        widthFactor: 0.91,
+                        heightFactor: 0.06,
+                        onPressed: () {
+                         // controller.verifyOTP();
+                          controller.otpVerified();
+                        },
+                        child: controller.isLoading.value
+                            ? Container(
+                                height: height * 0.04,
+                                width: height * 0.04,
+                                child: const CircularProgressIndicator(
+                                  color: Colors.white,
+                                ))
+                            : Text("Verify OTP".tr,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700,
+                                ))),
+                  ),
                 ),
-              ),
               ),
             ],
           ),

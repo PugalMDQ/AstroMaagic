@@ -11,11 +11,16 @@ import '../../Utils/BottomNavBarScreen.dart';
 class RegisterScreenController extends GetxController {
   RxBool married = RxBool(false);
   RxBool unMarried = RxBool(false);
+  RxBool working = RxBool(false);
+  RxBool business = RxBool(false);
   TextEditingController fullNameController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
-  TextEditingController placeOfBirthController = TextEditingController();
+  TextEditingController areaController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController timeOfBirthController = TextEditingController();
+  TextEditingController marriageController = TextEditingController();
   RxString dateformat = RxString("");
   TextEditingController dateAndTimeController = TextEditingController();
   RxString selectedDate = RxString("");
@@ -29,7 +34,7 @@ class RegisterScreenController extends GetxController {
   loginCall(context) async {
     if (fullNameController.value.text.isEmpty) {
       Fluttertoast.showToast(
-        msg: "Please Enter FullName",
+        msg: "Please Enter Full Name",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -39,7 +44,7 @@ class RegisterScreenController extends GetxController {
     }
     if (dateOfBirthController.text.length < 10) {
       Fluttertoast.showToast(
-        msg: "Please Enter Valid DOB",
+        msg: "Please Enter Valid Date Of Birth",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -48,9 +53,29 @@ class RegisterScreenController extends GetxController {
       return;
     }
 
-    if (placeOfBirthController.value.text.isEmpty) {
+    if (areaController.value.text.isEmpty) {
       Fluttertoast.showToast(
-        msg: "Please Enter Place Of Birth",
+        msg: "Please Enter Place Of Area",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+    if (cityController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Place Of City",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      return;
+    }
+    if (stateController.value.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Please Enter Your Of City",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
@@ -67,7 +92,8 @@ class RegisterScreenController extends GetxController {
         textColor: Colors.white,
       );
       return;
-    } if (passwordController.value.text.isEmpty) {
+    }
+    if (passwordController.value.text.isEmpty) {
       Fluttertoast.showToast(
         msg: "Please Enter Password",
         toastLength: Toast.LENGTH_SHORT,
@@ -79,16 +105,22 @@ class RegisterScreenController extends GetxController {
     }
 
     Map<String, dynamic> payload = {
-    'userName':fullNameController.text,
-    'placeOfBirth': placeOfBirthController.text,
-    'dateOfBirth':dateOfBirthController.text,
-    'timeOfBirth':timeOfBirthController.text,
-    'userPassword':passwordController.text,
-    'maritalStatus': married.value == true ? "married" : "unMarried",
-    'userLanguage': AppPreference().getLanguage,
-    'userCountry': AppPreference().getCountry,
-    'userMobile':AppPreference().getMobileNumber,
-    'isMobileVerified':1
+      'userName': fullNameController.text,
+      'placeOfBirth': cityController.text,
+      "stateOfBirth": stateController.text,
+      "cityOfBirth": cityController.text,
+      "areaOfBirth": areaController.text,
+      'dateOfBirth': dateOfBirthController.text,
+      'timeOfBirth': timeOfBirthController.text,
+      'userPassword': passwordController.text,
+      'maritalStatus': married.value == true ? "Married" : "unMarried",
+      'userLanguage': AppPreference().getLanguage,
+      'userCountry': AppPreference().getCountry,
+      'userMobile': AppPreference().getMobileNumber,
+      'isMobileVerified': 1,
+      "applicationType": "",
+      "employment": working.value == true ? "Working" : "Business",
+      "marriageDate": married.value == true ? marriageController.text : ""
     };
     print(payload);
 
@@ -108,11 +140,8 @@ class RegisterScreenController extends GetxController {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => BottomNavBar()),
-            (route) => false,
+        (route) => false,
       );
-
-
-
     } else {
       Fluttertoast.showToast(
         msg: response.message!,
@@ -123,6 +152,4 @@ class RegisterScreenController extends GetxController {
       );
     }
   }
-
-
 }

@@ -6,14 +6,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import '../../Components/forms.dart';
 import '../../Components/theme.dart';
 import '../../Controller/VastuConsulting/ServiceHistoryController.dart';
 import 'package:http/http.dart' as http;
 
 import '../../Provider/MenuDataProvider.dart';
+import '../../Routes/app_routes.dart';
 
 class ServiceHistory extends GetView<ServiceHistoryController> {
   const ServiceHistory({super.key});
@@ -34,15 +37,15 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.App_color,
-        // leading: IconButton(
-        //     icon: const ImageIcon(AssetImage(
-        //       "assets/icons/back_ios.png",
-        //     )),
-        //     color: AppTheme.primaryColor,
-        //     iconSize: 18,
-        //     onPressed: () {
-        //       Get.back();
-        //     }),
+        leading: IconButton(
+            icon: const ImageIcon(AssetImage(
+              "assets/icons/back_ios.png",
+            )),
+            color: AppTheme.primaryColor,
+            iconSize: 18,
+            onPressed: () {
+              Get.back();
+            }),
         title: Text(
           'Service History',
           style: TextStyle(color: Colors.white),
@@ -91,15 +94,15 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
       children: [
         GestureDetector(
           onTap: () async {
-            controller.userDataProvider
-                .setUserServicesData(controller.servicesData[index]);
-           // AppPreference().updateReamedyId(controller.servicesData[index].remedyId.toString());
-            if (controller.servicesData[index].remedyId.toString() == "1") {
-             // controller.getViewPdf();
-              final url = controller.getViewPdfData.pdf.toString();
-              final file = await loadPdfFromNetwork(url);
-
-              openPdf(context, file, url);
+            // controller.userDataProvider
+            //     .setUserServicesData(controller.servicesData[index]);
+            // // AppPreference().updateReamedyId(controller.servicesData[index].remedyId.toString());
+            // if (controller.servicesData[index].remedyId.toString() == "1") {
+            //   // controller.getViewPdf();
+            //   final url = controller.getViewPdfData.pdf.toString();
+            //   final file = await loadPdfFromNetwork(url);
+            //
+            //   openPdf(context, file, url);
 
               // Navigator.of(context).push(
               //   MaterialPageRoute(
@@ -108,14 +111,14 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
               //     ),
               //   ),
               // );
-            } else {
-              controller.scheduleMeeting();
-            }
+            // } else {
+            //   controller.scheduleMeeting();
+            // }
           },
           child: Container(
             margin: EdgeInsets.only(left: 15, right: 15, top: 10),
             width: width,
-            height: height * 0.13,
+            height: height * 0.15,
             decoration: BoxDecoration(
                 color: AppTheme.screenBackground,
                 borderRadius: BorderRadius.circular(5),
@@ -227,23 +230,50 @@ class ServiceHistory extends GetView<ServiceHistoryController> {
                     ],
                   ),
                 ),
-                // Padding(
-                //   padding: EdgeInsets.only(right: 17),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.end,
-                //     children: [
-                //       Text(
-                //         controller.servicesData[index]!.createdDateTime
-                //                 .toString() ??
-                //             "",
-                //         style: TextStyle(
-                //             fontSize: 12,
-                //             color: AppTheme.primaryColor,
-                //             fontWeight: FontWeight.w400),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                Padding(
+                  padding: EdgeInsets.only(right: 17),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      // Text(
+                      //   controller.servicesData[index]!.createdDateTime
+                      //           .toString() ??
+                      //       "",
+                      //   style: TextStyle(
+                      //       fontSize: 12,
+                      //       color: AppTheme.primaryColor,
+                      //       fontWeight: FontWeight.w400),
+                      // ),
+
+                      ButtonWithoutBackground(
+                          widthFactor: 0.2,
+                          heightFactor: 0.035,
+                          onPressed: () async {
+                            controller.userDataProvider.setUserServiceData(
+                                controller.servicesData[index]);
+                            Get.toNamed(AppRoutes.userServicesList.toName);
+                            // AppPreference().updateReamedyId(controller.servicesData[index].remedyId.toString());
+                            if (controller.servicesData[index].remedyId
+                                    .toString() ==
+                                "1") {
+                              // controller.getViewPdf();
+                              // final url = controller.getViewPdfData.pdf.toString();
+                              // final file = await loadPdfFromNetwork(url);
+                              // openPdf(context, file, url);
+
+                            } else {
+                              controller.scheduleMeeting();
+                            }
+                          },
+                          child: Text("View".tr,
+                              style: GoogleFonts.lato(
+                                fontSize: 12,
+                                color: AppTheme.primaryColor,
+                                fontWeight: FontWeight.w700,
+                              ))),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

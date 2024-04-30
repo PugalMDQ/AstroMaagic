@@ -1,15 +1,14 @@
-
-class SignInResponse {
+class EditProfileResponse {
   String? message;
   bool? error;
-  Data? data;
+  EditProfileResponseData? data;
 
-  SignInResponse({this.message, this.error, this.data});
+  EditProfileResponse({this.message, this.error, this.data});
 
-  SignInResponse.fromJson(Map<String, dynamic> json) {
+  EditProfileResponse.fromJson(Map<String, dynamic> json) {
     message = json['message'];
     error = json['error'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new EditProfileResponseData.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,8 +22,7 @@ class SignInResponse {
   }
 }
 
-class Data {
-  int? userId;
+class EditProfileResponseData {
   String? userName;
   String? areaOfBirth;
   String? cityOfBirth;
@@ -36,11 +34,10 @@ class Data {
   String? employment;
   String? userLanguage;
   String? userCountry;
-  String? bearerToken;
+  String? userMobile;
 
-  Data(
-      {this.userId,
-        this.userName,
+  EditProfileResponseData(
+      {this.userName,
         this.areaOfBirth,
         this.cityOfBirth,
         this.stateOfBirth,
@@ -51,10 +48,9 @@ class Data {
         this.employment,
         this.userLanguage,
         this.userCountry,
-        this.bearerToken});
+        this.userMobile});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    userId = json['userId'];
+  EditProfileResponseData.fromJson(Map<String, dynamic> json) {
     userName = json['userName'];
     areaOfBirth = json['areaOfBirth'];
     cityOfBirth = json['cityOfBirth'];
@@ -66,12 +62,11 @@ class Data {
     employment = json['employment'];
     userLanguage = json['userLanguage'];
     userCountry = json['userCountry'];
-    bearerToken = json['bearerToken'];
+    userMobile = json['userMobile'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['userId'] = this.userId;
     data['userName'] = this.userName;
     data['areaOfBirth'] = this.areaOfBirth;
     data['cityOfBirth'] = this.cityOfBirth;
@@ -83,7 +78,7 @@ class Data {
     data['employment'] = this.employment;
     data['userLanguage'] = this.userLanguage;
     data['userCountry'] = this.userCountry;
-    data['bearerToken'] = this.bearerToken;
+    data['userMobile'] = this.userMobile;
     return data;
   }
 }

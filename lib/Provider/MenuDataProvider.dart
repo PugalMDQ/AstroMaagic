@@ -7,7 +7,6 @@ import '../ResponseModel/ScheduleMeetingResponse.dart';
 import '../ResponseModel/VastuPriceSlotResponse.dart';
 
 class MenuDataProvider extends ChangeNotifier {
-
   String? verificationValues;
   String? isFromForgotOrRegister;
   String? eventURL;
@@ -18,37 +17,58 @@ class MenuDataProvider extends ChangeNotifier {
   GetAllServicesData? allServicesData;
   UserServiceData? userServicesData;
   VastuPriceSlotResponseData? vastuValues;
-  String? get getVerificationValues => verificationValues;
-  String? get getIsFromForgotOrRegister => isFromForgotOrRegister;
-  String? get getEventURL => eventURL;
-  GetAllServicesData? get getAllServicesData => allServicesData;
-  UserServiceData? get getUserServicesData => userServicesData;
-  GetRemediesData? get getRemediesData => remediesData;
-  bool? get getIsFromZoomMeeting => isFromZoomMeeting;
-  DateTime? get getSelectedMeetingTime => selectedMeetingTime;
-  List<Spots>? get getSpots => spots;
-  VastuPriceSlotResponseData? get getVastuData => vastuValues;
+  String? otpNumber;
+  UserServiceData? serviceData;
   Data? meetingData;
+
+
+
+  UserServiceData? get getServiceData => serviceData;
+  String? get getOtpNumber => otpNumber;
+  String? get getVerificationValues => verificationValues;
+
+  String? get getIsFromForgotOrRegister => isFromForgotOrRegister;
+
+  String? get getEventURL => eventURL;
+
+  GetAllServicesData? get getAllServicesData => allServicesData;
+
+  UserServiceData? get getUserServicesData => userServicesData;
+
+  GetRemediesData? get getRemediesData => remediesData;
+
+  bool? get getIsFromZoomMeeting => isFromZoomMeeting;
+
+  DateTime? get getSelectedMeetingTime => selectedMeetingTime;
+
+  List<Spots>? get getSpots => spots;
+
+  VastuPriceSlotResponseData? get getVastuData => vastuValues;
+
   Data? get getMeetingData => meetingData;
 
   void setVerificationValues(String? data) {
     verificationValues = data ?? "";
     notifyListeners();
   }
+
   void setIsFromForgotOrRegister(String? data) {
     isFromForgotOrRegister = data ?? "";
     notifyListeners();
   }
+
   void setEventURL(String? data) {
     eventURL = data ?? "";
     notifyListeners();
   }
+
   void setIsFromZoomMeeting(bool? data) {
     isFromZoomMeeting = data ?? false;
     notifyListeners();
   }
- void setSelectedMeetingTime(DateTime? data) {
-   selectedMeetingTime = data;
+
+  void setSelectedMeetingTime(DateTime? data) {
+    selectedMeetingTime = data;
     notifyListeners();
   }
 
@@ -61,6 +81,7 @@ class MenuDataProvider extends ChangeNotifier {
     allServicesData = data;
     notifyListeners();
   }
+
   void setUserServicesData(UserServiceData? data) {
     userServicesData = data;
     notifyListeners();
@@ -77,9 +98,19 @@ class MenuDataProvider extends ChangeNotifier {
     return true;
   }
 
-
   void setMeetingData(Data? data) {
     meetingData = data;
+    notifyListeners();
+  }
+
+
+  void setUserServiceData(UserServiceData? data) {
+    serviceData = data;
+    notifyListeners();
+  }
+
+  void setOtpNumber(String? data) {
+    otpNumber = data;
     notifyListeners();
   }
 }

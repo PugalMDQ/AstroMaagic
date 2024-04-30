@@ -40,13 +40,13 @@ class LoginScreen extends GetView<LoginController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: height * 0.2,
+                  height: height * 0.1,
                 ),
                 Container(
                   child: Image.asset(
-                    "assets/images/otpImage.png",
-                    width: width * 0.8,
-                    height: height * 0.2,
+                    "assets/images/Dr-Kanimozhi-min.png",
+                    width: width * 0.9,
+                    height: height * 0.3,
                     // color: Colors.white,
                   ),
                 ),

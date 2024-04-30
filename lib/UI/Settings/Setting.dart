@@ -78,33 +78,38 @@ class Setting extends GetView<SettingController> {
               SizedBox(
                 height: 15,
               ),
-              Container(
-                  margin: EdgeInsets.only(left: 20, top: 10),
-                  child: Row(children: [
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: AppTheme.primaryColor,
-                          borderRadius: BorderRadius.all(Radius.circular(30))),
-                      child: Icon(
-                        Icons.account_circle_rounded,
-                        size: 20,
-                        color: Colors.black,
+              GestureDetector (
+                onTap: (){
+                  Get.offAllNamed(AppRoutes.editProfile.toName);
+                  },
+                child: Container(
+                    margin: EdgeInsets.only(left: 20, top: 10),
+                    child: Row(children: [
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            color: AppTheme.primaryColor,
+                            borderRadius: BorderRadius.all(Radius.circular(30))),
+                        child: Icon(
+                          Icons.account_circle_rounded,
+                          size: 20,
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                        child: Text(
-                      "Edit Profile",
-                      style: TextStyle(
-                          color: AppTheme.primaryColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ))
-                  ])),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                          child: Text(
+                        "Edit Profile",
+                        style: TextStyle(
+                            color: AppTheme.primaryColor,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ))
+                    ])),
+              ),
               SizedBox(
                 height: 5,
               ),

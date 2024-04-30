@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import '../../Api_Connect/ApiConnect.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../ResponseModel/VastuPriceSlotResponse.dart';
@@ -17,7 +18,7 @@ class VastuConsultingPriceSlotController extends GetxController {
   bool isCall = false;
   RxList<bool> remedyChargesListOnClick = RxList();
   RxBool isClicked = RxBool(false);
-
+  Razorpay razorpay = Razorpay();
   @override
   void onInit() {
     super.onInit();

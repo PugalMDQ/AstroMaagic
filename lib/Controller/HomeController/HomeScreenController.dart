@@ -57,10 +57,10 @@ class HomeScreenController extends GetxController {
     var response = await _connect.getAllServicesCall(payload);
     debugPrint("getAllServicesResponse: ${response.toJson()}");
     Get.back();
+    isLoading.value = false;
     if (!response.error!) {
       getServicesData.value = response.data!;
-    } else {}
-    isLoading.value = false;
 
+    } else {}
   }
 }

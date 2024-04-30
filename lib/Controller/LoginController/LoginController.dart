@@ -13,8 +13,8 @@ import '../../Utils/BottomNavBarScreen.dart';
 
 class LoginController extends GetxController {
   RxBool isLoading = RxBool(false);
-  TextEditingController mobileController = TextEditingController(text: "7558188330");
-  TextEditingController passwordController = TextEditingController(text: "sanjai");
+  TextEditingController mobileController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final ApiConnect _connect = Get.put(ApiConnect());
   late MenuDataProvider userDataProvider;
 
@@ -71,12 +71,16 @@ class LoginController extends GetxController {
       AppPreference().updateLoginUserId(response.data!.userId.toString() ?? "");
       AppPreference().updateToken("Bearer ${response.data!.bearerToken!}");
 
-      Get.offAllNamed(AppRoutes.homeScreen.toName);
-      Navigator.pushAndRemoveUntil(
+      AppPreference().getLoginUserId == '5'
+          ? Get.offAllNamed(AppRoutes.adminServicesList.toName)
+          : Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => BottomNavBar()),
             (route) => false,
       );
+    //  Get.offAllNamed(AppRoutes.register.toName);
+
+
     }
     else {
       Fluttertoast.showToast(

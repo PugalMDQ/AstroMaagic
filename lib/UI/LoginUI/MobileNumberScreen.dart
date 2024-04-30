@@ -1,4 +1,5 @@
 import 'package:astromaagic/Routes/app_routes.dart';
+import 'package:astromaagic/Utils/app_utility.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -178,7 +179,8 @@ class MobileNumberScreen extends GetView<mobileNumberScreenController> {
                     widthFactor: 0.91,
                     heightFactor: 0.06,
                     onPressed: () {
-                      controller.generateOTP();
+                      controller.otpGenerated();
+                      AppUtility.dismissKeyboard();
                     },
                     child: controller.isLoading.value
                         ? Container(

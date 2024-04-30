@@ -19,6 +19,10 @@ class ApiUrl {
   static String scheduleMeeting = 'schedule_meeting';
   static String getAllEventSlots = 'get_all_event_slots';
   static String scheduleEvent = 'schedule_event';
-
+  static String getEditProfile = 'get_user';
+  static String getUpdateProfile = 'update_users';
+  static String acceptUserService = 'accept_user_service';
+  static String mobileNumber = 'check_mobile_number';
+  static String otpVerify = 'verify_otp';
 
 }

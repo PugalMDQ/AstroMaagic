@@ -484,3 +484,46 @@ class AppSnackBar {
         forwardAnimationCurve: Curves.easeOutBack);
   }
 }
+
+class ButtonWithoutBackground extends StatelessWidget {
+  final Widget child;
+  final double widthFactor;
+  final double heightFactor;
+  final VoidCallback? onPressed;
+  final BorderSide borderColor;
+
+  ButtonWithoutBackground({
+    Key? key,
+    required this.child,
+    this.onPressed,
+    this.widthFactor = 0.4,
+    this.heightFactor = 0.06,
+    this.borderColor = BorderSide.none,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+    return Container(
+      height: screenSize.height * heightFactor,
+      width: widthFactor != 0 ? screenSize.width * widthFactor : null,
+      decoration: BoxDecoration(
+          color: AppTheme.App_color, borderRadius: BorderRadius.circular(5)),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            foregroundColor: Colors.transparent,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            // Elevation
+            shadowColor: AppTheme.primaryColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side: BorderSide(color: AppTheme.primaryColor)) // Shadow Color
+        ),
+        onPressed: onPressed,
+        child: child,
+      ),
+    );
+  }
+}
+

@@ -34,36 +34,35 @@ class VastuConsultingPriceSlot
     });
 
     return Scaffold(
-      backgroundColor: AppTheme.App_color,
+        backgroundColor: AppTheme.App_color,
         floatingActionButton: GestureDetector(
           onTap: () {
-            for (int i = 0;
-                i < controller.remedyChargesListOnClick.length;
-                i++) {
-              if (controller.remedyChargesListOnClick[i] == true) {
-                controller.isClicked.value = true;
-
-                Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
-              }
-            }
-
-            if (!controller.isClicked.value) {
-              Fluttertoast.showToast(
-                msg: 'Please Select Payment',
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.BOTTOM,
-                backgroundColor: Colors.black,
-                textColor: Colors.white,
-              );
-            }
-
+            // for (int i = 0;
+            //     i < controller.remedyChargesListOnClick.length;
+            //     i++) {
+            //   if (controller.remedyChargesListOnClick[i] == true) {
+            //     controller.isClicked.value = true;
+            //
+            //     Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
+            //   }
+            // }
+            //
+            // if (!controller.isClicked.value) {
+            //   Fluttertoast.showToast(
+            //     msg: 'Please Select Payment',
+            //     toastLength: Toast.LENGTH_SHORT,
+            //     gravity: ToastGravity.BOTTOM,
+            //     backgroundColor: Colors.black,
+            //     textColor: Colors.white,
+            //   );
+            // }
           },
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
             height: 50,
             child: Center(
               child: Text(
-                'Next',
+                'Pay',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontSize: 18,
@@ -173,20 +172,21 @@ class VastuConsultingPriceSlot
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     VastuConsultingPriceSlotController controller =
-        Get.put( VastuConsultingPriceSlotController());
+        Get.put(VastuConsultingPriceSlotController());
     return Obx(() => GestureDetector(
           onTap: () async {
-           await controller.userDataProvider.setVastuData(controller.vastuData[index]);
-           for (int i = 0;
-                i < controller.remedyChargesListOnClick.length;
-                i++) {
-              if (index == i) {
-                controller.remedyChargesListOnClick[index] =
-                    !controller.remedyChargesListOnClick[index];
-              } else {
-                controller.remedyChargesListOnClick[i] = false;
-              }
-            }
+            // await controller.userDataProvider
+            //     .setVastuData(controller.vastuData[index]);
+            // for (int i = 0;
+            //     i < controller.remedyChargesListOnClick.length;
+            //     i++) {
+            //   if (index == i) {
+            //     controller.remedyChargesListOnClick[index] =
+            //         !controller.remedyChargesListOnClick[index];
+            //   } else {
+            //     controller.remedyChargesListOnClick[i] = false;
+            //   }
+            // }
           },
           child: Container(
             margin: EdgeInsets.only(left: 15, right: 15, top: 10),
@@ -209,7 +209,8 @@ class VastuConsultingPriceSlot
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'No of Questions '.tr,
+                        controller.vastuData[index].noOfQuestions
+                            .toString(),
                         style: TextStyle(
                             fontSize: 18,
                             color: controller.remedyChargesListOnClick[index]
@@ -231,16 +232,16 @@ class VastuConsultingPriceSlot
                 ),
                 GestureDetector(
                   onTap: () {
-                    for (int i = 0;
-                        i < controller.remedyChargesListOnClick.length;
-                        i++) {
-                      if (index == i) {
-                        controller.remedyChargesListOnClick[index] =
-                            !controller.remedyChargesListOnClick[index];
-                      } else {
-                        controller.remedyChargesListOnClick[i] = false;
-                      }
-                    }
+                  //   for (int i = 0;
+                  //       i < controller.remedyChargesListOnClick.length;
+                  //       i++) {
+                  //     if (index == i) {
+                  //       controller.remedyChargesListOnClick[index] =
+                  //           !controller.remedyChargesListOnClick[index];
+                  //     } else {
+                  //       controller.remedyChargesListOnClick[i] = false;
+                  //     }
+                  //   }
                   },
                   child: Container(
                     width: width * 0.43,
@@ -266,8 +267,7 @@ class VastuConsultingPriceSlot
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              controller.vastuData[index].noOfQuestions
-                                  .toString(),
+                             "",
                               style: TextStyle(
                                   fontSize: 14,
                                   color:

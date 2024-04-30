@@ -26,6 +26,7 @@ class VastuConsulting extends GetView<VastuConsultingController> {
       if (!controller.isCall) {
         controller.isCall = true;
         controller.getParticularServices();
+        controller.getRemedies();
       }
     });
     return Scaffold(
@@ -318,26 +319,26 @@ class VastuConsulting extends GetView<VastuConsultingController> {
                         SizedBox(
                           height: height * 0.06,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                              child: Button(
-                                  widthFactor: 0.85,
-                                  heightFactor: 0.06,
-                                  onPressed: () {
-                                    Get.offNamed(AppRoutes
-                                        .vastuConsultingPriceSlot.toName);
-                                  },
-                                  child: Text("Proceed".tr,
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w600,
-                                      ))),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Center(
+                        //       child: Button(
+                        //           widthFactor: 0.85,
+                        //           heightFactor: 0.06,
+                        //           onPressed: () {
+                        //             Get.offNamed(AppRoutes
+                        //                 .vastuConsultingPriceSlot.toName);
+                        //           },
+                        //           child: Text("Proceed".tr,
+                        //               style: TextStyle(
+                        //                 fontSize: 18,
+                        //                 color: Colors.black,
+                        //                 fontWeight: FontWeight.w600,
+                        //               ))),
+                        //     ),
+                        //   ],
+                        // ),
                         SizedBox(
                           height: height * 0.2,
                         )
@@ -363,11 +364,13 @@ class VastuConsulting extends GetView<VastuConsultingController> {
             // }
 
             if(controller.remediesData[index].remedyId == 1){
-              Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+              //Get.toNamed(AppRoutes.vastuConsultingPriceSlot.toName);
+              Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
             } else if (controller.remediesData[index].remedyId == 2){
               Get.toNamed(AppRoutes.calendlyView.toName);
             } else {
-              Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
+              Get.toNamed(AppRoutes.calendlyView.toName);
+             // Get.toNamed(AppRoutes.vastuConsultingPaymentScreen.toName);
             }
 
           },

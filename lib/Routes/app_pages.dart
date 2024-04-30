@@ -3,6 +3,7 @@ import 'package:astromaagic/Binding/HomeBinding/HomeScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/ForgotPasswordBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/OTPScreenBinding.dart';
 import 'package:astromaagic/Binding/LoginBinding/RegisterScreenBinding.dart';
+import 'package:astromaagic/Binding/Settings/EditProfileScreenBinding.dart';
 import 'package:astromaagic/Binding/VastuConsultingBinding/VastuConsultingBinding.dart';
 import 'package:astromaagic/UI/CountrySelection/CountrySelectionScreen.dart';
 import 'package:astromaagic/UI/GeneralPredictions/GeneralPredictionScreenOne.dart';
@@ -13,6 +14,8 @@ import 'package:astromaagic/UI/LoginUI/RegisterScreen.dart';
 import 'package:astromaagic/UI/VastuConsulting/ServiceHistory.dart';
 import 'package:astromaagic/UI/VastuConsulting/VastuConsulting.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import '../Binding/AdminScreenViewBinding/AdminServicesListBinding.dart';
+import '../Binding/AdminScreenViewBinding/AdminServicesViewScreenBinding.dart';
 import '../Binding/CalenderViewBinding/CalendlyViewBinding.dart';
 import '../Binding/CalenderViewBinding/TimeSelectionProcessSlotBinding.dart';
 import '../Binding/GeneralPredictionsBinding/ChoosePaymentScreenBinding.dart';
@@ -22,10 +25,13 @@ import '../Binding/GeneralPredictionsBinding/SuccessfullyPaidScreenBinding.dart'
 import '../Binding/LoginBinding/LoginBinding.dart';
 import '../Binding/LoginBinding/mobileNumberBinding.dart';
 import '../Binding/SplashBinding/SplashScreenBinding.dart';
+import '../Binding/UserServiceViewBinding/UserServicesViewScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/ServiceHistoryBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPaymentScreenBinding.dart';
 import '../Binding/VastuConsultingBinding/VastuConsultingPriceSlotBinding.dart';
 import '../Controller/CalenderViewController/TimeSlotProcessController.dart';
+import '../UI/AdminViewScreens/AdminServicesList.dart';
+import '../UI/AdminViewScreens/AdminServicesViewScreen.dart';
 import '../UI/CalenderView/CalendlyView.dart';
 import '../UI/CalenderView/TimeSlotSelectionProcess.dart';
 import '../UI/GeneralPredictions/ChoosePaymentScreen.dart';
@@ -33,7 +39,9 @@ import '../UI/GeneralPredictions/GeneralPredictionsVoiceMessageScreen.dart';
 import '../UI/GeneralPredictions/SuccessfullyPaidScreen.dart';
 import '../UI/LoginUI/LoginScreen.dart';
 import '../UI/LoginUI/MobileNumberScreen.dart';
+import '../UI/Settings/EditProfileScreen.dart';
 import '../UI/SplashScreen/SplashScreen.dart';
+import '../UI/UserServiceView/UserServicesViewScreen.dart';
 import '../UI/VastuConsulting/VastuConsultingPaymentScreen.dart';
 import '../UI/VastuConsulting/VastuConsultingPriceSlot.dart';
 import 'app_routes.dart';
@@ -92,10 +100,10 @@ class AppPages {
         name: AppRoutes.vastuConsultingPaymentScreen.toName,
         page: () => VastuConsultingPaymentScreen(),
         binding: VastuConsultingPaymentScreenBinding()),
-    GetPage(
-        name: AppRoutes.generalPredictionVoiceMessage.toName,
-        page: () => GeneralPredictionVoiceMessageScreen(),
-        binding: GeneralPredictionVoiceMessageBinding()),
+    // GetPage(
+    //     name: AppRoutes.generalPredictionVoiceMessage.toName,
+    //     page: () => GeneralPredictionVoiceMessageScreen(),
+    //     binding: GeneralPredictionVoiceMessageBinding()),
     GetPage(
         name: AppRoutes.countryScreen.toName,
         page: () => CountrySelectionScreen(),
@@ -112,5 +120,22 @@ class AppPages {
         name: AppRoutes.timeSelectionProcessSlot.toName,
         page: () => TimeSelectionProcessSlot(),
         binding: TimeSelectionSlotBinding()),
+    GetPage(
+        name: AppRoutes.userServicesList.toName,
+        page: () => UserServicesViewScreen(),
+        binding: UserServicesViewScreenBinding()),
+
+    GetPage(
+        name: AppRoutes.adminServicesList.toName,
+        page: () => AdminServicesList(),
+        binding: AdminServicesListBinding()),
+    GetPage(
+        name: AppRoutes.adminServicesViewScreen.toName,
+        page: () => AdminServicesViewScreen(),
+        binding: AdminServicesViewScreenBinding()),
+    GetPage(
+        name: AppRoutes.editProfile.toName,
+        page: () => EditProfileScreen(),
+        binding: EditProfileScreenBinding()),
   ];
 }

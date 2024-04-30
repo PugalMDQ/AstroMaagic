@@ -66,7 +66,7 @@ class CalendlyController extends GetxController {
 
     // Subtract one day to get the last day of the current month
     DateTime lastDayOfCurrentMonth =
-        firstDayOfNextMonth.subtract(Duration(days: 1));
+    firstDayOfNextMonth.subtract(Duration(days: 1));
 
     return lastDayOfCurrentMonth;
   }
@@ -82,7 +82,7 @@ class CalendlyController extends GetxController {
     Map<String, dynamic> payload = {
       'loginUserId': AppPreference().getLoginUserId.toString(),
       'serviceId':
-          userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
+      userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
     };
     isLoading.value = true;
     AppUtility.loader(context);
@@ -127,7 +127,7 @@ class CalendlyController extends GetxController {
     Map<String, dynamic> payload = {
       'loginUserId': AppPreference().getLoginUserId.toString(),
       'serviceId':
-          userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
+      userDataProvider.getAllServicesData!.serviceId.toString() ?? ''
     };
     isLoading.value = true;
     AppUtility.loader(context);
@@ -162,70 +162,4 @@ class CalendlyController extends GetxController {
     isLoading.value = false;
   }
 
-  void showBottomSheetDate(
-    BuildContext context,
-  ) {
-    DateTime focusDay = DateTime.now();
-    DateTime? selectedDay = focusDay;
-    // selectedDate.value = formatDate(selectedDay!, [yyyy, '-', mm, '-', dd]);
-    // dateformat.value = formatDate(selectedDay, [dd, '.', M, '.', yyyy]);
-    double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height;
-    Get.bottomSheet(SingleChildScrollView(
-        child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16.0),
-              topRight: Radius.circular(16.0),
-            ),
-            child: Container(
-                color: Colors.white,
-                child: Column(children: [
-                  Container(
-                    height: 350,
-                    child: DateRangeExample(
-                        // controller: controller,
-                        //  selectedDate: selectedDate,
-                        //  dateformat: dateformat
-
-                        ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AppButton2(
-                        width: width * 0.45,
-                        height: 40,
-                        title: 'Cancel',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        onPressed: () {
-                          Get.back();
-                        },
-                        color: Colors.white,
-                        titleColor: AppTheme.bottomTabsLabelInActiveColor,
-                        borderColor: AppTheme.cancelBorder,
-                      ),
-                      AppButton2(
-                        width: width * 0.45,
-                        height: 40,
-                        title: 'Save ',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        onPressed: () {
-                          //  controller.text = dateformat.value;
-                          Navigator.pop(context);
-                          // _showbottomTimePicker(context, controller,
-                          //     controller.value.text, dateformat, selectedDate);
-                        },
-                        titleColor: Colors.black,
-                        color: AppTheme.primaryColor,
-                        borderColor: AppTheme.primaryColor,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                ])))));
-  }
 }

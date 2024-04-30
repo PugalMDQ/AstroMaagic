@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:astromaagic/Utils/AppPreference.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:provider/provider.dart';
 
+import '../../Api_Connect/ApiConnect.dart';
 import '../../Provider/MenuDataProvider.dart';
 import '../../Routes/app_routes.dart';
 
@@ -19,6 +21,7 @@ class OTPScreenController extends GetxController {
   TextEditingController fieldFour = TextEditingController();
   TextEditingController fieldFive = TextEditingController();
   TextEditingController fieldSix = TextEditingController();
+  final ApiConnect _connect = Get.put(ApiConnect());
   RxString otp = RxString('');
   RxInt otpTimerSeconds = RxInt(60);
   Timer? _otpTimer;
@@ -32,6 +35,13 @@ class OTPScreenController extends GetxController {
     super.onInit();
     userDataProvider =
         Provider.of<MenuDataProvider>(Get.context!, listen: false);
+    final splitted =  userDataProvider.getOtpNumber!.split('');
+    fieldOne.text = splitted[0].toString();
+    fieldTwo.text = splitted[1].toString();
+    fieldThree.text = splitted[2].toString();
+    fieldFour.text = splitted[3].toString();
+    fieldFive.text = splitted[4].toString();
+    fieldSix.text = splitted[5].toString();
   }
 
   void startOTPTimer() {
@@ -123,4 +133,53 @@ class OTPScreenController extends GetxController {
       }
     }
   }
-}
+  Future<void> otpVerified() async {
+    print('OnclickVerify1');
+    String _otp = fieldOne.text +
+        fieldTwo.text +
+        fieldThree.text +
+        fieldFour.text +
+        fieldFive.text +
+        fieldSix.text;
+
+    if (_otp.isEmpty || _otp.length != 6) {
+      _otp.isEmpty
+          ? Fluttertoast.showToast(
+              msg: "Please enter OTP",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            )
+          : Fluttertoast.showToast(
+              msg: "OTP must be of 6 digits",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
+            );
+      return;
+    }
+
+    print("Entered OTP:${_otp}");
+    Map<String, dynamic> payload = {
+      'userMobile':AppPreference().getMobileNumber,
+      "otpNumber": userDataProvider.getOtpNumber.toString(),
+    };
+
+    isLoading.value = true;
+    var response = await _connect.otpVerifyCall(payload);
+    isLoading.value = false;
+    print("OtpVerifyPayload:$payload");
+    debugPrint("OtpResponse: ${response.toJson()}");
+    if (!response.error!) {
+      Fluttertoast.showToast(
+        msg: response.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      Get.toNamed(AppRoutes.register.toName);
+    }
+}}
