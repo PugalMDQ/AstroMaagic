@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:astromaagic/ResponseModel/CommonResponse.dart';
 import 'package:flutter/cupertino.dart';
@@ -277,6 +278,51 @@ class ApiConnect extends GetConnect {
   Future<CommonResponse> imgUpdateCall(
       String url,
       XFile? imageFile,
+      Map<String, String> payload,
+      ) async {
+
+    Map<String, String> header = {
+      'Authorization': AppPreference().getToken.toString(),
+      'loginUserId': AppPreference().getLoginUserId.toString(),
+    };
+    print("URL$url");
+    var request =
+    http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
+    // var response = await post(
+    //     ApiUrl.baseUrl + ApiUrl.getUpdateProfile,
+    //     headers: header);
+    if (imageFile != null) {
+      var imageStream = http.ByteStream(imageFile.openRead());
+      var imageLength = await imageFile.length();
+      var multipartFile = http.MultipartFile('profileImage', imageStream, imageLength,
+          filename: imageFile.path.split('/').last);
+      request.files.add(multipartFile);
+    }
+    request.fields.addAll(payload);
+    // Send the request
+    var response = await request.send();
+
+    var responseBody = await response.stream.bytesToString();
+    debugPrint("responseBody : ${responseBody}");
+
+    var parsedResponse;
+
+    try {
+      parsedResponse = json.decode(responseBody) as Map<String, dynamic>;
+    } catch (e) {
+      return CommonResponse();
+    }
+    debugPrint("url : ${url}");
+    debugPrint("imageFile : ${parsedResponse}");
+
+    var convertedResponse = CommonResponse.fromJson(parsedResponse);
+
+    return convertedResponse;
+  }
+
+ Future<CommonResponse> fileUpload(
+      String url,
+      File? imageFile,
       Map<String, String> payload,
       ) async {
 

@@ -23,7 +23,6 @@ class AdminServicesListController extends GetxController {
   TextEditingController toDateController = TextEditingController();
   List<String> listStatusData = ["Accepted", "In-Progress", "Completed"];
   RxInt selectedTabIndex = RxInt(0);
-
   List<String> listServicesData = [
     "Vastu Consulting",
     "Personalized Horoscope",
@@ -46,11 +45,44 @@ class AdminServicesListController extends GetxController {
       'loginUserId': AppPreference().getLoginUserId.toString(),
       // 'userId': AppPreference().getLoginUserId.toString(),
     };
+    if (statusDropdown.value != "Status") {
+      Map<String, String> servicePayload = {
+        "serviceStatus": statusDropdown.value == "Accepted"
+            ? "1"
+            : statusDropdown.value == "In-Progress"
+                ? "2"
+                : "3",
+      };
+      payload.addAll(servicePayload);
+    } else {
+      Map<String, String> servicePayload = {
+        "serviceStatus": "",
+      };
+      payload.addAll(servicePayload);
+    }
+    if (fromDateController.text.isNotEmpty) {
+      Map<String, String> servicePayload = {
+        "fromDate": fromDateController.text,
+      };
+      payload.addAll(servicePayload);
+    }
+    if (toDateController.text.isNotEmpty) {
+      Map<String, String> servicePayload = {
+        "toDate": toDateController.text,
+      };
+      payload.addAll(servicePayload);
+    }
+    if (servicesDropdown.value != "Services") {
+      Map<String, String> servicePayload = {
+        "services": servicesDropdown.value,
+      };
+      payload.addAll(servicePayload);
+    }
+
     isLoading.value = true;
     AppUtility.loader(context);
 
     print("getUserServicesPayload:$payload");
-
     var response = await _connect.getUserServicesCall(payload);
     debugPrint("getUserServicesResponse: ${response.toJson()}");
     Get.back();

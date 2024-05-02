@@ -33,17 +33,7 @@ class AdminServicesList extends GetView<AdminServicesListController> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppTheme.App_color,
-        leading: IconButton(
-            icon: const ImageIcon(AssetImage(
-              "assets/icons/back_ios.png",
-            )),
-            color: AppTheme.primaryColor,
-            iconSize: 18,
-            onPressed: () {
-              print('object132');
-              Get.back();
-            }),
-        title: Text(
+        title: const Text(
           'Service Request',
           style: TextStyle(color: Colors.white),
         ),
@@ -259,7 +249,7 @@ class AdminServicesList extends GetView<AdminServicesListController> {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 width: (width / 2) - 28,
@@ -280,14 +270,14 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                                 contentPadding: EdgeInsets.only(left: 10),
                                 hintText: controller.statusDropdown.value,
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(
+                                hintStyle: const TextStyle(
                                     color: AppTheme.white, fontSize: 12)),
                             items: controller.listServicesData.map((material) {
                               return DropdownMenuItem<String>(
                                 value: material,
                                 child: Text(
                                   material,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: AppTheme.primaryColor,
                                     fontSize: 10,
                                   ),
@@ -297,8 +287,8 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                             onChanged: (String? value) {
                               controller.statusDropdown.value = value!;
                             },
-                            icon: Padding(
-                              padding: const EdgeInsets.only(right: 0),
+                            icon: const Padding(
+                              padding: EdgeInsets.only(right: 0),
                               child: Icon(
                                 Icons.arrow_drop_down,
                                 color: Colors.black,
@@ -314,7 +304,9 @@ class AdminServicesList extends GetView<AdminServicesListController> {
               ButtonWithoutBackground(
                   widthFactor: 0.4,
                   heightFactor: 0.055,
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.getUserServices();
+                  },
                   child: Text("Apply",
                       style: GoogleFonts.lato(
                         fontSize: 18,

@@ -55,14 +55,14 @@ class AdminServicesViewScreen
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
-
               Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: 20,),
+                      SizedBox(
+                        width: 20,
+                      ),
                       Container(
                         width: (width / 2) - 60,
                         child: Column(
@@ -73,18 +73,23 @@ class AdminServicesViewScreen
                               child: Container(
                                 height: 48,
                                 decoration: BoxDecoration(
-                                    border: Border.all(color: AppTheme.primaryColor),
+                                    border: Border.all(
+                                        color: AppTheme.primaryColor),
                                     borderRadius: BorderRadius.circular(5.5)),
                                 child: DropdownButtonHideUnderline(
                                   child: DropdownButtonFormField<String>(
                                     dropdownColor: AppTheme.App_color,
                                     decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.only(left: 10),
-                                        hintText: controller.statusDropdown.value,
+                                        contentPadding:
+                                            EdgeInsets.only(left: 10),
+                                        hintText:
+                                            controller.statusDropdown.value,
                                         border: InputBorder.none,
                                         hintStyle: TextStyle(
-                                            color: AppTheme.white, fontSize: 12)),
-                                    items: controller.listStatusData.map((material) {
+                                            color: AppTheme.white,
+                                            fontSize: 12)),
+                                    items: controller.listStatusData
+                                        .map((material) {
                                       return DropdownMenuItem<String>(
                                         value: material,
                                         child: Text(
@@ -115,8 +120,9 @@ class AdminServicesViewScreen
                       ),
                     ],
                   ),
-                  SizedBox(height: 5,),
-
+                  SizedBox(
+                    height: 5,
+                  ),
                   Row(
                     children: [
                       Container(
@@ -312,17 +318,16 @@ class AdminServicesViewScreen
                           ),
                         )
                       : Container(),
-
                   Container(
                     height: 50,
                     width: width,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
-                        border: Border.all(color:AppTheme.primaryColor)),
+                        border: Border.all(color: AppTheme.primaryColor)),
                     margin: EdgeInsets.only(top: 8, left: 10, right: 10),
                     child: GestureDetector(
                       onTap: () {
-                       // pickFile(context);
+                        // pickFile(context);
                       },
                       child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 10),
@@ -336,18 +341,20 @@ class AdminServicesViewScreen
                                     fontWeight: FontWeight.w600)),
                             GestureDetector(
                               onTap: () {
-                              //  pickFile(context);
+                                controller.pickFile(context);
                               },
                               child: Container(
                                 width: width * 0.3,
                                 margin: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(7)),
-                                    border: Border.all(color: AppTheme.primaryColor)),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(7)),
+                                    border: Border.all(
+                                        color: AppTheme.primaryColor)),
                                 child: Center(
                                   child: Text("Browser",
                                       style: GoogleFonts.poppins(
-                                          color:AppTheme.primaryColor,
+                                          color: AppTheme.primaryColor,
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600)),
                                 ),
@@ -358,82 +365,73 @@ class AdminServicesViewScreen
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 0.02,),
-
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("File Path",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600)),
-
-                        GestureDetector(
-                          onTap: () {
-                           // pickFile(context);
-                          },
-                          child: Container(
-                            width: width * 0.3,
-                            margin: EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(7)),
-                                border: Border.all(color: AppTheme.primaryColor)),
-                            child: Center(
-                              child: Text("Upload",
-                                  style: GoogleFonts.poppins(
-                                      color:AppTheme.primaryColor,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w600)),
-                            ),
+                  Obx(() => controller.isFileSelected.value &&
+                          controller.file != null
+                      ? Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  // pickFile(context);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.all(10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(7)),
+                                      border: Border.all(
+                                          color: AppTheme.primaryColor)),
+                                  child: Center(
+                                    child: Text(
+                                        controller.file!.path.split('/').last,
+                                        style: GoogleFonts.poppins(
+                                            color: AppTheme.primaryColor,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600)),
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                  onTap: () {
+                                    controller.file = null;
+                                  },
+                                  child: Icon(Icons.clear))
+                            ],
                           ),
-                        ),
-
-                      ],
-                    ),
-                  )
-
+                        )
+                      : Container())
                 ],
               ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height * 0.5,
-              // ),
-              //
-              // controller.userDataProvider.getServiceData!.serviceStatus
-              //             .toString() ==
-              //         "Pending"
-              //     ? Padding(
-              //         padding: const EdgeInsets.all(8.0),
-              //         child: Button(
-              //             widthFactor: 0.85,
-              //             heightFactor: 0.06,
-              //             onPressed: () {
-              //               controller.acceptService();
-              //             },
-              //             child: Text("Accept".tr,
-              //                 style: GoogleFonts.lato(
-              //                   fontSize: 18,
-              //                   color: Colors.black,
-              //                   fontWeight: FontWeight.w700,
-              //                 ))),
-              //       )
-              //     : Padding(
-              //         padding: const EdgeInsets.all(8.0),
-              //         child: ButtonWithoutBackground(
-              //             widthFactor: 0.85,
-              //             heightFactor: 0.06,
-              //             onPressed: () {
-              //               Get.offAllNamed(AppRoutes.adminServicesList.toName);
-              //             },
-              //             child: Text("Back".tr,
-              //                 style: GoogleFonts.lato(
-              //                   fontSize: 18,
-              //                   color: AppTheme.primaryColor,
-              //                   fontWeight: FontWeight.w700,
-              //                 ))),
-              //       ),
+              Container(
+                child: Obx(
+                  () => Button(
+                      widthFactor: 0.91,
+                      heightFactor: 0.06,
+                      onPressed: () {
+                        if (controller.isLoading.value) {
+                          return;
+                        }
+                        controller.updateStatus(context);
+                      },
+                      child: controller.isLoading.value
+                          ? Container(
+                              height: height * 0.04,
+                              width: height * 0.04,
+                              child: const CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                          : Text("Update".tr,
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                              ))),
+                ),
+              ),
             ],
           ),
         ));
