@@ -318,6 +318,9 @@ class AdminServicesViewScreen
                           ),
                         )
                       : Container(),
+                  controller.userDataProvider.getServiceData!.remedyId
+                      .toString() ==
+                      "1" ?
                   Container(
                     height: 50,
                     width: width,
@@ -364,7 +367,7 @@ class AdminServicesViewScreen
                         ),
                       ),
                     ),
-                  ),
+                  ) : Container(),
                   Obx(() => controller.isFileSelected.value &&
                           controller.file != null
                       ? Container(

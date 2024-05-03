@@ -24,5 +24,6 @@ class ApiUrl {
   static String acceptUserService = 'accept_user_service';
   static String mobileNumber = 'check_mobile_number';
   static String otpVerify = 'verify_otp';
+  static String forgotMobileNumber = 'generate_forgot_password_otp';
 
 }

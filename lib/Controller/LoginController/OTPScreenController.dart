@@ -180,6 +180,11 @@ class OTPScreenController extends GetxController {
         backgroundColor: Colors.black,
         textColor: Colors.white,
       );
-      Get.toNamed(AppRoutes.register.toName);
+      print("userDataProvider.getIsFromForgotOrRegister${userDataProvider.getIsFromForgotOrRegister!}");
+      if(userDataProvider.getIsFromForgotOrRegister == "Forgot"){
+        Get.offAllNamed(AppRoutes.forgotPassword.toName);
+      }else {
+        Get.toNamed(AppRoutes.register.toName);
+      }
     }
 }}

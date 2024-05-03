@@ -147,7 +147,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                       ),
                       Text(
                         "easily!".tr,
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontFamily: 'Lato',
                             color: Colors.white,
                             fontWeight: FontWeight.w300,
@@ -161,7 +161,7 @@ class RegisterScreen extends GetView<RegisterScreenController> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Container(
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           color: AppTheme.white,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: TextFormField(

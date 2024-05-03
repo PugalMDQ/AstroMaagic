@@ -17,11 +17,12 @@ import '../../Utils/AppPreference.dart';
 import '../../Utils/app_utility.dart';
 
 class AdminServicesViewScreenController extends GetxController {
+
   late MenuDataProvider userDataProvider;
   RxBool isLoading = RxBool(false);
   RxBool isFileSelected = RxBool(false);
   late BuildContext context;
-  ApiConnect _connect = Get.put(ApiConnect());
+  final ApiConnect _connect = Get.put(ApiConnect());
   List<String> listStatusData = ["Accepted", "In-Progress", "Completed"];
   RxString statusDropdown = RxString('Change Status');
   File? file;
@@ -60,11 +61,11 @@ class AdminServicesViewScreenController extends GetxController {
   Future<void> pickFile(BuildContext context) async {
     isFileSelected.value = false;
     FilePickerResult? result = await FilePicker.platform.pickFiles();
-    isFileSelected.value = true;
 
     if (result != null) {
       file = File(result.files.single.path!);
     } else {}
+    isFileSelected.value = true;
   }
 
   Future<void> updateStatus(context) async {
@@ -97,7 +98,8 @@ class AdminServicesViewScreenController extends GetxController {
     if (file == null) {
       response = await _connect.commonUpload(payload, ApiUrl.acceptUserService);
     } else {
-      response = await _connect.fileUpload(ApiUrl.acceptUserService, file!, payload);
+      response =
+          await _connect.fileUpload(ApiUrl.acceptUserService, file!, payload);
     }
 
     isLoading.value = false;
@@ -121,4 +123,5 @@ class AdminServicesViewScreenController extends GetxController {
       );
     }
   }
+
 }

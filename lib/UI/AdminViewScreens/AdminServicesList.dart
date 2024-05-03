@@ -129,7 +129,7 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                                   minimumDate: DateTime(
                                       now.year - 104, now.month, now.day),
                                   maximumDate: DateTime.now(),
-                                  initialDateTime: DateTime(2001, 5, 5),
+                                  initialDateTime: DateTime.now(),
                                   use24hFormat: true,
                                   mode: CupertinoDatePickerMode.date,
                                 ),
@@ -202,7 +202,7 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                                   minimumDate: DateTime(
                                       now.year - 104, now.month, now.day),
                                   maximumDate: DateTime.now(),
-                                  initialDateTime: DateTime(2001, 5, 5),
+                                  initialDateTime: DateTime.now(),
                                   use24hFormat: true,
                                   mode: CupertinoDatePickerMode.date,
                                 ),
@@ -302,7 +302,23 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                 ),
               ),
               ButtonWithoutBackground(
-                  widthFactor: 0.4,
+                  widthFactor: 0.3,
+                  heightFactor: 0.055,
+                  onPressed: () {
+                    controller.toDateController = TextEditingController();
+                    controller.fromDateController = TextEditingController();
+                    controller.servicesDropdown = RxString('Services');
+                    controller.statusDropdown = RxString('Status');
+                    controller.getUserServices();
+                  },
+                  child: Text("Clear",
+                      style: GoogleFonts.lato(
+                        fontSize: 18,
+                        color: AppTheme.primaryColor,
+                        fontWeight: FontWeight.w700,
+                      ))),
+              Button(
+                  widthFactor: 0.3,
                   heightFactor: 0.055,
                   onPressed: () {
                     controller.getUserServices();
@@ -310,7 +326,7 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                   child: Text("Apply",
                       style: GoogleFonts.lato(
                         fontSize: 18,
-                        color: AppTheme.primaryColor,
+                        color: AppTheme.white,
                         fontWeight: FontWeight.w700,
                       ))),
             ],

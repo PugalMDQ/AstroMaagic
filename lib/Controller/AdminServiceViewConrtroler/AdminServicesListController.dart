@@ -21,7 +21,12 @@ class AdminServicesListController extends GetxController {
   RxString servicesDropdown = RxString('Services');
   TextEditingController fromDateController = TextEditingController();
   TextEditingController toDateController = TextEditingController();
-  List<String> listStatusData = ["Accepted", "In-Progress", "Completed"];
+  List<String> listStatusData = [
+    "Accepted",
+    "In-Progress",
+    "Completed",
+    "Pending"
+  ];
   RxInt selectedTabIndex = RxInt(0);
   List<String> listServicesData = [
     "Vastu Consulting",
@@ -51,7 +56,9 @@ class AdminServicesListController extends GetxController {
             ? "1"
             : statusDropdown.value == "In-Progress"
                 ? "2"
-                : "3",
+                : statusDropdown.value == "Pending"
+                    ? "0"
+                    : "3",
       };
       payload.addAll(servicePayload);
     } else {

@@ -67,7 +67,8 @@ class ApiConnect extends GetConnect {
     return SignUpResponse.fromJson(response.body);
   }
 
-  Future<CommonResponse> commonUpload(Map<String, dynamic> payload ,String endpoint) async {
+  Future<CommonResponse> commonUpload(
+      Map<String, dynamic> payload, String endpoint) async {
     FormData formData = FormData(payload);
     var response = await post(ApiUrl.baseUrl + endpoint, formData);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
@@ -127,8 +128,7 @@ class ApiConnect extends GetConnect {
     return VastuPriceSlotResponse.fromJson(response.body);
   }
 
-  addUserCall(
-      Map<String, dynamic> payload) async {
+  addUserCall(Map<String, dynamic> payload) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
@@ -152,12 +152,12 @@ class ApiConnect extends GetConnect {
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return GetUserServiceResponse.fromJson(response.body);
   }
+
   Future<GetViewPdfResponse> getViewPdfCall(
       Map<String, dynamic> payload) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
-
     };
     FormData formData = FormData(payload);
     var response = await post(ApiUrl.baseUrl + ApiUrl.getViewPdf, formData,
@@ -166,21 +166,29 @@ class ApiConnect extends GetConnect {
     return GetViewPdfResponse.fromJson(response.body);
   }
 
-
-
-  Future<ScheduleResponse> scheduleEvent(
-      Map<String, dynamic> payload) async {
+  Future<ScheduleResponse> scheduleEvent(Map<String, dynamic> payload) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
     };
 
     FormData formData = FormData(payload);
-    var response = await post(ApiUrl.baseUrl + ApiUrl.scheduleEvent, formData,);
+    var response = await post(
+      ApiUrl.baseUrl + ApiUrl.scheduleEvent,
+      formData,
+    );
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return ScheduleResponse.fromJson(response.body);
   }
 
+  Future<MobileNumberResponse> forgotMobileNumberCall(
+      Map<String, dynamic> payload) async {
+    FormData formData = FormData(payload);
+    var response =
+        await post(ApiUrl.baseUrl + ApiUrl.forgotMobileNumber, formData);
+    if (response.body == null) throw Exception(AppUtility.connectivityMessage);
+    return MobileNumberResponse.fromJson(response.body);
+  }
 
   Future<PaymentSuccessResponse> getPaymentSuccess(
       Map<String, dynamic> payload) async {
@@ -212,7 +220,8 @@ class ApiConnect extends GetConnect {
   Future<AvailableDateResponse> getAllEventSlot(
       Map<String, dynamic> payload) async {
     FormData formData = FormData(payload);
-    var response = await post(ApiUrl.baseUrl + ApiUrl.getAllEventSlots, formData);
+    var response =
+        await post(ApiUrl.baseUrl + ApiUrl.getAllEventSlots, formData);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return AvailableDateResponse.fromJson(response.body);
   }
@@ -258,14 +267,13 @@ class ApiConnect extends GetConnect {
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return AcceptUserServiceResponse.fromJson(response.body);
   }
-  Future<OtpVerifyResponse> otpVerifyCall(
-      Map<String, dynamic> payload) async {
+
+  Future<OtpVerifyResponse> otpVerifyCall(Map<String, dynamic> payload) async {
     FormData formData = FormData(payload);
     var response = await post(ApiUrl.baseUrl + ApiUrl.otpVerify, formData);
     if (response.body == null) throw Exception(AppUtility.connectivityMessage);
     return OtpVerifyResponse.fromJson(response.body);
   }
-
 
   Future<MobileNumberResponse> mobileNumberCall(
       Map<String, dynamic> payload) async {
@@ -276,25 +284,25 @@ class ApiConnect extends GetConnect {
   }
 
   Future<CommonResponse> imgUpdateCall(
-      String url,
-      XFile? imageFile,
-      Map<String, String> payload,
-      ) async {
-
+    String url,
+    XFile? imageFile,
+    Map<String, String> payload,
+  ) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
     };
     print("URL$url");
     var request =
-    http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
+        http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
     // var response = await post(
     //     ApiUrl.baseUrl + ApiUrl.getUpdateProfile,
     //     headers: header);
     if (imageFile != null) {
       var imageStream = http.ByteStream(imageFile.openRead());
       var imageLength = await imageFile.length();
-      var multipartFile = http.MultipartFile('profileImage', imageStream, imageLength,
+      var multipartFile = http.MultipartFile(
+          'profileImage', imageStream, imageLength,
           filename: imageFile.path.split('/').last);
       request.files.add(multipartFile);
     }
@@ -320,26 +328,26 @@ class ApiConnect extends GetConnect {
     return convertedResponse;
   }
 
- Future<CommonResponse> fileUpload(
-      String url,
-      File? imageFile,
-      Map<String, String> payload,
-      ) async {
-
+  Future<CommonResponse> fileUpload(
+    String url,
+    File? imageFile,
+    Map<String, String> payload,
+  ) async {
     Map<String, String> header = {
       'Authorization': AppPreference().getToken.toString(),
       'loginUserId': AppPreference().getLoginUserId.toString(),
     };
     print("URL$url");
     var request =
-    http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
+        http.MultipartRequest('POST', Uri.parse(ApiUrl.baseUrl + url));
     // var response = await post(
     //     ApiUrl.baseUrl + ApiUrl.getUpdateProfile,
     //     headers: header);
     if (imageFile != null) {
       var imageStream = http.ByteStream(imageFile.openRead());
       var imageLength = await imageFile.length();
-      var multipartFile = http.MultipartFile('profileImage', imageStream, imageLength,
+      var multipartFile = http.MultipartFile(
+          'profileImage', imageStream, imageLength,
           filename: imageFile.path.split('/').last);
       request.files.add(multipartFile);
     }
@@ -364,5 +372,4 @@ class ApiConnect extends GetConnect {
 
     return convertedResponse;
   }
-
 }

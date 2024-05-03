@@ -84,6 +84,7 @@ dependencies:
   webview_flutter: ^4.7.0
   flutter_share: ^2.0.0
   syncfusion_flutter_datepicker: ^25.1.41
+  country_code_picker: ^3.0.0
 
 
 

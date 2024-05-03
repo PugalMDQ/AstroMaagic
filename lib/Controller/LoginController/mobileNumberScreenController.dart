@@ -141,4 +141,57 @@ class mobileNumberScreenController extends GetxController {
     }
 }
 
+Future<void> forgotOtpGenerated() async{
+    // if (mobileController.value.text.isEmpty ||
+    //     mobileController.value.text.length != 10) {
+    //   mobileController.value.text.isEmpty
+    //       ? Fluttertoast.showToast(
+    //     msg: "Please enter Mobile number",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Colors.black,
+    //     textColor: Colors.white,
+    //   )
+    //       : Fluttertoast.showToast(
+    //     msg: "Mobile Number must be of 10 digit",
+    //     toastLength: Toast.LENGTH_SHORT,
+    //     gravity: ToastGravity.BOTTOM,
+    //     backgroundColor: Colors.black,
+    //     textColor: Colors.white,
+    //   );
+    //   return;
+    // }
+
+    Map<String, dynamic> payload = {
+      'userMobile':mobileController.text,
+
+    };
+
+    isLoading.value = true;
+    var response = await _connect.forgotMobileNumberCall(payload);
+    isLoading.value = false;
+
+    debugPrint("MobileNumberResponse: ${response.toJson()}");
+    if (!response.error!) {
+      Fluttertoast.showToast(
+        msg: response.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+      userDataProvider.setOtpNumber(response.otpNumber.toString());
+      AppPreference().updateMobileNumber(mobileController.text.toString());
+      Get.toNamed(AppRoutes.otp.toName);
+  } else{
+      Fluttertoast.showToast(
+        msg: response.message!,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
+    }
+}
+
 }
