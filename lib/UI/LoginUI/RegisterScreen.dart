@@ -44,7 +44,8 @@ class RegisterScreen extends GetView<RegisterScreenController> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    RegisterScreenController controller = Get.put(RegisterScreenController());
+    RegisterScreenController controller =
+    Get.put(RegisterScreenController());
     return Scaffold(
       appBar: AppBar(
         elevation: 0,

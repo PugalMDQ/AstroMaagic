@@ -18,7 +18,8 @@ class HomeScreen extends GetView<HomeScreenController> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    HomeScreenController controller = Get.put(HomeScreenController());
+    HomeScreenController controller =
+    Get.put(HomeScreenController());
     controller.context = context;
     controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
