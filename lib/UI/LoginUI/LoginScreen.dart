@@ -23,6 +23,9 @@ class LoginScreen extends GetView<LoginController> {
     double width = MediaQuery.of(context).size.width;
     LoginController controller = Get.put(LoginController());
 
+
+
+
     controller.userDataProvider =
         Provider.of<MenuDataProvider>(context, listen: false);
     return MaterialApp(
