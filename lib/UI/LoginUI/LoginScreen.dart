@@ -132,6 +132,7 @@ class LoginScreen extends GetView<LoginController> {
                                 fontWeight: FontWeight.w400),
                             contentPadding: const EdgeInsets.only(left: 20),
                           ),
+
                           //  border: OutlineInputBorder(
                           //   borderSide:
                           //   BorderSide(width: 2, color: AppTheme.primaryColor),

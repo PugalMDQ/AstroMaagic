@@ -27,11 +27,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 2;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
-  static const List<Widget> _widgetOptions = <Widget>[
-    ChoosePaymentScreen(),
-    HomeScreen(),
-    ServiceHistory(),
-  ];
+
 
   @override
   Widget build(BuildContext context) {

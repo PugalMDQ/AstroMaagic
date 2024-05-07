@@ -41,48 +41,49 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBZ3qY3VLeZ8jeWgCmk0AWGyZUiORAMsPI',
-    appId: '1:387897822714:web:52782e2a1ce0e348ebe843',
-    messagingSenderId: '387897822714',
-    projectId: 'astro-4f278',
-    authDomain: 'astro-4f278.firebaseapp.com',
-    storageBucket: 'astro-4f278.appspot.com',
-    measurementId: 'G-EZTZMPTMKM',
+    apiKey: 'AIzaSyBan35AV3pNWlZi4RyFLRjzZNTtQylGTZw',
+    appId: '1:836374406934:web:e4c5bfc28c1704d3a05237',
+    messagingSenderId: '836374406934',
+    projectId: 'astromaagic-b2480',
+    authDomain: 'astromaagic-b2480.firebaseapp.com',
+    storageBucket: 'astromaagic-b2480.appspot.com',
+    measurementId: 'G-77Z1GZ3NTL',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCoJHv9cg6lJqkkwookJ2U0YwGTZswim_k',
-    appId: '1:387897822714:android:02810872292fb854ebe843',
-    messagingSenderId: '387897822714',
-    projectId: 'astro-4f278',
-    storageBucket: 'astro-4f278.appspot.com',
+    apiKey: 'AIzaSyC5Ci3VwP8ZJMVropptzfGFRLNjLzxWLbw',
+    appId: '1:836374406934:android:4c9cdb7760449809a05237',
+    messagingSenderId: '836374406934',
+    projectId: 'astromaagic-b2480',
+    storageBucket: 'astromaagic-b2480.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDDc7BzKEcM7G5GTaOFykawbzuheY7hjzY',
-    appId: '1:387897822714:ios:f2656e1e47d5eb97ebe843',
-    messagingSenderId: '387897822714',
-    projectId: 'astro-4f278',
-    storageBucket: 'astro-4f278.appspot.com',
+    apiKey: 'AIzaSyDHr1DvTiL82WrcXCur9wKo2L2hNj7_k4w',
+    appId: '1:836374406934:ios:70fd9c0cd3e56da3a05237',
+    messagingSenderId: '836374406934',
+    projectId: 'astromaagic-b2480',
+    storageBucket: 'astromaagic-b2480.appspot.com',
     iosBundleId: 'com.mdq.astromaagic',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDDc7BzKEcM7G5GTaOFykawbzuheY7hjzY',
-    appId: '1:387897822714:ios:f2656e1e47d5eb97ebe843',
-    messagingSenderId: '387897822714',
-    projectId: 'astro-4f278',
-    storageBucket: 'astro-4f278.appspot.com',
+    apiKey: 'AIzaSyDHr1DvTiL82WrcXCur9wKo2L2hNj7_k4w',
+    appId: '1:836374406934:ios:70fd9c0cd3e56da3a05237',
+    messagingSenderId: '836374406934',
+    projectId: 'astromaagic-b2480',
+    storageBucket: 'astromaagic-b2480.appspot.com',
     iosBundleId: 'com.mdq.astromaagic',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyBZ3qY3VLeZ8jeWgCmk0AWGyZUiORAMsPI',
-    appId: '1:387897822714:web:7923f5942214437cebe843',
-    messagingSenderId: '387897822714',
-    projectId: 'astro-4f278',
-    authDomain: 'astro-4f278.firebaseapp.com',
-    storageBucket: 'astro-4f278.appspot.com',
-    measurementId: 'G-02ZVZHJ7CB',
+    apiKey: 'AIzaSyBan35AV3pNWlZi4RyFLRjzZNTtQylGTZw',
+    appId: '1:836374406934:web:dd9a420fcca463b6a05237',
+    messagingSenderId: '836374406934',
+    projectId: 'astromaagic-b2480',
+    authDomain: 'astromaagic-b2480.firebaseapp.com',
+    storageBucket: 'astromaagic-b2480.appspot.com',
+    measurementId: 'G-TTBHEK2KQQ',
   );
+
 }

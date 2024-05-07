@@ -1,7 +1,9 @@
 import 'package:astromaagic/Utils/AppPreference.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -39,9 +41,16 @@ class LoginController extends GetxController {
     Get.back();
     Get.updateLocale(locale);
   }
+
   @override
   void onInit() {
     super.onInit();
+
+    // if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      FirebaseMessaging.instance.getToken().then((value) async {
+        await Clipboard.setData(ClipboardData(text: value.toString()));
+      });
+    // }
   }
 
   loginCall(context) async {

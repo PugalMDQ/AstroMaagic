@@ -201,7 +201,8 @@ class AdminServicesList extends GetView<AdminServicesListController> {
                                   },
                                   minimumDate: DateTime(
                                       now.year - 104, now.month, now.day),
-                                  maximumDate: DateTime.now(),
+                                  maximumDate: DateTime(now.year, now.month,
+                                      now.day, now.hour + 1),
                                   initialDateTime: DateTime.now(),
                                   use24hFormat: true,
                                   mode: CupertinoDatePickerMode.date,
